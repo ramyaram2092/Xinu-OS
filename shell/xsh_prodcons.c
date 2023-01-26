@@ -5,7 +5,7 @@
 
 shellcmd xsh_prodcons(int nargs, char *args[])
 {
-    int count;
+    int count,n;
     if(strlen(args[1])==0)
     {
         count=2000;
