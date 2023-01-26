@@ -1,20 +1,24 @@
 #include<xinu.h>
 #include<stdio.h>
 #include<prodcons.h>
-
+#include<string.h>
 
 shellcmd xsh_prodcons(int nargs, char *args[])
 {
-    printf("Hello %s, Welcome to the world of Xinu!!",args[1]);
+    int count;
+    if(strlen(args[1])==0)
+    {
+        count=2000;
+    }
+    else
+    {
+        count=atoi(args[1]);
+    }
+
+    resume(create(producer,1024,20, "producer",1,count));
+    resume(create(consumer,1024,20,"consumer",1,count));
+
+
     return 0;
 }
 
-void producer(int count)
-{
-
-}
-
-void consumer(int count)
-{
-    
-}
