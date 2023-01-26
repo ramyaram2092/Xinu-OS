@@ -10,6 +10,6 @@ void consumer(int count) {
 
   for(int i=0;i<=count;i++)
   {
-    printf("consumed : %d",n);
+    printf("consumed : %d\n",n);
   }
 }

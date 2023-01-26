@@ -11,7 +11,7 @@ void producer(int count) {
  for (int i=0;i<=count;i++)
  {
     n=i;
-    printf("produced : %d ",n);
+    printf("produced : %d\n",n);
  }
 
 
