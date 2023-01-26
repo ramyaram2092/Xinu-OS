@@ -7,7 +7,7 @@
 shellcmd xsh_prodcons(int nargs, char *args[])
 {
     int count;
-    printf("args[0]: %s",args[0]);
+    printf("args[0]: %d",strlen(args[1]));
     if(strcmp(args[1],"")==0)
     {
         count=2000;
