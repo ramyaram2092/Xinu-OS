@@ -1,6 +1,7 @@
 #include <xinu.h>
 #include <prodcons.h>
 
+
 void consumer(int count) {
   // TODO: implement the following:
   // - Iterates from 0 to count (count including)
