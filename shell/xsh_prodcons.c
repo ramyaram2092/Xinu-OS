@@ -25,7 +25,7 @@ shellcmd xsh_prodcons(int nargs, char *args[])
 
 
     // if there are no argument passed 
-    else if(nargs==1)
+    if(nargs==1)
     {
         count=2000;
     }
