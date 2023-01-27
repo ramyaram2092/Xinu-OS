@@ -7,14 +7,20 @@
 shellcmd xsh_prodcons(int nargs, char *args[])
 {
     int count;
-    printf("nargs]: %d\n ",nargs);
-    if(strlen(args[1])==33)
+    // printf("nargs]: %d\n ",nargs);
+    if(nargs==1)
     {
-        count=0;
+        count=2000;
     }
     else
     {
         count=atoi(args[1]);
+    }
+
+    if(!isdigit(count))
+    {
+        printf("Not a number\n");
+        exit(1);
     }
 
     resume(create(producer,1024,20, "producer",1,count));
