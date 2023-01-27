@@ -16,7 +16,7 @@ shellcmd xsh_prodcons(int nargs, char *args[])
         int i=0;
         while(i<strlen(s))
         {
-            if(!isDigit(s[i]))
+            if(!isdigit(s[i]))
             {
                 printf("Not a number \n");
                 return 0;
