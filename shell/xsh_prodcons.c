@@ -10,18 +10,16 @@ shellcmd xsh_prodcons(int nargs, char *args[])
     int count;
     
     // check if the argument  passed is a number 
-    char s[]= args[1];
+    char *s;    
     if(nargs==2)
     {
-        int i=0;
-        while(i<strlen(s))
+        for(s=args[1];*s!='\0';s++)
         {
-            if(!isdigit(s[i]))
+            if(!isdigit(*s))
             {
                 printf("Not a number \n");
                 return 0;
             }
-            i++;
         }
     }
 
@@ -36,8 +34,8 @@ shellcmd xsh_prodcons(int nargs, char *args[])
         count=atoi(args[1]);
     }
 
-        resume(create(producer,1024,20, "producer",1,count));
-        resume(create(consumer,1024,20,"consumer",1,count));
+    resume(create(producer,1024,20, "producer",1,count));
+    resume(create(consumer,1024,20,"consumer",1,count));
 
     return 0;
 }
