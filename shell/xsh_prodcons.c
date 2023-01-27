@@ -10,7 +10,7 @@ shellcmd xsh_prodcons(int nargs, char *args[])
     printf("nargs]: %d\n ",nargs);
     if(strlen(args[1])==33)
     {
-        count=2000;
+        count=0;
     }
     else
     {
