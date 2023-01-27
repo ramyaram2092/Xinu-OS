@@ -7,7 +7,7 @@
 
 shellcmd xsh_prodcons(int nargs, char *args[])
 {
-    int count;
+    int count; // local variable
     
     // check if the argument  passed is a number 
     char *s;    
@@ -21,17 +21,14 @@ shellcmd xsh_prodcons(int nargs, char *args[])
                 return 0;
             }
         }
+        count=atoi(args[1]);
     }
 
 
     // if there are no argument passed 
-    if(nargs==1)
+    else if(nargs==1)
     {
         count=2000;
-    }
-    else
-    {
-        count=atoi(args[1]);
     }
 
     resume(create(producer,1024,20, "producer",1,count));

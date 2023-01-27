@@ -1,7 +1,7 @@
 #include <xinu.h>
 #include <prodcons.h>
 
-int n=0;
+int n=0; // define the global variable 
 
 void producer(int count) {
   // TODO: implement the following:
@@ -13,6 +13,5 @@ void producer(int count) {
     n=i;
     printf("produced : %d\n",n);
  }
-
 
 }
