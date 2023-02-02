@@ -2,10 +2,6 @@
 #include <stdio.h>
 #include <shprototypes.h>
 
-// shellcmd xsh_prodcons(int32, char *[]);
-// shellcmd xsh_hello	(int32, char *[]);
-
-
 
 shellcmd xsh_run(int nargs, char *args[])
 {   
@@ -26,7 +22,6 @@ shellcmd xsh_run(int nargs, char *args[])
     else if(strncmp(args[1],"prodcons",8)==0)
     {
         resume (create((void *) xsh_prodcons, 4096, 20, "prodcons", 2, nargs - 1, &(args[1])));
-
     }
     
     return 0;
