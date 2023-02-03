@@ -5,7 +5,6 @@
 #include<ctype.h>
 #include<processterminator.h>
 
-
 /** Global Variables **/ 
 int n=0; 
 sid32 prod,cons,complete;
@@ -27,7 +26,7 @@ shellcmd xsh_prodcons(int nargs, char *args[])
             if(!isdigit(*s))
             {
                 printf("Not a number \n");
-                terminateprocess();
+                endprocess();
                 return 0;
             }
         }
@@ -43,15 +42,17 @@ shellcmd xsh_prodcons(int nargs, char *args[])
 
     resume(create(producer,1024,20,"producer",1,count));
     resume(create(consumer,1024,20,"consumer",1,count));
+    // wait for the producer/consumer to complete;
     wait(complete);
-    terminateprocess();
+    
+    endprocess();
 
     return 0;
 }
 
 
-/* signal run process that  prodcon process is completed */
-void terminateprocess()
+/* signal  the "run" process that  prodcon process is completed */
+void endprocess()
 {
     signal(completecmd);
 
