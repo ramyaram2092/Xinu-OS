@@ -1,6 +1,7 @@
 #include <xinu.h>
 #include <stdio.h>
 #include <shprototypes.h>
+#include <test.h>
 
 sid32 completecmd;
 
@@ -28,7 +29,7 @@ shellcmd xsh_run(int nargs, char *args[])
     {
         resume (create((void *) xsh_prodcons, 4096, 20, "prodcons", 2, nargs - 1, &(args[1])));
     }
-    wait(semcreate);
+    wait(completecmd);
     
     return 0;
 }
