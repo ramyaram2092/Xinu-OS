@@ -34,7 +34,7 @@ shellcmd xsh_prodcons(int nargs, char *args[])
     // if there are no argument passed 
     else if(nargs==1)
     {
-        count=2000;
+        count=200;
     }
 
     resume(create(producer,1024,20, "producer",3,prod,cons,count));
