@@ -3,8 +3,7 @@
 #include<prodcons.h>
 #include<string.h>
 #include<ctype.h>
-#include<test.h>
-// #include <shprototypes.h>
+#include<processterminator.h>
 
 
 /** Global Variables **/ 
@@ -28,7 +27,7 @@ shellcmd xsh_prodcons(int nargs, char *args[])
             if(!isdigit(*s))
             {
                 printf("Not a number \n");
-                signal(completecmd);
+                terminateprocess();
                 return 0;
             }
         }
@@ -45,9 +44,15 @@ shellcmd xsh_prodcons(int nargs, char *args[])
     resume(create(producer,1024,20,"producer",1,count));
     resume(create(consumer,1024,20,"consumer",1,count));
     wait(complete);
-    signal(completecmd);
-
+    terminateprocess();
 
     return 0;
 }
 
+
+/* signal run process that  prodcon process is completed */
+void terminateprocess()
+{
+    signal(completecmd);
+
+}

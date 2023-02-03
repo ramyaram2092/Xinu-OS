@@ -1,7 +1,7 @@
 #include <xinu.h>
 #include <stdio.h>
 #include <shprototypes.h>
-#include <test.h>
+#include <processterminator.h>
 
 sid32 completecmd;
 
