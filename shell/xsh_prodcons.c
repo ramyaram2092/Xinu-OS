@@ -4,11 +4,17 @@
 #include<string.h>
 #include <ctype.h>
 
+/** Global Variables **/ 
+int n=0; 
+sid32 prod,cons;
 
+/** prodcons function definition **/
 shellcmd xsh_prodcons(int nargs, char *args[])
 {
-    int count; // local variable
-    
+    int count; 
+    prod=semcreate(0);
+    cons=semcreate(1);
+
     // check if the argument  passed is a number 
     char *s;    
     if(nargs==2)
@@ -31,8 +37,8 @@ shellcmd xsh_prodcons(int nargs, char *args[])
         count=2000;
     }
 
-    resume(create(producer,1024,20, "producer",1,count));
-    resume(create(consumer,1024,20,"consumer",1,count));
+    resume(create(producer,1024,20, "producer",3,prod,cons,count));
+    resume(create(consumer,1024,20,"consumer",3,prod,cons,count));
 
     return 0;
 }
