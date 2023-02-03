@@ -1,4 +1,5 @@
-/* semaphores */
-extern sid32 completecmd;
+/* semaphore */
+extern sid32 completecmd; 
 
-void endprocess();
+/*Function declaration */
+void endprocess(sid32 semid);

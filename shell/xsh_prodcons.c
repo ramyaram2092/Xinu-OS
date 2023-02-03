@@ -10,6 +10,7 @@ int n=0;
 sid32 prod,cons,complete;
 // sid32 completecmd;
 
+
 /** prodcons function definition **/
 shellcmd xsh_prodcons(int nargs, char *args[])
 {
@@ -17,7 +18,7 @@ shellcmd xsh_prodcons(int nargs, char *args[])
     prod=semcreate(0);
     cons=semcreate(1);
     complete=semcreate(0);
-    // completecmd=semcreate(-1);
+
 
     // check if the argument  passed is a number 
     char *s;    
@@ -28,8 +29,9 @@ shellcmd xsh_prodcons(int nargs, char *args[])
             if(!isdigit(*s))
             {
                 printf("Not a number \n");
-                 if(semcount(completecmd)==-1)
-                     endprocess();
+
+                // signal process completion 
+                endprocess(completecmd)
                 return 0;
             }
         }
@@ -42,22 +44,35 @@ shellcmd xsh_prodcons(int nargs, char *args[])
     {
         count=200;
     }
-
+   
+    // create and execute the prodcuer and consumer processes 
     resume(create(producer,1024,20,"producer",1,count));
     resume(create(consumer,1024,20,"consumer",1,count));
+
+
     // wait for the producer/consumer to complete;
     wait(complete);
-    printf("in prodcons : %d\n",semcount(completecmd));
-    if(semcount(completecmd)==-1)
-        endprocess();
+
+    //signal completion
+    endporcess(completecmd);
+
+    //delete semaphores
+    semdelete(complete);
+    semdelete(prod);
+    semdelete(cons);
 
     return 0;
 }
 
 
 /* signal  the "run" process that  prodcon process is completed */
-void endprocess()
+void endprocess(sid32 semid)
 {
+    if(isbadsem(semid))
+     {
+        if(semcount(semid)==-1)
+            endprocess();
+     }
     signal(completecmd);
 
 }
