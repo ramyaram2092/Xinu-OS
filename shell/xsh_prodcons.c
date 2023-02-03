@@ -54,7 +54,7 @@ shellcmd xsh_prodcons(int nargs, char *args[])
     wait(complete);
 
     //signal completion
-    endporcess(completecmd);
+    endprocess(completecmd);
 
     //delete semaphores
     semdelete(complete);
