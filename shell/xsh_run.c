@@ -31,6 +31,7 @@ shellcmd xsh_run(int nargs, char *args[])
     }
     
     wait(completecmd);
+    semdelete(completecmd);
 
 
     // printf("Semaphore value in run  :%d\n", semcount(completecmd));

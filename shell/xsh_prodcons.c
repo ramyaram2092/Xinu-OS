@@ -30,8 +30,12 @@ shellcmd xsh_prodcons(int nargs, char *args[])
             {
                 printf("Not a number \n");
 
+                //delete semaphores
+                deletesemaphores(); 
+
                 // signal process completion 
                 endprocess(completecmd);
+
                 return 0;
             }
         }
@@ -53,13 +57,11 @@ shellcmd xsh_prodcons(int nargs, char *args[])
     // wait for the producer/consumer to complete;
     wait(complete);
 
+    //delete semaphores
+     deletesemaphores();
+
     //signal completion
     endprocess(completecmd);
-
-    //delete semaphores
-    semdelete(complete);
-    semdelete(prod);
-    semdelete(cons);
 
     return 0;
 }
@@ -71,7 +73,20 @@ void endprocess(sid32 semid)
     // if(!isbadsem(semid))
     //  {
         if(semcount(semid)==-1)
+        {
             signal(completecmd);
+        }
+            
     //  }
 
+}
+
+
+/* delete the semaphores associated with producer consumer*/
+
+void deletesemaphores()
+{
+    semdelete(complete);
+    semdelete(prod);
+    semdelete(cons);
 }
