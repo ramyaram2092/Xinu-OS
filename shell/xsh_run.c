@@ -27,9 +27,10 @@ shellcmd xsh_run(int nargs, char *args[])
     else if(strncmp(args[1],"prodcons",8)==0)
     {
         resume (create((void *) xsh_prodcons, 4096, 20, "prodcons", 2, nargs - 1, &(args[1])));
+        wait(completecmd);
+
     }
     printf("Semaphore value in run  :%d\n", completecmd);
-    wait(completecmd);
     
     return 0;
 }
