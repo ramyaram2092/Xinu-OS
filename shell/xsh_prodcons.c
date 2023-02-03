@@ -9,7 +9,7 @@ int n=0;
 sid32 prod,cons,complete;
 
 /** prodcons function definition **/
-shellcmd xsh_prodcons(int nargs, char *args[])
+shellcmd xsh_prodcons(sid32 status,int nargs, char *args[])
 {
     int count; 
     prod=semcreate(0);
@@ -41,6 +41,7 @@ shellcmd xsh_prodcons(int nargs, char *args[])
     resume(create(producer,1024,20,"producer",3,prod,cons,count));
     resume(create(consumer,1024,20,"consumer",4,prod,cons,complete,count));
     wait(complete);
+    signal(status);
 
 
     return 0;
