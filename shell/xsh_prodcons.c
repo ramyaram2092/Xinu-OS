@@ -28,7 +28,7 @@ shellcmd xsh_prodcons(int nargs, char *args[])
             if(!isdigit(*s))
             {
                 printf("Not a number \n");
-                return 0;
+                signal(completecmd);
             }
         }
         count=atoi(args[1]);
