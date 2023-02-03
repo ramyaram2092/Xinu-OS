@@ -28,7 +28,8 @@ shellcmd xsh_prodcons(int nargs, char *args[])
             if(!isdigit(*s))
             {
                 printf("Not a number \n");
-                endprocess();
+                 if(completecmd==-1)
+                     endprocess();
                 return 0;
             }
         }
@@ -46,7 +47,7 @@ shellcmd xsh_prodcons(int nargs, char *args[])
     resume(create(consumer,1024,20,"consumer",1,count));
     // wait for the producer/consumer to complete;
     wait(complete);
-    printf("in prodcons : %d",completecmd);
+    printf("in prodcons : %d\n",completecmd);
     if(completecmd==-1)
         endprocess();
 

@@ -21,7 +21,6 @@ shellcmd xsh_run(int nargs, char *args[])
     else if(strncmp(args[1],"hello",4)==0)
     {
         resume (create((void *) xsh_hello, 4096, 20, "hello", 2, nargs - 1, &(args[1])));
-
     }
 
     //execute prodcons command
@@ -29,7 +28,7 @@ shellcmd xsh_run(int nargs, char *args[])
     {
         resume (create((void *) xsh_prodcons, 4096, 20, "prodcons", 2, nargs - 1, &(args[1])));
     }
-    printf("Semaphore value :%d", completecmd);
+    printf("Semaphore value in run  :%d\n", completecmd);
     wait(completecmd);
     
     return 0;
