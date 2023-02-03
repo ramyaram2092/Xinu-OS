@@ -8,7 +8,7 @@
 /** Global Variables **/ 
 int n=0; 
 sid32 prod,cons,complete;
-sid32 completecmd;
+// sid32 completecmd;
 
 /** prodcons function definition **/
 shellcmd xsh_prodcons(int nargs, char *args[])
@@ -17,7 +17,7 @@ shellcmd xsh_prodcons(int nargs, char *args[])
     prod=semcreate(0);
     cons=semcreate(1);
     complete=semcreate(0);
-    completecmd=semcreate(-1);
+    // completecmd=semcreate(-1);
 
     // check if the argument  passed is a number 
     char *s;    
@@ -46,8 +46,8 @@ shellcmd xsh_prodcons(int nargs, char *args[])
     resume(create(consumer,1024,20,"consumer",1,count));
     // wait for the producer/consumer to complete;
     wait(complete);
-    
-    endprocess();
+    if(completecmd==-1)
+        endprocess();
 
     return 0;
 }
