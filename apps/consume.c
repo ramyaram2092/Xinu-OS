@@ -2,7 +2,7 @@
 #include <prodcons.h>
 
 
-void consumer(sid32  prod, sid32 cons,int count) {
+void consumer(sid32  prod, sid32 cons,sid32 complete,int count) {
   // TODO: implement the following:
   // - Iterates from 0 to count (count including)
   //   - reading the value of the global variable 'n' each time
@@ -14,5 +14,7 @@ void consumer(sid32  prod, sid32 cons,int count) {
     printf("consumed : %d\n",n);
     signal(cons);
   }
+
+  signal(complete);
   
 }
