@@ -14,7 +14,7 @@ shellcmd xsh_prodcons(int nargs, char *args[])
     int count; 
     prod=semcreate(0);
     cons=semcreate(1);
-    complete=semcreate(0);
+    complete=semcreate(-1);
 
     // check if the argument  passed is a number 
     char *s;    
@@ -37,10 +37,10 @@ shellcmd xsh_prodcons(int nargs, char *args[])
     {
         count=200;
     }
-
+    
     resume(create(producer,1024,20,"producer",3,prod,cons,count));
-    resume(create(consumer,1024,20,"consumer",3,prod,cons,complete,count));
-    wait(complete);
+    resume(create(consumer,1024,20,"consumer",4,prod,cons,complete,count));
+    wait(semcreate);
 
 
     return 0;
