@@ -40,7 +40,7 @@ shellcmd xsh_prodcons(int nargs, char *args[])
     
     resume(create(producer,1024,20,"producer",3,prod,cons,count));
     resume(create(consumer,1024,20,"consumer",4,prod,cons,complete,count));
-    wait(semcreate);
+    wait(complete);
 
 
     return 0;
