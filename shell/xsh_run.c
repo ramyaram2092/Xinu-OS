@@ -29,6 +29,7 @@ shellcmd xsh_run(int nargs, char *args[])
     {
         resume (create((void *) xsh_prodcons, 4096, 20, "prodcons", 2, nargs - 1, &(args[1])));
     }
+    printf("Semaphore value :%d", completecmd);
     wait(completecmd);
     
     return 0;
