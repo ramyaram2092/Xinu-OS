@@ -7,7 +7,7 @@
 
 /** Global Variables **/ 
 int n=0; 
-sid32 prod,cons,complete;
+sid32 prod,cons,complete,completecmd;
 
 /** prodcons function definition **/
 shellcmd xsh_prodcons(int nargs, char *args[])
@@ -16,6 +16,8 @@ shellcmd xsh_prodcons(int nargs, char *args[])
     prod=semcreate(0);
     cons=semcreate(1);
     complete=semcreate(0);
+    completecmd=semcreate(-1);
+
 
     // check if the argument  passed is a number 
     char *s;    
