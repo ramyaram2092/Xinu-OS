@@ -71,8 +71,7 @@ void endprocess(sid32 semid)
     if(isbadsem(semid))
      {
         if(semcount(semid)==-1)
-            endprocess();
+            signal(completecmd);
      }
-    signal(completecmd);
 
 }
