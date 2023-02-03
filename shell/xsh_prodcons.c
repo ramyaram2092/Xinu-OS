@@ -14,7 +14,7 @@ shellcmd xsh_prodcons(int nargs, char *args[])
     int count; 
     prod=semcreate(0);
     cons=semcreate(1);
-    complete=semcreate(-1);
+    complete=semcreate(0);
 
     // check if the argument  passed is a number 
     char *s;    
