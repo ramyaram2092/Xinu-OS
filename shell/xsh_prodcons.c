@@ -41,8 +41,8 @@ shellcmd xsh_prodcons(int nargs, char *args[])
         count=200;
     }
 
-    resume(create(producer,1024,20,"producer",3,prod,cons,count));
-    resume(create(consumer,1024,20,"consumer",4,prod,cons,complete,count));
+    resume(create(producer,1024,20,"producer",1,count));
+    resume(create(consumer,1024,20,"consumer",1,count));
     wait(complete);
     signal(completecmd);
 
