@@ -31,7 +31,7 @@ shellcmd xsh_prodcons(int nargs, char *args[])
                 printf("Not a number \n");
 
                 // signal process completion 
-                endprocess(completecmd)
+                endprocess(completecmd);
                 return 0;
             }
         }
