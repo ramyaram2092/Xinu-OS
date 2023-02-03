@@ -29,6 +29,7 @@ shellcmd xsh_prodcons(int nargs, char *args[])
             {
                 printf("Not a number \n");
                 signal(completecmd);
+                return 0;
             }
         }
         count=atoi(args[1]);
