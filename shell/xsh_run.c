@@ -3,10 +3,12 @@
 #include <shprototypes.h>
 #include <processterminator.h>
 
-
+// sid32 completecmd;
 
 shellcmd xsh_run(int nargs, char *args[])
 {   
+
+    // completecmd=semcreate(0);
 
     // print the list of known commands 
     if(nargs==1 || strncmp(args[1],"list",4)==0)
