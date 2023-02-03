@@ -47,7 +47,7 @@ shellcmd xsh_prodcons(int nargs, char *args[])
     resume(create(consumer,1024,20,"consumer",1,count));
     // wait for the producer/consumer to complete;
     wait(complete);
-    printf("in prodcons : %d\n",completecmd);
+    printf("in prodcons : %d\n",semcount(completecmd));
     if(semcount(completecmd)==-1)
         endprocess();
 
