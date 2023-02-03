@@ -3,9 +3,12 @@
 #include <shprototypes.h>
 
 sid32 completecmd;
+
+
 shellcmd xsh_run(int nargs, char *args[])
 {   
     completecmd=semcreate(0);
+
     // print the list of known commands 
     if(nargs==1 || strncmp(args[1],"list",4)==0)
     {
@@ -23,7 +26,7 @@ shellcmd xsh_run(int nargs, char *args[])
     //execute prodcons command
     else if(strncmp(args[1],"prodcons",8)==0)
     {
-        resume (create((void *) xsh_prodcons, 4096, 20, "prodcons", 3,completecmd, nargs - 1, &(args[1])));
+        resume (create((void *) xsh_prodcons, 4096, 20, "prodcons", 2, nargs - 1, &(args[1])));
     }
     wait(semcreate);
     
