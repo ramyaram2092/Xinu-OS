@@ -74,6 +74,7 @@ void endprocess(sid32 semid)
     //  {
         if(semcount(semid)==-1)
         {
+            printf("Coming here");
             signal(completecmd);
         }
             
