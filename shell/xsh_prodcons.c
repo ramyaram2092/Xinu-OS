@@ -76,6 +76,8 @@ void endprocess(sid32 semid)
     //  {
         if(semcount(semid)==-1)
         {
+                            printf("End  process triggered via run ");
+
             signal(completecmd);
         }
             
