@@ -36,7 +36,7 @@ shellcmd xsh_prodcons(int nargs, char *args[])
                 // signal process completion 
                 endprocess(completecmd);
 
-                return ;
+                return 0;
             }
         }
         count=atoi(args[1]);
