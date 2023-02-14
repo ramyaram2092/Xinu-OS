@@ -70,14 +70,17 @@ shellcmd xsh_prodcons(int nargs, char *args[])
 /* signal  the "run" process that  prodcon process is completed */
 void endprocess(sid32 semid)
 {
-                // printf("End  process ");
-        if(run==1)
+
+    // if(!isbadsem(semid))
+    //  {
+        if(semcount(semid)==-1)
         {
             printf("End  process triggered via run ");
 
             signal(completecmd);
         }
             
+    //  }
 
 }
 

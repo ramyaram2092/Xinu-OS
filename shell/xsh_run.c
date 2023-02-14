@@ -29,7 +29,6 @@ shellcmd xsh_run(int nargs, char *args[])
         printf("list\n");
         printf("prodcons\n");
     }
-    run = 1;
 
     helper(args[1], nargs, args);
     wait(completecmd);

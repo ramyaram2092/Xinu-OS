@@ -1,6 +1,5 @@
 /* semaphore */
 extern sid32 completecmd; 
-int run=0;
-
+extern int run;
 /*Function declaration */
 void endprocess(sid32 semid);
