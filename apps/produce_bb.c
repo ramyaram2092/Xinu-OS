@@ -3,6 +3,8 @@
 
 void produce_bb(int count, char s[])
 {
+       printf("\n In producer process ")
+
     for (int i=0;i<count;i++)
     {
         wait(lock);
