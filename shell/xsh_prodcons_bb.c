@@ -65,7 +65,7 @@ shellcmd xsh_prodcons_bb(int nargs, char* args[])
      char str[4];
      sprintf(str,"%d",i);
      char s[]="producer_";
-     strcat(s,str);
+     strncat(s,str,4);
     
      resume(create(produce_bb,1024,20,"producer",2,i,s));
    }
@@ -77,7 +77,7 @@ shellcmd xsh_prodcons_bb(int nargs, char* args[])
      char str[4];
      sprintf(str,"%d",i);
      char s[]="consumer_";
-     strcat(s,str);
+     strncat(s,str,4);
      resume(create(consume_bb,1024,20,"consumer",2,j,s));
    }
   
