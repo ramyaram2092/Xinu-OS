@@ -6,7 +6,7 @@
 #include<stdbool.h>
 
 
-
+bool isnumber(char *s);
 
 shellcmd xsh_prodcons_bb(int nargs, char* args[])
 {
