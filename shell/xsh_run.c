@@ -11,10 +11,10 @@ void helper(char *pname, int nargs, char *args[])
     {
         resume(create((void *)xsh_hello, 4096, 20, "hello", 2, nargs - 1, &(args[1])));
     }
-    else if (strncmp(pname, "prodcons", 8) == 0)
-    {
-        resume(create((void *)xsh_prodcons, 4096, 20, "prodcons", 2, nargs - 1, &(args[1])));
-    }
+    // else if (strncmp(pname, "prodcons", 8) == 0)
+    // {
+    //     resume(create((void *)xsh_prodcons, 4096, 20, "prodcons", 2, nargs - 1, &(args[1])));
+    // }
      else if (strncmp(pname, "prodcons_bb", 11) == 0)
     {
         resume(create((void *)xsh_prodcons_bb, 4096, 20, "prodcons_bb", 2, nargs - 1, &(args[1])));
