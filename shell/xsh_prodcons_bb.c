@@ -21,7 +21,7 @@ shellcmd xsh_prodcons_bb(int nargs, char* args[])
     tail=0;
 
     /* Initialize the semaphore*/
-     lock=semcreate(1);
+     lock=semcreate(0);
 
     /* Global variable*/
     total=0;
@@ -61,13 +61,12 @@ shellcmd xsh_prodcons_bb(int nargs, char* args[])
    }
 
    printf("\n Process Creation Starts ");
-
    //create m producer process  
    
-   for (int i=0;i<m;i++)
+   for (int k=0;k<m;k++)
    {
      char str[4];
-     sprintf(str,"%d",i);
+     sprintf(str,"%d",k);
      char s[]="producer_";
      strncat(s,str,4);
     
@@ -76,10 +75,10 @@ shellcmd xsh_prodcons_bb(int nargs, char* args[])
 
    //create n consumer process
   
-   for (int i=0;i<n;i++)
+   for (int k=0;k<n;k++)
    {
      char str[4];
-     sprintf(str,"%d",i);
+     sprintf(str,"%d",k);
      char s[]="consumer_";
      strncat(s,str,4);
      resume(create(consume_bb,1024,20,"consumer",2,j,s));
