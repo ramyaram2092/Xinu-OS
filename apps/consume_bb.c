@@ -3,7 +3,7 @@
 
 void consume_bb(int count, char s[])
 {
-    printf("\n In consumer process ")
+    printf("\n In consumer process ");
     for(int i=0;i<count;i++)
     {
         wait(lock);

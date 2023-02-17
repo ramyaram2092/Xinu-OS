@@ -60,7 +60,7 @@ shellcmd xsh_prodcons_bb(int nargs, char* args[])
         return 0;
    }
 
-   printf("\n Process Creation Starts ")
+   printf("\n Process Creation Starts ");
 
    //create m producer process  
    
