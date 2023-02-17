@@ -36,6 +36,7 @@ shellcmd xsh_prodcons_bb(int nargs, char* args[])
    if(nargs<5)
    {
         printf("Missing arguments");
+        signal(completecmd);
         return 0;
 
    }
@@ -55,6 +56,7 @@ shellcmd xsh_prodcons_bb(int nargs, char* args[])
    if(m*i!=n*j )
    {
         printf("Iteration Mismatch Error: the number of producer(s) iteration does not match the consumer(s) iteration\n");
+        signal(completecmd);
         return 0;
    }
 
