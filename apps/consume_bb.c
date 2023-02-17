@@ -1,7 +1,7 @@
 #include<xinu.h>
 #include<prodcons_bb.h>
 
-void consume_bb(int count, char[] s)
+void consume_bb(int count, char s[])
 {
     for(int i=0;i<count;i++)
     {
