@@ -10,7 +10,7 @@ void produce_bb(int count, char s[])
         wait(lock);
         //write the value
         arr_q[head]=k;
-        printf("name : %s write:%d",s,arr_q[head]);
+        printf("name : %s write:%d\n",s,arr_q[head]);
 
         head++;
 
