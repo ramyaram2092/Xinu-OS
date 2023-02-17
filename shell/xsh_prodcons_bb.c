@@ -2,6 +2,7 @@
 #include<stdio.h>
 #include<prodcons_bb.h>
 #include<processterminator.h>
+#include<string.h>
 
 
 
