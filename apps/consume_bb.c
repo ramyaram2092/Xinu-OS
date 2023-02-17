@@ -7,8 +7,15 @@ void consume_bb(int count, char s[])
     for(int k=0;k<count;k++)
     {
         wait(lock);
-        printf("name : %s read:%d\n",s,arr_q[tail]);
-        tail++;
+        if(head==tail)
+        {
+            //do nothing
+        }
+        else
+        {
+            printf("name : %s read:%d\n",s,arr_q[tail]);
+            tail++;
+        }
         // if tail ptr has reached the end of queue
         if(tail==5)
         {

@@ -21,9 +21,9 @@ void produce_bb(int count, char s[])
         }
 
         // if the queue is full
-        if (head==tail)
+        if (head==tail )
         {
-            head-=1;
+            // head-=1;
             //do nothing    
         }
        
