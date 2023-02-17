@@ -58,7 +58,7 @@ shellcmd xsh_prodcons_bb(int nargs, char* args[])
    
    for (int i=0;i<m;i++)
    {
-     char str[2];
+     char str[4];
      sprintf(str,"%d",i);
      char s[]="producer_";
      strcat(s,str);
@@ -70,7 +70,7 @@ shellcmd xsh_prodcons_bb(int nargs, char* args[])
   
    for (int i=0;i<n;i++)
    {
-     char str[2];
+     char str[4];
      sprintf(str,"%d",i);
      char s[]="consumer_";
      strcat(s,str);
