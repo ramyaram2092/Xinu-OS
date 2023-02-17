@@ -5,7 +5,7 @@ void produce_bb(int count, char s[])
 {
        printf("\n In producer process ");
 
-    for (int i=0;i<count;i++)
+    for (int k=0;k<count;k++)
     {
         wait(lock);
         //write the value
