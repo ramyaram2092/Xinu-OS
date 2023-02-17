@@ -63,7 +63,7 @@ shellcmd xsh_prodcons_bb(int nargs, char* args[])
      char s[]="producer_";
      strcat(s,str);
     
-     resume(create(producer_bb,1024,20,"producer",2,i,s));
+     resume(create(produce_bb,1024,20,"producer",2,i,s));
    }
 
    //create n consumer process
@@ -74,7 +74,7 @@ shellcmd xsh_prodcons_bb(int nargs, char* args[])
      sprintf(str,"%d",i);
      char s[]="consumer_";
      strcat(s,str);
-     resume(create(consumer_bb,1024,20,"consumer",2,j,s));
+     resume(create(consume_bb,1024,20,"consumer",2,j,s));
    }
   
   int sum=m+n;
