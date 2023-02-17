@@ -3,6 +3,7 @@
 #include<prodcons_bb.h>
 #include<processterminator.h>
 #include<string.h>
+#include<stdbool.h>
 
 
 
@@ -36,7 +37,7 @@ shellcmd xsh_prodcons_bb(int nargs, char* args[])
    // case 2: check the correctness of input and assign value
    else
    {
-     if(isnumber(args[1])&& isnumber(args[2]) && isnumber(args[3]) && isnumber(args[4]))
+     if(isnumber(args[1]) && isnumber(args[2]) && isnumber(args[3]) && isnumber(args[4]))
      {
          m=count(args[1]);
          n=count(args[2]);
