@@ -11,7 +11,7 @@
 bool isnumber(char *s);
  int arr_q[5];
  int head, tail,total;
-
+ sid32 lock;
 
 
 shellcmd xsh_prodcons_bb(int nargs, char* args[])
@@ -21,7 +21,7 @@ shellcmd xsh_prodcons_bb(int nargs, char* args[])
     tail=0;
 
     /* Initialize the semaphore*/
-    sid32 lock=semcreate(1);
+     lock=semcreate(1);
 
     /* Global variable*/
     total=0;
