@@ -41,10 +41,10 @@ shellcmd xsh_prodcons_bb(int nargs, char* args[])
    {
      if(isnumber(args[1]) && isnumber(args[2]) && isnumber(args[3]) && isnumber(args[4]))
      {
-         m=count(args[1]);
-         n=count(args[2]);
-         i=count(args[3]);
-         j=count(args[4]);
+         m=atoi(args[1]);
+         n=atoi(args[2]);
+         i=atoi(args[3]);
+         j=atoi(args[4]);
      }
    }
    // case 3: if consumer iterations doesnt match with producer iteration throw error 
