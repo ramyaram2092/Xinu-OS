@@ -21,7 +21,7 @@ shellcmd xsh_prodcons_bb(int nargs, char* args[])
     tail=0;
 
     /* Initialize the semaphore*/
-     lock=semcreate(1);
+     lock=semcreate(0);
 
     /* Global variable*/
     total=0;
