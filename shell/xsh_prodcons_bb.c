@@ -9,18 +9,22 @@
 
 
 bool isnumber(char *s);
+ int arr_q[5];
+ int head, tail,total;
+
+
 
 shellcmd xsh_prodcons_bb(int nargs, char* args[])
 {
     /* Initialize the shared array */
-    int arr_q[5];
-    int head=0, tail=0;
+    head=0;
+    tail=0;
 
     /* Initialize the semaphore*/
     sid32 lock=semcreate(1);
 
     /* Global variable*/
-    int total=0;
+    total=0;
 
 
 
