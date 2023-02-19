@@ -3,7 +3,7 @@
 
 void produce_bb(int count, char s[])
 {
-       printf("\n In producer process: %s ",s);
+       printf("\n In producer process: %s\n ",s);
 
     for (int k=0;k<count;k++)
     {
