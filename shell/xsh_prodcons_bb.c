@@ -69,7 +69,7 @@ shellcmd xsh_prodcons_bb(int nargs, char* args[])
      sprintf(str,"%d",k);
      char p[]="producer_";
      strncat(p,str,4);
-     printf("Initiating %s",p);
+     printf("Initiating %s\n",p);
      resume(create(produce_bb,1024,20,"producer",2,i,p));
    }
 
@@ -81,7 +81,7 @@ shellcmd xsh_prodcons_bb(int nargs, char* args[])
      sprintf(str,"%d",k);
      char s[]="consumer_";
      strncat(s,str,4);
-     printf("Initiating %s",s);
+     printf("Initiating %s\n",s);
 
      resume(create(consume_bb,1024,20,"consumer",2,j,s));
    }
