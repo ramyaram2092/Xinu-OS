@@ -1,9 +1,9 @@
 #include<xinu.h>
 #include<prodcons_bb.h>
 
-void produce_bb(int count, char pname[])
+void produce_bb(int count, char s[])
 {
-       printf("In producer process: %s\n ",pname);
+       printf("In producer process: %s\n ",s);
 
     for (int k=0;k<count;k++)
     {
@@ -13,9 +13,8 @@ void produce_bb(int count, char pname[])
         if(head!=tail)
         {
             arr_q[head]=k;
-            printf("%s\n",pname);
-            printf("name : %s write:%d\n",pname,arr_q[head]);
-
+            printf("%s\n",s);
+            printf("name : %s write : %d\n",s,arr_q[head]);
             head++;
         }
 

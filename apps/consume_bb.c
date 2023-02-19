@@ -10,7 +10,7 @@ void consume_bb(int count, char s[])
 
         if(head!=tail)
         {
-            printf("name : %s read:%d\n",s,arr_q[tail]);
+            printf("name : %s read : %d\n",s,arr_q[tail]);
             tail++;     
         }
         // if tail ptr has reached the end of queue
