@@ -67,10 +67,10 @@ shellcmd xsh_prodcons_bb(int nargs, char* args[])
    {
      char str[4];
      sprintf(str,"%d",k);
-     char s[]="producer_";
-     strncat(s,str,4);
+     char p[]="producer_";
+     strncat(p,str,4);
     
-     resume(create(produce_bb,1024,20,"producer",2,i,s));
+     resume(create(produce_bb,1024,20,"producer",2,i,p));
    }
 
    //create n consumer process
