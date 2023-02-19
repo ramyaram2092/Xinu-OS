@@ -8,25 +8,29 @@ void produce_bb(int count, char s[])
     for (int k=0;k<count;k++)
     {
         wait(lock);
-        //write the value
-        arr_q[head]=k;
-        printf("name : %s write:%d\n",s,arr_q[head]);
 
-        head++;
+        //check if the queue is full
+        if(head!=tail)
+        {
+            arr_q[head]=i;
+            printf("name : %s write:%d\n",s,arr_q[head]);
 
-        // if head ptr has reached the end of queue
+            head++;
+        }
+
+        // if the head reaches the end of the queue
         if(head==5)
         {
             head=0;
         }
 
-        // if the queue is full
-        if (head==tail )
+        // Implementation specific logic :if the tail is -1 move it to 0
+        if(tail==-1)
         {
-            // head-=1;
-            //do nothing    
+            tail=0;
         }
-       
+
+    
         signal(lock);
 
     }

@@ -18,7 +18,7 @@ shellcmd xsh_prodcons_bb(int nargs, char* args[])
 {
     /* Initialize the shared array */
     head=0;
-    tail=0;
+    tail=-1;
 
     /* Initialize the semaphore*/
      lock=semcreate(1);
