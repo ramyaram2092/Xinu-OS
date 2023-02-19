@@ -87,10 +87,10 @@ shellcmd xsh_prodcons_bb(int nargs, char* args[])
   int sum=m+n;
 
   // wait for all process to get over
-  while(total<(sum))
-  {
+  // while(total<(sum))
+  // {
 
-  }
+  // }
   semdelete(lock);
 
   signal(completecmd);
