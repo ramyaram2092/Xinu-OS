@@ -12,7 +12,7 @@ void produce_bb(int count, char s[])
         //check if the queue is full
         if(head!=tail)
         {
-            arr_q[head]=i;
+            arr_q[head]=k;
             printf("name : %s write:%d\n",s,arr_q[head]);
 
             head++;
