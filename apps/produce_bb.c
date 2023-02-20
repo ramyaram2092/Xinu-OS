@@ -8,6 +8,7 @@ void produce_bb(int count, char s[])
     for (int k=0;k<count;)
     {
         wait(lock);
+        printf("%s: %d",s,semcount(lock));
 
         //check if the queue is full
         if(tail!=(head+1)%5)

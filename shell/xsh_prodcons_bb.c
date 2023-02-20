@@ -54,12 +54,12 @@ shellcmd xsh_prodcons_bb(int nargs, char* args[])
      }
    }
    // case 3: if consumer iterations doesnt match with producer iteration throw error 
-   if(m*i!=n*j )
-   {
-        printf("Iteration Mismatch Error: the number of producer(s) iteration does not match the consumer(s) iteration\n");
-        signal(completecmd);
-        return 0;
-   }
+  //  if(m*i!=n*j )
+  //  {
+  //       printf("Iteration Mismatch Error: the number of producer(s) iteration does not match the consumer(s) iteration\n");
+  //       signal(completecmd);
+  //       return 0;
+  //  }
 
   //  printf("\n Process Creation Starts ");
    //create m producer process  

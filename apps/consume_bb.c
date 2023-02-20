@@ -7,6 +7,7 @@ void consume_bb(int count, char s[])
     for(int k=0;k<count;)
     {
         wait(lock);
+        printf("%s: %d",s,semcount(lock));
 
         if(head!=tail)
         {
