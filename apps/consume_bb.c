@@ -29,8 +29,11 @@ void consume_bb(int count, int pid)
        
 
     }
+    printf("Consumer work done \n");
     wait(complete);
     total+=1;
+    printf("After wait total=%d  \n",total);
+
     signal(complete);
 
 }

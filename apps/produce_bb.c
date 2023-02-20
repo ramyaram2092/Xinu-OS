@@ -38,7 +38,7 @@ void produce_bb(int count, int pid)
         signal(lock);
 
     }
-    printf("Coming here \n");
+    printf("producer work done \n");
     wait(complete);
 
     total+=1;

@@ -76,18 +76,15 @@ shellcmd xsh_prodcons_bb(int nargs, char* args[])
 
    //create n consumer process
   
-  //  for (int k=0;k<n;k++)
-  //  {
-  //     // wait(lock);
-  //    char str[4];
-  //    sprintf(str,"%d",k);
-  //    char s[]="consumer_";
-  //    strncat(s,str,4);
-  //   //  printf("Initiating %s\n",s);
-  //    resume(create(consume_bb,1024,20,"consumer_bb",2,j,s));
-  //   //  signal(lock);
+   for (int k=0;k<n;k++)
+   {
+      // wait(lock);
+     
+     printf("Initiating consumer_%d\n",k);
+     resume(create(consume_bb,1024,20,"consumer_bb",2,j,k));
+    //  signal(lock);
 
-  //  }
+   }
 
   
   int sum=m+n;
