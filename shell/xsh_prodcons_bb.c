@@ -54,12 +54,12 @@ shellcmd xsh_prodcons_bb(int nargs, char* args[])
      }
    }
    // case 3: if consumer iterations doesnt match with producer iteration throw error 
-  //  if(m*i!=n*j )
-  //  {
-  //       printf("Iteration Mismatch Error: the number of producer(s) iteration does not match the consumer(s) iteration\n");
-  //       signal(completecmd);
-  //       return 0;
-  //  }
+   if(m*i!=n*j )
+   {
+        printf("Iteration Mismatch Error: the number of producer(s) iteration does not match the consumer(s) iteration\n");
+        signal(completecmd);
+        return 0;
+   }
 
   //  printf("\n Process Creation Starts ");
    //create m producer process  
@@ -68,7 +68,7 @@ shellcmd xsh_prodcons_bb(int nargs, char* args[])
    {
     //  wait(lock);
      
-     printf("Initiating producer_%d\n",k);
+    //  printf("Initiating producer_%d\n",k);
      resume(create(produce_bb,1024,20,"producer_bb",2,i,k));
     //  signal(lock);
 
@@ -80,7 +80,7 @@ shellcmd xsh_prodcons_bb(int nargs, char* args[])
    {
       // wait(lock);
      
-     printf("Initiating consumer_%d\n",k);
+    //  printf("Initiating consumer_%d\n",k);
      resume(create(consume_bb,1024,20,"consumer_bb",2,j,k));
     //  signal(lock);
 
@@ -88,15 +88,15 @@ shellcmd xsh_prodcons_bb(int nargs, char* args[])
 
   
   int sum=m+n;
-  printf("Sum : %d, total : %d",sum,total);
-     signal(lock);
+  // printf("Sum : %d, total : %d",sum,total);
+  signal(lock);
 
   // wait for all process to get over
   while(total<(sum))
   {
   //  printf("Savu : %d\n",total);
   }
-  printf(" after while total : %d\n",total);
+  // printf(" after while total : %d\n",total);
 
   semdelete(lock);
   semdelete(complete);

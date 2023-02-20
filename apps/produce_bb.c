@@ -11,7 +11,7 @@ void produce_bb(int count, int pid)
     for (int k=0;k<count;)
     {
         wait(lock);
-        printf("%s: %d\n",s,semcount(lock));
+        // printf("%s: %d\n",s,semcount(lock));
 
         //check if the queue is full
         if(tail!=(head+1)%5)
@@ -24,7 +24,7 @@ void produce_bb(int count, int pid)
         }
         else
         {
-            printf("Unable to write by %s as the queue is full, head : %d, tail:%d\n ",s,head,tail);
+            // printf("Unable to write by %s as the queue is full, head : %d, tail:%d\n ",s,head,tail);
         }
 
         // // Implementation specific logic :if the tail is -1 move it to 0
@@ -38,11 +38,11 @@ void produce_bb(int count, int pid)
         signal(lock);
 
     }
-    printf("producer work done \n");
+    // printf("producer work done \n");
     wait(complete);
 
     total+=1;
-        printf("After wait total=%d  \n",total);
+        // printf("After wait total=%d  \n",total);
 
     signal(complete); 
     // printf("end producer here\n"); 

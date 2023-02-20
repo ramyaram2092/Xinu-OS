@@ -11,7 +11,7 @@ void consume_bb(int count, int pid)
     for(int k=0;k<count;)
     {
         wait(lock);
-        printf("%s: %d",s,semcount(lock));
+        // printf("%s: %d",s,semcount(lock));
 
         if(head!=tail)
         {
@@ -21,7 +21,7 @@ void consume_bb(int count, int pid)
         }
         else
         {
-            printf("Nothing to read by %s head : %d, tail : %d\n ",s, head, tail);
+            // printf("Nothing to read by %s head : %d, tail : %d\n ",s, head, tail);
         }
        
 
@@ -29,10 +29,10 @@ void consume_bb(int count, int pid)
        
 
     }
-    printf("Consumer work done \n");
+    // printf("Consumer work done \n");
     wait(complete);
     total+=1;
-    printf("After wait total=%d  \n",total);
+    // printf("After wait total=%d  \n",total);
 
     signal(complete);
 
