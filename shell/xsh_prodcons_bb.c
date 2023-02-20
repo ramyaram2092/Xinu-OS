@@ -69,7 +69,7 @@ shellcmd xsh_prodcons_bb(int nargs, char* args[])
     //  wait(lock);
      
      printf("Initiating producer_%d\n",k);
-     resume(create(produce_bb,1024,20,"producer_bb",2,i,p));
+     resume(create(produce_bb,1024,20,"producer_bb",2,i,k));
     //  signal(lock);
 
    }
