@@ -7,14 +7,12 @@ void consume_bb(int count, char s[])
     for(int k=0;k<count;)
     {
         wait(lock);
-       
 
-        if(tail!=-1 && head!=tail)
+        if(head!=tail)
         {
-            printf("name : %s read : %d\n",s,arr_q[tail]);
             tail=(tail+1)%5; 
+            printf("name : %s read : %d\n",s,arr_q[tail]);
             k++;
-
         }
         else
         {

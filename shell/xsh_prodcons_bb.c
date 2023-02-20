@@ -17,7 +17,7 @@ bool isnumber(char *s);
 shellcmd xsh_prodcons_bb(int nargs, char* args[])
 {
     /* Initialize the shared array */
-    head=0;
+    head=-1;
     tail=-1;
 
     /* Initialize the semaphore*/
