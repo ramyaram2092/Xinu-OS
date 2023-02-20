@@ -63,30 +63,33 @@ shellcmd xsh_prodcons_bb(int nargs, char* args[])
   //  printf("\n Process Creation Starts ");
    //create m producer process  
    
-   wait(lock);
    for (int k=0;k<m;k++)
    {
+     wait(lock);
      char str[4];
      sprintf(str,"%d",k);
      char p[]="producer_";
      strncat(p,str,4);
      printf("Initiating %s\n",p);
      resume(create(produce_bb,1024,20,"producer",2,i,p));
+     signal(lock);
+
    }
 
    //create n consumer process
   
    for (int k=0;k<n;k++)
    {
+      wait(lock);
      char str[4];
      sprintf(str,"%d",k);
      char s[]="consumer_";
      strncat(s,str,4);
      printf("Initiating %s\n",s);
-
      resume(create(consume_bb,1024,20,"consumer",2,j,s));
+     signal(lock);
+
    }
-   signal(lock);
   
   int sum=m+n;
 
