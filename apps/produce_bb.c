@@ -8,14 +8,14 @@ void produce_bb(int count, char s[])
     for (int k=0;k<count;)
     {
         wait(lock);
-        printf("%s: %d",s,semcount(lock));
+        printf("%s: %d\n",s,semcount(lock));
 
         //check if the queue is full
         if(tail!=(head+1)%5)
         {
             head=(head+1)%5;
             arr_q[head]=k;
-            printf(" Executing %s\n",s);
+            // printf(" Executing %s\n",s);
             printf("name : %s write : %d\n",s,arr_q[head]);
             k++;
         }
@@ -35,7 +35,10 @@ void produce_bb(int count, char s[])
         signal(lock);
 
     }
+    printf("Coming here \n");
     wait(complete);
+        printf("After wait  \n");
+
     total+=1;
     signal(complete);  
 }
