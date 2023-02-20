@@ -92,16 +92,17 @@ shellcmd xsh_prodcons_bb(int nargs, char* args[])
 
   //  }
 
-   signal(lock);
   
   int sum=m+n;
-  printf("Sum : %d, total : %d");
+  printf("Sum : %d, total : %d",sum,total);
+     signal(lock);
+
   // wait for all process to get over
   while(total<(sum))
   {
    
   }
-  printf("total : %d\n");
+  printf("total : %d\n",total);
 
   semdelete(lock);
   semdelete(complete);
