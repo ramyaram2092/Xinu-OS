@@ -4,7 +4,7 @@
 void consume_bb(int count, int pid)
 {
     char s[15];
-    sprintf(str,"consumer_%d",pid);
+    sprintf(s,"consumer_%d",pid);
     for(int k=0;k<count;)
     {
         // take hold of the semaphore
