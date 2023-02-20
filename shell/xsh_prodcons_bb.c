@@ -100,9 +100,9 @@ shellcmd xsh_prodcons_bb(int nargs, char* args[])
   // wait for all process to get over
   while(total<(sum))
   {
-   
+   printf("Savu : %d\n",total);
   }
-  printf("total : %d\n",total);
+  printf(" after while total : %d\n",total);
 
   semdelete(lock);
   semdelete(complete);

@@ -41,5 +41,6 @@ void produce_bb(int count, char s[])
     total+=1;
         printf("After wait total=%d  \n",total);
 
-    signal(complete);  
+    signal(complete); 
+    printf("end producer here\n"); 
 }
