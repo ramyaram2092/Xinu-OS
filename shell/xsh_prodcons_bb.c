@@ -67,11 +67,8 @@ shellcmd xsh_prodcons_bb(int nargs, char* args[])
    for (int k=0;k<m;k++)
    {
     //  wait(lock);
-     char str[4];
-     sprintf(str,"%d",k);
-     char p[]="producer_";
-     strncat(p,str,4);
-     printf("Initiating %s\n",p);
+     
+     printf("Initiating producer_%d\n",k);
      resume(create(produce_bb,1024,20,"producer_bb",2,i,p));
     //  signal(lock);
 

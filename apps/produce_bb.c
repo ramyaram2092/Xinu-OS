@@ -1,10 +1,13 @@
 #include<xinu.h>
 #include<prodcons_bb.h>
 
-void produce_bb(int count, char s[])
+void produce_bb(int count, int pid)
 {
     //    printf("In producer process: %s\n ",s);
-    
+    char str[4];
+    sprintf(str,"%d",pid);
+    char s[]="producer_";
+    strncat(s,str,4);
     for (int k=0;k<count;)
     {
         wait(lock);
@@ -42,5 +45,5 @@ void produce_bb(int count, char s[])
         printf("After wait total=%d  \n",total);
 
     signal(complete); 
-    printf("end producer here\n"); 
+    // printf("end producer here\n"); 
 }
