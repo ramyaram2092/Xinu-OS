@@ -3,7 +3,7 @@
 
 void produce_bb(int count, char s[])
 {
-       printf("In producer process: %s\n ",s);
+    //    printf("In producer process: %s\n ",s);
 
     for (int k=0;k<count;k++)
     {
@@ -13,7 +13,7 @@ void produce_bb(int count, char s[])
         if(head!=tail)
         {
             arr_q[head]=k;
-            printf("%s\n",s);
+            printf(" Executing %s\n",s);
             printf("name : %s write : %d\n",s,arr_q[head]);
             head++;
         }
