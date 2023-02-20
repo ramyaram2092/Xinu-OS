@@ -4,20 +4,23 @@
 void consume_bb(int count, char s[])
 {
     // printf("\n In consumer process  %s\n", s);
-    for(int k=0;k<count;k++)
+    for(int k=0;k<count;)
     {
         wait(lock);
+       
 
-        if(head!=tail)
+        if(tail!=-1 && head!=tail)
         {
             printf("name : %s read : %d\n",s,arr_q[tail]);
-            tail++;     
+            tail=(tail+1)%5; 
+            k++;
+
         }
-        // if tail ptr has reached the end of queue
-        if(tail==5)
+        else
         {
-            tail=0;
+            printf("Nothing to read by %s head : %d, tail : %d",s, head, tail);
         }
+       
 
         signal(lock);
        
