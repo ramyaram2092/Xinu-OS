@@ -18,7 +18,7 @@ void consume_bb(int count, char s[])
         }
         else
         {
-            printf("Nothing to read by %s head : %d, tail : %d",s, head, tail);
+            printf("Nothing to read by %s head : %d, tail : %d\n ",s, head, tail);
         }
        
 
@@ -26,6 +26,8 @@ void consume_bb(int count, char s[])
        
 
     }
+    wait(complete);
     total+=1;
+    signal(complete);
 
 }

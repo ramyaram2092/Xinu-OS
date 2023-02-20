@@ -26,7 +26,7 @@ void produce_bb(int count, char s[])
         // Implementation specific logic :if the tail is -1 move it to 0
         if(tail==-1)
         {
-            printf("Moving tail from -1 to 0");
+            printf("Moving tail from -1 to 0\n");
             tail=0;
         }
 
@@ -34,6 +34,7 @@ void produce_bb(int count, char s[])
         signal(lock);
 
     }
+    wait(complete);
     total+=1;
-
+    signal(complete);  
 }

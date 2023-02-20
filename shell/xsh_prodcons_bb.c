@@ -11,7 +11,7 @@
 bool isnumber(char *s);
  int arr_q[5];
  int head, tail,total;
- sid32 lock;
+ sid32 lock,complete;
 
 
 shellcmd xsh_prodcons_bb(int nargs, char* args[])
@@ -21,7 +21,8 @@ shellcmd xsh_prodcons_bb(int nargs, char* args[])
     tail=-1;
 
     /* Initialize the semaphore*/
-     lock=semcreate(1);
+     lock=semcreate(0);
+     complete=semcreate(1);
 
     /* Global variable*/
     total=0;
@@ -35,7 +36,7 @@ shellcmd xsh_prodcons_bb(int nargs, char* args[])
    //case 1: missing arguments
    if(nargs<5)
    {
-        printf("Missing arguments");
+        printf("Missing arguments\n");
         signal(completecmd);
         return 0;
 
@@ -70,7 +71,7 @@ shellcmd xsh_prodcons_bb(int nargs, char* args[])
      sprintf(str,"%d",k);
      char p[]="producer_";
      strncat(p,str,4);
-     printf("Initiating %s\n",p);
+    //  printf("Initiating %s\n",p);
      resume(create(produce_bb,1024,20,"producer",2,i,p));
     //  signal(lock);
 
@@ -85,20 +86,23 @@ shellcmd xsh_prodcons_bb(int nargs, char* args[])
      sprintf(str,"%d",k);
      char s[]="consumer_";
      strncat(s,str,4);
-     printf("Initiating %s\n",s);
+    //  printf("Initiating %s\n",s);
      resume(create(consume_bb,1024,20,"consumer",2,j,s));
     //  signal(lock);
 
    }
+
+   signal(lock);
   
   int sum=m+n;
 
   // wait for all process to get over
-  // while(total<(sum))
-  // {
+  while(total<(sum))
+  {
 
-  // }
+  }
   semdelete(lock);
+  semdelete(complete);
 
   signal(completecmd);
 
