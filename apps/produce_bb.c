@@ -15,7 +15,7 @@ void produce_bb(int count, int pid)
         {
             head=(head+1)%5;
             arr_q[head]=k;
-            printf("name : %s write : %d\n",s,arr_q[head]);
+            printf("name : %s, write : %d\n",s,arr_q[head]);
             k++;
         }
         else

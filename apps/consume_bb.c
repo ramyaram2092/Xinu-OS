@@ -14,7 +14,7 @@ void consume_bb(int count, int pid)
         if(head!=tail)
         {
             tail=(tail+1)%5; 
-            printf("name : %s read : %d\n",s,arr_q[tail]);
+            printf("name : %s, read : %d\n",s,arr_q[tail]);
             k++;
         }
         else
