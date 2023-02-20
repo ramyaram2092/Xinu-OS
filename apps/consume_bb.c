@@ -1,8 +1,12 @@
 #include<xinu.h>
 #include<prodcons_bb.h>
 
-void consume_bb(int count, char s[])
+void consume_bb(int count, int pid)
 {
+    char str[4];
+    sprintf(str,"%d",pid);
+    char s[]="consumer_";
+    strncat(s,str,4);
     // printf("\n In consumer process  %s\n", s);
     for(int k=0;k<count;)
     {
