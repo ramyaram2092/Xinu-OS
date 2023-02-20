@@ -37,8 +37,9 @@ void produce_bb(int count, char s[])
     }
     printf("Coming here \n");
     wait(complete);
-        printf("After wait  \n");
 
     total+=1;
+        printf("After wait total=%d  \n",total);
+
     signal(complete);  
 }
