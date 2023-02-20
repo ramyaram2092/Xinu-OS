@@ -10,7 +10,8 @@
 
 bool isnumber(char *s);
  int arr_q[5];
- volatile int head, tail,total;
+ volatile int total;
+ int head, tail;
  sid32 lock,complete;
 
 
