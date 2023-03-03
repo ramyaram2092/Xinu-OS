@@ -6,7 +6,8 @@
 
 void consumer_fut(future_t * f)
 {
+  void* p=&value;
   // return the value that the future holds
-  future_get(f,&value);
-  printf("Consuming : %d\n",value);
+  future_get(f,p);
+  printf("Consuming : %d\n",*p);
 }
