@@ -1,4 +1,3 @@
-extern int value,*p;
 
 typedef enum{
     FUTURE_EMPTY,
