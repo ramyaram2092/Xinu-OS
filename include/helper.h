@@ -1,1 +1,1 @@
-bool isnumber(char *s);
+bool isnumber(char *val);
