@@ -58,7 +58,7 @@ shellcmd xsh_futest(int nargs, char *args[])
         }
     }
 
-    while(flag<nargs)
+    while(flag<nargs-1)
     {
         // wait untill all process are complete
     }
