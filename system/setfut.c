@@ -18,7 +18,7 @@ syscall future_set(future_t *f, void *in)
         if (f->state == FUTURE_EMPTY)
         {
                 *p = *(int *)in;                // write the value in the future
-                f->state = FUTURE_READY;
+                f->state = FUTURE_READY;        // set state
                 return OK;
         }
         else if (f->state = FUTURE_WAITING)
@@ -28,10 +28,8 @@ syscall future_set(future_t *f, void *in)
                 resume(f->pid);                 // resume the process waiting on the future
                 return OK;
         }
-        else
+        else if(f->state=FUTURE_READY)
         {
-                // f->pid=currpid;                 // set the pid of the future to the current process 
-                // suspend(currpid);               // suspend the current process
                 return SYSERR;
         }
 }

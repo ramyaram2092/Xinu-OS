@@ -54,7 +54,8 @@ shellcmd xsh_futest(int nargs, char *args[])
         }
     }
 
-    // destroy the future
+    // free the future
+    future_free(f1);
 }
 
 // check if the the string is a valid number
