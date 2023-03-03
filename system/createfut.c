@@ -20,9 +20,9 @@ future_t *future_alloc(future_mode_t mode, uint size, uint nelems)
     // allocate size for the data
     f2.data=(void *)getmem(size);
 
-    int v=10;
+    // int v=10;
 
-    f2.data=&v;
+    *f2.data=11;
     printf("Set the vlue during create :%d\n", *(int*)f2.data);
     
     
