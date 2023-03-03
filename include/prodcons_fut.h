@@ -1,5 +1,5 @@
 extern int value;
-extern  volatile  int flag,end;
+extern  volatile  int flag;
 
 
 void consumer_fut(future_t * f);

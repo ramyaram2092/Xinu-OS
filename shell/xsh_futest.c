@@ -8,14 +8,14 @@
 #include <ctype.h>
 
 future_t *f1, f2;
-int value;
-volatile int flag, end;
+int value, n;
+volatile int flag;
 
 shellcmd xsh_futest(int nargs, char *args[])
 {
     value = -1;
     flag = 0;
-    end=0;
+    n=0;
 
     // case 1: missing arguments
     if (nargs < 3)
@@ -60,15 +60,15 @@ shellcmd xsh_futest(int nargs, char *args[])
     // case 1: if last processor is producer
     if (atoi(args[nargs - 1]))
     {
-        end = nargs - 1;
+        n = nargs - 1;
     }
     // case 2 : if last but one processor is consumer
     else if (strncmp(args[nargs - 2], "g", 1) == 0)
     {
-        end = nargs - 2;
+        n = nargs - 2;
     }
 
-    while (flag <= end)
+    while (flag <= n)
     {
         // wait untill all process are complete
     }
