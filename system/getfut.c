@@ -21,7 +21,7 @@ syscall future_get(future_t *f, void *out)
 
         int *p=(int*)out;
 
-        *p=*((int *)f->data);
+        *p=*((int *)(f->data));
         printf("Value in out: %d\n",*p);
         f->state=FUTURE_EMPTY;
     }
