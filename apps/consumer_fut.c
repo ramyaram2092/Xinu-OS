@@ -16,7 +16,7 @@ void consumer_fut(future_t * f)
   // return the value that the future holds
   int a= future_get(f,p);
   printf("%d\n",a);
-  if(a)
+  if(a==1)
   {
      printf("Consumed : %d\n", value);
   }
