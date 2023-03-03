@@ -16,14 +16,14 @@ shellcmd xsh_futest(int nargs, char *args[])
 {
     value = -1;
     flag = 0;
-    n=0;
-    print=semcreate(1);
+    n = 0;
+    print = semcreate(1);
 
     // case 1: missing arguments
     if (nargs < 3)
     {
         printf("Missing arguments\n");
-        // signal(completecmd);
+        signal(completecmd);
         return 0;
     }
 
@@ -35,7 +35,7 @@ shellcmd xsh_futest(int nargs, char *args[])
             if (!(isnumber(args[i]) || strncmp(args[i], "g", 1) == 0))
             {
                 printf("Invalid arguments \n");
-                // signal(completecmd);
+                signal(completecmd);
                 return 0;
             }
         }
@@ -58,7 +58,6 @@ shellcmd xsh_futest(int nargs, char *args[])
         }
     }
 
-
     // case 1: if last processor is producer
     if (atoi(args[nargs - 1]))
     {
@@ -77,6 +76,10 @@ shellcmd xsh_futest(int nargs, char *args[])
 
     // free the future and kill the suspended process
     future_free(f1);
+
+    signal(completecmd);
+
+    return 0;
 }
 
 // check if the the string is a valid number
