@@ -8,4 +8,5 @@ void producer_fut(int val,future_t* f)
 {
     // set the value to future 
     future_set(f,f->data);
+    printf("Producing:%d\n", f->data);
 }
