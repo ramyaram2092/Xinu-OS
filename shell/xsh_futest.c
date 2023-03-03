@@ -34,6 +34,7 @@ shellcmd xsh_futest(int nargs, char *args[])
             }
         
     }
+    }
 
     // create future
     f = future_alloc(FUTURE_EXCLUSIVE, sizeof(uint), 1);
