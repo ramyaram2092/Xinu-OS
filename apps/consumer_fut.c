@@ -3,6 +3,8 @@
 #include <future.h>
 #include <prodcons_fut.h>
 
+
+/** The consumer_fut function  reads the future value*/
 void consumer_fut(future_t *f)
 {
   void *p = &value;

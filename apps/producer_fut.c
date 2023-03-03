@@ -2,7 +2,12 @@
 #include <stdio.h>
 #include <future.h>
 #include <prodcons_fut.h>
-
+/**
+ * @brief The producer_fut function writes the value into the future
+ * 
+ * @param val 
+ * @param f 
+ */
 void producer_fut(int val, future_t *f)
 {
     int v = val;

@@ -2,13 +2,13 @@
 #include <stdio.h>
 #include <future.h>
 
-// create future
+/*create future */
 future_t *future_alloc(future_mode_t mode, uint size, uint nelems)
 {
     intmask mask;
     mask = disable();
     // set  the mode
-    f2.mode = FUTURE_EXCLUSIVE;
+    f2.mode = mode;
 
     // set state
     f2.state = FUTURE_EMPTY;
@@ -23,6 +23,7 @@ future_t *future_alloc(future_mode_t mode, uint size, uint nelems)
     return &f2;
 }
 
+/* free future*/
 syscall future_free(future_t *f)
 {
     intmask mask;
@@ -32,6 +33,8 @@ syscall future_free(future_t *f)
     restore(mask);
     return OK;
 }
+
+/* set the future value*/
 
 syscall future_set(future_t *f, void *in)
 {
@@ -61,6 +64,7 @@ syscall future_set(future_t *f, void *in)
     return OK;
 }
 
+/* get the future value*/
 syscall future_get(future_t *f, void *out)
 {
     intmask mask;
