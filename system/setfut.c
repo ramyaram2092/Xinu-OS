@@ -14,12 +14,12 @@ case 2: Future is not empty and state is FUTURE_READY
 syscall future_set(future_t *f, void *in)
 {
    struct	procent *prptr;		/* Ptr to process' table entry	*/
-   printf("Coming here : %d\n", *(int*)in);
+   printf(" In setfut: %d\n", *(int*)in);
    if(f->state==FUTURE_EMPTY )
    {
         f->state=FUTURE_READY;
         f->data=*(int*)in; // write the value in the future
-        printf("\n Updated future data : %d",f->data);
+        printf("Updated future data : %d\n",f->data);
         return OK;
    }
    else
