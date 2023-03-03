@@ -40,7 +40,7 @@ shellcmd xsh_futest(int nargs, char *args[])
     f = future_alloc(FUTURE_EXCLUSIVE, sizeof(uint), 1);
 
     // iterate through the arguments and perform the expected operations
-    for (int i = 0; i < sizeof(args); i++)
+    for (int i = 1; i < sizeof(args); i++)
     {
         if (isnumber(args[i]))
         {
