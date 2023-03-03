@@ -14,10 +14,11 @@ syscall future_get(future_t *f, void *out)
     int *p = (int *)(f->data);      // make an integer pointer point to the future memory
 
     if (f->state == FUTURE_READY)
-    {\
+    {
         *p = *((int *)(f->data));   // read the data in future
         f->state = FUTURE_EMPTY;    // set the future state to empty
         // resume(f->pid);             // resume the process waiting on the future  
+        return OK;
     }
     else
     {
