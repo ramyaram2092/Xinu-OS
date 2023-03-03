@@ -4,6 +4,7 @@
 #include <stdbool.h>
 #include <processterminator.h>
 #include<prodcons_fut.h>
+#include<helper.h>
 #include <string.h>
 #include <ctype.h>
 
@@ -11,7 +12,6 @@
 
 
 
-bool isnumber(char *s);
 future_t *f;
 int value = 0;
 int *p;

@@ -1,0 +1,1 @@
+bool isnumber(char *s);

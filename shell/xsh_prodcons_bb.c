@@ -2,11 +2,13 @@
 #include <stdio.h>
 #include <prodcons_bb.h>
 #include <processterminator.h>
+#include<helper.h>
+
 #include <string.h>
 #include <stdbool.h>
 #include <ctype.h>
 
-bool isnumber(char *s);
+// bool isnumber(char *s);
 int arr_q[5];
 volatile int total;
 int head, tail;
