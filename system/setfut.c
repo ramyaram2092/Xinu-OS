@@ -15,7 +15,7 @@ syscall future_set(future_t *f, void *in)
 
         int *p = (int *)(f->data);        // make an integer pointer point to the future memory
 
-        if (f->state = FUTURE_READY)
+        if (f->state == FUTURE_READY)
         {
                 return SYSERR;
         }

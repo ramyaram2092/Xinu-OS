@@ -19,7 +19,7 @@ shellcmd xsh_futest(int nargs, char *args[])
     // complete=semcreate(0);
 
     // case 1: missing arguments
-    if (nargs <= 1)
+    if (nargs < 3)
     {
         printf("Missing arguments\n");
         // signal(completecmd);
