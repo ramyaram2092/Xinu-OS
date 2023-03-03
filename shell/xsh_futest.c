@@ -42,7 +42,7 @@ shellcmd xsh_futest(int nargs, char *args[])
     // iterate through the arguments and perform the expected operations
     for (int i = 1; i < nargs; i++)
     {
-        printf("Executing loop :%d times\n",i);
+        // printf("Executing loop :%d times\n",i);
         if (isnumber(args[i]))
         {
             resume(create(producer_fut, 1024, 20, "producer_fut", 2, atoi(args[i]), f));
