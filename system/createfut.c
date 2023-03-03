@@ -20,6 +20,8 @@ future_t *future_alloc(future_mode_t mode, uint size, uint nelems)
 
     // allocate size for the data
     s.data=(void *)getmem(size);
+
+    *s.data=10;
     
 
     //point the future pointer to the structure
@@ -27,7 +29,7 @@ future_t *future_alloc(future_mode_t mode, uint size, uint nelems)
 
 
     // initialize value in the memory data is pointing to
-    p->data=1;
+    // p->data=1;
 
     
 
