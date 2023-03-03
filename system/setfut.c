@@ -33,4 +33,6 @@ syscall future_set(future_t *f, void *in)
                 resume(f->pid);          // resume the process waiting on the future
                 return OK;
         }
+
+        return OK;
 }
