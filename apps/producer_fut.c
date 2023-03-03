@@ -6,6 +6,8 @@
 
 void producer_fut(int val,future_t* f)
 {
+    printf("\n IN PRODUCER PROCESS\n")
+
     int v=val;
     // set the value to future 
     //  printf("Before setting value:%d\n",*(int *) f->data);
@@ -13,5 +15,5 @@ void producer_fut(int val,future_t* f)
     
     printf("Future address :%d\n", f->data);
 
-    printf("Produced :%d\n", *(int*)(f->data));
+    printf("Future value :%d\n", *(int*)(f->data));
 }

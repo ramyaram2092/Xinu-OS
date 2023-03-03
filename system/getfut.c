@@ -16,8 +16,10 @@ syscall future_get(future_t *f, void *out)
 
     if(f->state==FUTURE_READY )
     {
-        printf("Value in f->data : %d\n",f->data);
-        printf("Address of out in futget: %d\n",out);
+        printf("Address of future data : %d\n",f->data);
+        printf("Value of future data :%d\n", *(int*)(f->data));
+
+        printf("Address of value after calling futget: %d\n",out);
 
         int *p=(int*)out;
 
