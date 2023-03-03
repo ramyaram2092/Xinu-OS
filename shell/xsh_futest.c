@@ -16,7 +16,7 @@ shellcmd xsh_futest(int nargs, char *args[])
     value=-1;
     flag=0;
 
-    complete=semcreate(0);
+    // complete=semcreate(0);
 
     // case 1: missing arguments
     if (nargs <= 1)
