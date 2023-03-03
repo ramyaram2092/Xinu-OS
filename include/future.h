@@ -1,5 +1,5 @@
 
-extern future_t *f1,f2 ;
+
 
 typedef enum{
     FUTURE_EMPTY,
@@ -23,6 +23,8 @@ typedef struct future_t{
 }future_t;
 
 
+
+extern future_t *f1,f2 ;
 
 future_t* future_alloc (future_mode_t mode, uint size,uint nelems);
 syscall future_free(future_t*);
