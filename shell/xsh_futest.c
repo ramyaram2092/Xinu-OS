@@ -15,8 +15,6 @@ shellcmd xsh_futest(int nargs, char *args[])
 {
     p = &value;
 
-    
-
     // case 1: missing arguments
     if (nargs == 0)
     {
