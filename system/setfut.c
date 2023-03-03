@@ -18,7 +18,7 @@ syscall future_set(future_t *f, void *in)
    if(f->state==FUTURE_EMPTY )
    {
         f->state=FUTURE_READY;
-        f->data=in;
+        f->data=*(int*)in; // write the value in the future
         return OK;
    }
    else
