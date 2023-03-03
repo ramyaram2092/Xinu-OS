@@ -2,40 +2,30 @@
 #include <stdio.h>
 #include <future.h>
 
-
 /**
 case 1: if the future state is FUTURE_READY
-        -> read value 
+        -> read value
         -> change status to FUTURE_EMPTY
 case 2:  if the future state is FUTURE_EMPTY
         -> return SYSERR
  */
 syscall future_get(future_t *f, void *out)
 {
-    struct	procent *prptr;		/* Ptr to process' table entry	*/
+    int *p = (int *)(f->data);      // make an integer pointer point to the future memory
 
-    if(f->state==FUTURE_READY )
-    {
-       printf("Address of future data : %d\n",f->data);
-        printf("Value of future data :%d\n", *(int*)(f->data));
-
-        // printf("Address of value after calling futget: %d\n",out);
-
-        int *p=(int*)out;
-
-        *p=*((int *)(f->data));
-        printf("Value in out: %d\n",*p);
-        f->state=FUTURE_EMPTY;
+    if (f->state == FUTURE_READY)
+    {\
+        *p = *((int *)(f->data));   // read the data in future
+        f->state = FUTURE_EMPTY;    // set the future state to empty
+        resume(f->pid);             // resume the process waiting on the future  
     }
-    else 
+    else
     {
-        // block the process and put the process in waiting state
-        prptr->prstate = PR_WAIT;	/* Set process state to waiting	*/
-        resched();			        /*   and reschedule	*/
-        f->state=FUTURE_WAITING;   
+        f->pid=currpid;             // set the current process as the process waiting on future
+        f->state = FUTURE_WAITING;  // set the future state to FUTURE_WAITING
+        suspend(currpid);           //suspend the current process
         return SYSERR;
     }
 
     return OK;
-
 }

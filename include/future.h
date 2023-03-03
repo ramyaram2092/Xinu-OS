@@ -1,6 +1,4 @@
 
-
-
 typedef enum{
     FUTURE_EMPTY,
     FUTURE_WAITING,

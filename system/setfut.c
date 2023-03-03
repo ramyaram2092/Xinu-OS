@@ -2,9 +2,8 @@
 #include <stdio.h>
 #include <future.h>
 
-// setFuture
 /*
-case 1: if future is empty 
+case 1: if future is empty
         -> set state as FUTURE_READY
         -> set the new value
         -> return ok
@@ -13,21 +12,26 @@ case 2: Future is not empty and state is FUTURE_READY
 */
 syscall future_set(future_t *f, void *in)
 {
-   struct	procent *prptr;		/* Ptr to process' table entry	*/
-//    printf(" In setfut new value: %d  old value : %d\n", *(int*)in, f->data);
-   if(f->state==FUTURE_EMPTY )
-   {
-        int *p= (int *)(f->data);
-        f->state=FUTURE_READY;
-        *p=*(int*)in; // write the value in the future
-        // printf("Updated future data : %d\n",f->data);
-        return OK;
-   }
-   else
-   {
-        prptr->prstate = PR_WAIT;	/* Set process state to waiting	*/
-        resched();			        /*   and reschedule	*/
-        return SYSERR;
-   }
-   
+
+        int *p = (int *)(f->data);              // make an integer pointer point to the future memory
+
+        if (f->state == FUTURE_EMPTY)
+        {
+                *p = *(int *)in;                // write the value in the future
+                f->state = FUTURE_READY;
+                return OK;
+        }
+        else if (f->state = FUTURE_WAIING)
+        {
+                *p = *(int *)in;                // write the value in the future
+                f->state = FUTURE_READY;        // set the future state to ready  
+                resume(f->pid);                 // resume the process waiting on the future
+                return OK;
+        }
+        else
+        {
+                f->pid=currpid;                 // set the pid of the future to the current process 
+                suspend(currpid);               // suspend the current process
+                return SYSERR;
+        }
 }
