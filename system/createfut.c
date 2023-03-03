@@ -10,20 +10,25 @@ future_t *future_alloc(future_mode_t mode, uint size, uint nelems)
     struct future_t s,*p;
 
 
+  
+    // set  the mode
+    s.mode=FUTURE_EXCLUSIVE;
+
+    //set state
+    s.state=FUTURE_EMPTY;
+
+    // set size field
+    s.size=size;
+
+    // allocate size for the data
+    s.data=getmem(size);
+
     //point the future pointer to the structure
     p=&s;
 
-    // set  the mode
-    p->mode=FUTURE_EXCLUSIVE;
 
-    //set state
-    p->state=FUTURE_EMPTY;
-
-    // set size field
-    p->size=size;
-
-    // allocate size for the data
-    p->data=getmem(size);
+    // initialize value in the memory data is pointing to
+    p->data=0;
 
     
 

@@ -1,24 +1,17 @@
 #include <xinu.h>
 #include <stdio.h>
 #include <future.h>
-#include <stdbool.h>
 #include <processterminator.h>
-#include<prodcons_fut.h>
-#include<helper.h>
+#include <prodcons_fut.h>
+#include <helper.h>
 #include <string.h>
 #include <ctype.h>
 
-
-
-
-
 future_t *f;
-int value = 0;
-int *p;
+// int value = 0;
 
 shellcmd xsh_futest(int nargs, char *args[])
 {
-    p = &value;
 
     // case 1: missing arguments
     if (nargs == 0)
@@ -45,7 +38,6 @@ shellcmd xsh_futest(int nargs, char *args[])
     // create future
     f = future_alloc(FUTURE_EXCLUSIVE, sizeof(uint), 1);
 
-
     // iterate through the arguments and perform the expected operations
     for (int i = 0; i < sizeof(args); i++)
     {
@@ -58,7 +50,6 @@ shellcmd xsh_futest(int nargs, char *args[])
             resume(create(consumer_fut, 1024, 20, "consumer_fut", 1, f));
         }
     }
-
 
     // destroy the future
 }
