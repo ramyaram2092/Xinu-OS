@@ -21,7 +21,9 @@ future_t *future_alloc(future_mode_t mode, uint size, uint nelems)
     // allocate size for the data
     s.data=(void *)getmem(size);
 
-    *s.data=10;
+    int v=10;
+
+    s.data=&v;
     
 
     //point the future pointer to the structure
