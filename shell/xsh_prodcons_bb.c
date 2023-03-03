@@ -3,9 +3,7 @@
 #include <prodcons_bb.h>
 #include <processterminator.h>
 #include<helper.h>
-
 #include <string.h>
-#include <stdbool.h>
 #include <ctype.h>
 
 // bool isnumber(char *s);
