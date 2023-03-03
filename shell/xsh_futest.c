@@ -26,7 +26,7 @@ shellcmd xsh_futest(int nargs, char *args[])
     {
         for (int i = 1; i < sizeof(args); i++)
         {
-            if (args[i] != isnumber(args[i]) || args[i][0] != 'g')
+            if ( isnumber(args[i]) || args[i][0] != 'g')
             {
                 printf("Invalid arguments\n");
                 // signal(completecmd);
