@@ -21,7 +21,7 @@ syscall future_set(future_t *f, void *in)
                 f->state = FUTURE_READY;
                 return OK;
         }
-        else if (f->state = FUTURE_WAIING)
+        else if (f->state = FUTURE_WAITING)
         {
                 *p = *(int *)in;                // write the value in the future
                 f->state = FUTURE_READY;        // set the future state to ready  
