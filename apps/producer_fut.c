@@ -9,11 +9,8 @@ void producer_fut(int val, future_t *f)
 {
     int v = val;
     int res=future_set(f, &v);
-    if ( res== 1)
-    {
-        printf("Producing :%d\n", *(int *)(f->data));
-    }
-    else
+    printf("Producing :%d\n", *(int *)(f->data));
+    if ( res== -1)
     {
         printf("future_set failed\n");
     }

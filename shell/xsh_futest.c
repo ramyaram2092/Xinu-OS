@@ -8,7 +8,8 @@
 #include <ctype.h>
 
 future_t *f1,f2;
-int value ,flag;
+int value ;
+volatile int flag;
 
 
 shellcmd xsh_futest(int nargs, char *args[])
