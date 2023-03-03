@@ -27,6 +27,8 @@ void helper(char *pname, int nargs, char *args[])
     else
     {
         return 0;
+        signal(completecmd);
+
     }
 }
 
