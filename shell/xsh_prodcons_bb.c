@@ -90,16 +90,16 @@ shellcmd xsh_prodcons_bb(int nargs, char *args[])
   return 0;
 }
 
-// check if the the string is a valid number
-bool isnumber(char *val)
-{
-  char *s;
-  for (s = val; *s != '\0'; s++)
-  {
-    if (!isdigit(*s))
-    {
-      return false;
-    }
-  }
-  return true;
-}
+// // check if the the string is a valid number
+// bool isnumber(char *val)
+// {
+//   char *s;
+//   for (s = val; *s != '\0'; s++)
+//   {
+//     if (!isdigit(*s))
+//     {
+//       return false;
+//     }
+//   }
+//   return true;
+// }
