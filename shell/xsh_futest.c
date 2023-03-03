@@ -10,12 +10,14 @@
 future_t *f1, f2;
 int value, n;
 volatile int flag;
+sid32 print;
 
 shellcmd xsh_futest(int nargs, char *args[])
 {
     value = -1;
     flag = 0;
     n=0;
+    print=semcreate(1);
 
     // case 1: missing arguments
     if (nargs < 3)

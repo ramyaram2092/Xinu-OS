@@ -3,17 +3,20 @@
 #include <future.h>
 #include <prodcons_fut.h>
 
-
-
 void producer_fut(int val, future_t *f)
 {
     int v = val;
-    int res=future_set(f, &v);
+    int res = future_set(f, &v);
+    wait(print);
     printf("Producing :%d\n", v);
-    if ( res== -1)
+    signal(print);
+
+    if (res == -1)
     {
+        wait(print);
         printf("future_set failed\n");
+        signal(print);
     }
 
-    flag+=1;
+    flag += 1;
 }

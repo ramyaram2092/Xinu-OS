@@ -10,11 +10,15 @@ void consumer_fut(future_t *f)
 
   if (res == 1)
   {
+    wait(print);
     printf("Consumed : %d\n", value);
+    signal(print);
   }
   else
   {
+    wait(print);
     printf("future_get failed\n");
+    signal(print);
   }
 
   flag+=1;
