@@ -17,8 +17,9 @@ syscall future_set(future_t *f, void *in)
 //    printf(" In setfut new value: %d  old value : %d\n", *(int*)in, f->data);
    if(f->state==FUTURE_EMPTY )
    {
+        int *p= (int *)(f->data);
         f->state=FUTURE_READY;
-        *f->data=*in; // write the value in the future
+        *p=*(int*)in; // write the value in the future
         // printf("Updated future data : %d\n",f->data);
         return OK;
    }
