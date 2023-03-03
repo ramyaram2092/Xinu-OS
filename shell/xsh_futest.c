@@ -48,11 +48,11 @@ shellcmd xsh_futest(int nargs, char *args[])
     {
         if (args[i] == isnumber(args[i]))
         {
-            resume(create(produce_fut, 1024, 20, "producer_fut", 2, atoi(args[i]), f));
+            resume(create(producer_fut, 1024, 20, "producer_fut", 2, atoi(args[i]), f));
         }
         else if (args[i] == "g")
         {
-            resume(create(produce_fut, 1024, 20, "consumer_fut", 1, f->data));
+            resume(create(consumer_fut, 1024, 20, "consumer_fut", 1, f));
         }
     }
 
