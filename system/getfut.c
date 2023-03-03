@@ -17,7 +17,7 @@ syscall future_get(future_t *f, void *out)
     if(f->state==FUTURE_READY )
     {
         printf("Value in f->data : %d",f->data);
-        out=f->data;
+        *out=f->data;
         printf("Value in out: %d\n",*(int *)out);
         f->state=FUTURE_EMPTY;
     }
