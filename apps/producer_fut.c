@@ -6,7 +6,9 @@
 
 void producer_fut(int val,future_t* f)
 {
+    int v=val;
+
     // set the value to future 
-    future_set(f,f->data);
+    future_set(f,&v);
     printf("Producing:%d\n", f->data);
 }
