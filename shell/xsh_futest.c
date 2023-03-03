@@ -56,7 +56,7 @@ shellcmd xsh_futest(int nargs, char *args[])
         }
     }
 
-    int end = 0;
+
     // case 1: if last processor is producer
     if (atoi(args[nargs - 1]))
     {
