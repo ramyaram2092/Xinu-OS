@@ -11,7 +11,7 @@ void producer_fut(int val, future_t *f)
     int res=future_set(f, &v);
     if ( res== 1)
     {
-        printf("Produced :%d\n", *(int *)(f->data));
+        printf("Producing :%d\n", *(int *)(f->data));
     }
     else
     {

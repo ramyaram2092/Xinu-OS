@@ -13,23 +13,24 @@ case 2: Future is not empty and state is FUTURE_READY
 syscall future_set(future_t *f, void *in)
 {
 
-        int *p = (int *)(f->data);              // make an integer pointer point to the future memory
+        int *p = (int *)(f->data);        // make an integer pointer point to the future memory
 
-        if (f->state == FUTURE_EMPTY)
+        if (f->state = FUTURE_READY)
         {
-                *p = *(int *)in;                // write the value in the future
-                f->state = FUTURE_READY;        // set state
+                return SYSERR;
+        }
+
+        else if (f->state == FUTURE_EMPTY)
+        {
+                *p = *(int *)in;         // write the value in the future
+                f->state = FUTURE_READY; // set state
                 return OK;
         }
         else if (f->state = FUTURE_WAITING)
         {
-                *p = *(int *)in;                // write the value in the future
-                f->state = FUTURE_READY;        // set the future state to ready  
-                resume(f->pid);                 // resume the process waiting on the future
+                *p = *(int *)in;         // write the value in the future
+                f->state = FUTURE_READY; // set the future state to ready
+                resume(f->pid);          // resume the process waiting on the future
                 return OK;
-        }
-        else if(f->state=FUTURE_READY)
-        {
-                return SYSERR;
         }
 }
