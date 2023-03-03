@@ -20,7 +20,7 @@ syscall future_get(future_t *f, void *out)
         printf("Address of out in futget: %d\n",out);
 
         out=f->data;
-        printf("Value in out: %d\n",out);
+        printf("Value in out: %d\n",*(int*)out);
         f->state=FUTURE_EMPTY;
     }
     else 
