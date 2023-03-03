@@ -28,7 +28,7 @@ shellcmd xsh_futest(int nargs, char *args[])
         {
             if ( isnumber(args[i]) || args[i][0] != 'g')
             {
-                printf("Invalid arguments\n");
+                printf("Invalid arguments : %c\n",args[i][0]);
                 // signal(completecmd);
                 return 0;
             }
@@ -42,7 +42,7 @@ shellcmd xsh_futest(int nargs, char *args[])
     // iterate through the arguments and perform the expected operations
     for (int i = 0; i < sizeof(args); i++)
     {
-        if (args[i] == isnumber(args[i]))
+        if (isnumber(args[i]))
         {
             resume(create(producer_fut, 1024, 20, "producer_fut", 2, atoi(args[i]), f));
         }
