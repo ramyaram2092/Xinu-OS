@@ -17,9 +17,9 @@ syscall future_set(future_t *f, void *in)
    printf("Coming here : %d\n", *(int*)in);
    if(f->state==FUTURE_EMPTY )
    {
-        f->state=FUTURE_READY;
-        f->data=*(int*)in; // write the value in the future
-        printf("\n Updated future data : %d",f->data);
+        *f.state=FUTURE_READY;
+        *f.data=*(int*)in; // write the value in the future
+        printf("\n Updated future data : %d",*f.data);
         return OK;
    }
    else
