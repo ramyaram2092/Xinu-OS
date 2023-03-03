@@ -24,7 +24,7 @@ shellcmd xsh_futest(int nargs, char *args[])
     // case 2: check the correctness of input
     else
     {
-        for (int i = 1; i < sizeof(args); i++)
+        for (int i = 1; i < nargs; i++)
         {
             if ( !(!isnumber(args[i]) || args[i][0] != 'g'))
             {
@@ -40,9 +40,9 @@ shellcmd xsh_futest(int nargs, char *args[])
     f = future_alloc(FUTURE_EXCLUSIVE, sizeof(uint), 1);
 
     // iterate through the arguments and perform the expected operations
-    for (int i = 1; i < sizeof(args); i++)
+    for (int i = 1; i < nargs; i++)
     {
-        printf("Executing loop :%d times",i);
+        printf("Executing loop :%d times\n",i);
         if (isnumber(args[i]))
         {
             resume(create(producer_fut, 1024, 20, "producer_fut", 2, atoi(args[i]), f));
