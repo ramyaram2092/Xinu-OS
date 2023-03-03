@@ -6,7 +6,7 @@
 
 void producer_fut(int val,future_t* f)
 {
-    printf("\n IN PRODUCER PROCESS\n")
+    printf("\n IN PRODUCER PROCESS\n");
 
     int v=val;
     // set the value to future 
