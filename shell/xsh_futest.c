@@ -7,17 +7,15 @@
 #include <string.h>
 #include <ctype.h>
 
-future_t *f1,f2;
-int value ;
-volatile int flag;
-
+future_t *f1, f2;
+int value;
+volatile int flag, end;
 
 shellcmd xsh_futest(int nargs, char *args[])
 {
-    value=-1;
-    flag=0;
-
-    // complete=semcreate(0);
+    value = -1;
+    flag = 0;
+    end=0;
 
     // case 1: missing arguments
     if (nargs < 3)
@@ -32,18 +30,17 @@ shellcmd xsh_futest(int nargs, char *args[])
     {
         for (int i = 1; i < nargs; i++)
         {
-            if ( !(isnumber(args[i]) || strncmp(args[i],"g",1)==0))
+            if (!(isnumber(args[i]) || strncmp(args[i], "g", 1) == 0))
             {
                 printf("Invalid arguments \n");
                 // signal(completecmd);
                 return 0;
             }
-        
-    }
+        }
     }
 
     // create future
-    f1= future_alloc(FUTURE_EXCLUSIVE, sizeof(uint), 1);
+    f1 = future_alloc(FUTURE_EXCLUSIVE, sizeof(uint), 1);
 
     // iterate through the arguments and perform the expected operations
     for (int i = 1; i < nargs; i++)
@@ -53,18 +50,30 @@ shellcmd xsh_futest(int nargs, char *args[])
         {
             resume(create(producer_fut, 1024, 20, "producer_fut", 2, atoi(args[i]), f1));
         }
-        else if (strncmp(args[i],"g",1)==0)
+        else if (strncmp(args[i], "g", 1) == 0)
         {
             resume(create(consumer_fut, 1024, 20, "consumer_fut", 1, f1));
         }
     }
 
-    while(flag<nargs-1)
+    int end = 0;
+    // case 1: if last processor is producer
+    if (atoi(args[nargs - 1]))
+    {
+        end = nargs - 1;
+    }
+    // case 2 : if last but one processor is consumer
+    else if (strncmp(args[nargs - 2], "g", 1) == 0)
+    {
+        end = nargs - 2;
+    }
+
+    while (flags <= end)
     {
         // wait untill all process are complete
     }
 
-    // free the future
+    // free the future and kill the suspended process
     future_free(f1);
 }
 
