@@ -6,8 +6,7 @@
 // create future
 future_t *future_alloc(future_mode_t mode, uint size, uint nelems)
 {
-  
-  
+
     // set  the mode
     f2.mode=FUTURE_EXCLUSIVE;
 

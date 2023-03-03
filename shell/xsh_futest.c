@@ -8,11 +8,15 @@
 #include <ctype.h>
 
 future_t *f1,f2;
-int value ;
+int value ,flag;
+
 
 shellcmd xsh_futest(int nargs, char *args[])
 {
     value=-1;
+    flag=0;
+
+    complete=semcreate(0);
 
     // case 1: missing arguments
     if (nargs <= 1)
@@ -52,6 +56,11 @@ shellcmd xsh_futest(int nargs, char *args[])
         {
             resume(create(consumer_fut, 1024, 20, "consumer_fut", 1, f1));
         }
+    }
+
+    while(flag<nargs)
+    {
+        // wait untill all process are complete
     }
 
     // free the future

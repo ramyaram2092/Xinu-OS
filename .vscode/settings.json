@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "helper.h": "c",
-        "prodcons_fut.h": "c"
+        "prodcons_fut.h": "c",
+        "processterminator.h": "c"
     }
 }
