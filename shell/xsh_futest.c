@@ -8,10 +8,11 @@
 #include <ctype.h>
 
 future_t *f1,f2;
-int value = 0;
+int value ;
 
 shellcmd xsh_futest(int nargs, char *args[])
 {
+    value=-1;
 
     // case 1: missing arguments
     if (nargs <= 1)
