@@ -7,7 +7,7 @@
 #include <string.h>
 #include <ctype.h>
 
-future_t *f;
+future_t *f1,f2;
 // int value = 0;
 
 shellcmd xsh_futest(int nargs, char *args[])
@@ -37,7 +37,7 @@ shellcmd xsh_futest(int nargs, char *args[])
     }
 
     // create future
-    f = future_alloc(FUTURE_EXCLUSIVE, sizeof(uint), 1);
+    f1= future_alloc(FUTURE_EXCLUSIVE, sizeof(uint), 1);
 
     // iterate through the arguments and perform the expected operations
     for (int i = 1; i < nargs; i++)
@@ -45,11 +45,11 @@ shellcmd xsh_futest(int nargs, char *args[])
         // printf("Executing loop :%d times\n",i);
         if (isnumber(args[i]))
         {
-            resume(create(producer_fut, 1024, 20, "producer_fut", 2, atoi(args[i]), f));
+            resume(create(producer_fut, 1024, 20, "producer_fut", 2, atoi(args[i]), f1));
         }
         else if (args[i][0] == 'g')
         {
-            resume(create(consumer_fut, 1024, 20, "consumer_fut", 1, f));
+            resume(create(consumer_fut, 1024, 20, "consumer_fut", 1, f1));
         }
     }
 

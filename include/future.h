@@ -1,4 +1,6 @@
 
+extern future_t *f1,f2 ;
+
 typedef enum{
     FUTURE_EMPTY,
     FUTURE_WAITING,
