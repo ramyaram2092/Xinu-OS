@@ -7,7 +7,7 @@
 future_t *future_alloc(future_mode_t mode, uint size, uint nelems)
 {
     // create a structure of type future_t
-    struct future_t s,*p;
+    struct future_t s;
   
     // set  the mode
     s.mode=FUTURE_EXCLUSIVE;
@@ -25,9 +25,10 @@ future_t *future_alloc(future_mode_t mode, uint size, uint nelems)
 
     s.data=&v;
     
+    
 
-    //point the future pointer to the structure
-    p=&s;
+    // //point the future pointer to the structure
+    // p=&s;
 
 
     // initialize value in the memory data is pointing to
@@ -37,7 +38,7 @@ future_t *future_alloc(future_mode_t mode, uint size, uint nelems)
 
     //return the address of the future 
 
-    return p;
+    return &s;
 
 
 
