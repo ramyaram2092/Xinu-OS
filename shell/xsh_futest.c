@@ -38,7 +38,7 @@ shellcmd xsh_futest(int nargs, char *args[])
     }
 
     // create future
-
+    f1= future_alloc(FUTURE_EXCLUSIVE, sizeof(uint), 1);
 
     // iterate through the arguments and perform the expected operations
     for (int i = 1; i < nargs; i++)
