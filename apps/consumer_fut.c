@@ -11,7 +11,7 @@ void consumer_fut(future_t *f)
   if (res == 1)
   {
     wait(print);
-    printf("Consumed : %d\n", value);
+    printf("Consumed %d\n", value);
     signal(print);
   }
   else
