@@ -33,7 +33,7 @@ shellcmd xsh_futest(int nargs, char *args[])
         {
             if ( !(!isnumber(args[i]) || args[i][0] != 'g'))
             {
-                printf("Invalid arguments : %c\n",args[i][0]);
+                printf("Invalid arguments \n");
                 // signal(completecmd);
                 return 0;
             }
@@ -58,10 +58,10 @@ shellcmd xsh_futest(int nargs, char *args[])
         }
     }
 
-    while(flag<nargs)
-    {
-        // wait untill all process are complete
-    }
+    // while(flag<nargs)
+    // {
+    //     // wait untill all process are complete
+    // }
 
     // free the future
     future_free(f1);
