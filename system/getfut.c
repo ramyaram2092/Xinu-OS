@@ -17,7 +17,7 @@ syscall future_get(future_t *f, void *out)
     if(f->state==FUTURE_READY )
     {
         out=f->data;
-        f-state=FUTURE_EMPTY;
+        f->state=FUTURE_EMPTY;
     }
     else 
     {
