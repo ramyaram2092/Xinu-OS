@@ -6,5 +6,5 @@
 // delete future
 syscall future_free(future_t *f)
 {
-     return ok;
+     return OK;
 }
