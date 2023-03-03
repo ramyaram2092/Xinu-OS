@@ -17,7 +17,7 @@ syscall future_get(future_t *f, void *out)
     {\
         *p = *((int *)(f->data));   // read the data in future
         f->state = FUTURE_EMPTY;    // set the future state to empty
-        resume(f->pid);             // resume the process waiting on the future  
+        // resume(f->pid);             // resume the process waiting on the future  
     }
     else
     {

@@ -30,8 +30,8 @@ syscall future_set(future_t *f, void *in)
         }
         else
         {
-                f->pid=currpid;                 // set the pid of the future to the current process 
-                suspend(currpid);               // suspend the current process
+                // f->pid=currpid;                 // set the pid of the future to the current process 
+                // suspend(currpid);               // suspend the current process
                 return SYSERR;
         }
 }
