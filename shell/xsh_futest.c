@@ -14,25 +14,25 @@ shellcmd xsh_futest(int nargs, char *args[])
 {
 
     // case 1: missing arguments
-    if (nargs == 0)
+    if (nargs <= 1)
     {
         printf("Missing arguments\n");
-        signal(completecmd);
+        // signal(completecmd);
         return 0;
     }
 
     // case 2: check the correctness of input
     else
     {
-        for (int i = 0; i < sizeof(args); i++)
+        for (int i = 1; i < sizeof(args); i++)
         {
-            if (args[i] != isnumber(args[i]) || args[i] != 'g')
+            if (args[i] != isnumber(args[i]) || args[i][0] != 'g')
             {
                 printf("Invalid arguments\n");
                 // signal(completecmd);
                 return 0;
             }
-        }
+        
     }
 
     // create future
