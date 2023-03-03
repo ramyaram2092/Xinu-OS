@@ -8,7 +8,7 @@
 #include <ctype.h>
 
 future_t *f1,f2;
-// int value = 0;
+int value = 0;
 
 shellcmd xsh_futest(int nargs, char *args[])
 {
