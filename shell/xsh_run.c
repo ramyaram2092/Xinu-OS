@@ -24,6 +24,10 @@ void helper(char *pname, int nargs, char *args[])
     {
         resume(create((void *)xsh_futest, 4096, 20, "futest", 2, nargs - 1, &(args[1])));
     }
+    else
+    {
+        return 0;
+    }
 }
 
 shellcmd xsh_run(int nargs, char *args[])

@@ -8,7 +8,6 @@ void producer_fut(int val, future_t *f)
     int v = val;
      wait(print);
     int res = future_set(f, &v);
-   
     printf("Producing %d\n", v);
     signal(print);
 
