@@ -14,7 +14,9 @@ void consumer_fut(future_t * f)
   // printf("Address of value before calling futget : %d\n",p);
 
   // return the value that the future holds
-  if(future_get(f,p)==0)
+  int a= future_get(f,p);
+  printf("%d\n",a);
+  if(a)
   {
      printf("Consumed : %d\n", value);
   }
