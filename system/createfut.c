@@ -23,7 +23,7 @@ future_t *future_alloc(future_mode_t mode, uint size, uint nelems)
 
     int v=10;
 
-    s.data=&v;
+    s.data=(void *)&v;
     
     
 
