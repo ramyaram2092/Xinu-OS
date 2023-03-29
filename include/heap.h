@@ -10,6 +10,10 @@ typedef struct _heap_t {
   char* freelist;
 } heap_t;
 
+
+
+extern struct heap_t heaphead; // head of the free memory list
+
 extern void initheap(char*, uint32);
 extern syscall getheap(pid32, uint32);
 extern syscall freeheap(pid32);
