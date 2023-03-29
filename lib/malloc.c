@@ -135,7 +135,7 @@ void free(char* block, uint32 size) {
   return SYSERR;
  }
 
- memlist.mlength+=size;
+ heaphead.size+=size;
 
  /* Either coalesce with previous block or add to free list*/
 
@@ -145,11 +145,11 @@ void free(char* block, uint32 size) {
    prev->size+=size;
    block=prev;
  }
- else // limk into list as new node
+ else // link into list as new node
  {
   block->next=nex;
   block->size=size;
-  prev->next=bloack;
+  prev->next=block;
  }
 
  // coalesce with next block if adjacent
