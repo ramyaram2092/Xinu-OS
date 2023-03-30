@@ -91,3 +91,6 @@ extern  shellcmd xsh_futest	(int32, char *[]);
 
 /* in file xsh_run.c */
 extern  shellcmd xsh_run	(int32, char *[]);
+
+/* in file xsh_memtest.c */
+extern  shellcmd xsh_memtest	(int32, char *[]);
