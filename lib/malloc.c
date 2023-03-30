@@ -54,7 +54,7 @@ void* malloc(uint32 size) {
   /* Search the Heap*/
   while(curr!=NULL) 
   {
-    if(curr.size==size) // block requested is the entire heap size
+    if(curr->size==size) // block requested is the entire heap size
     {
       prev->next=curr->next;
       heaphead.size-=size;
@@ -62,7 +62,7 @@ void* malloc(uint32 size) {
       restore(mask);
       return (char*)(curr);
     }
-    else if (curr.size>size) // Split the big block
+    else if (curr->size>size) // Split the big block
     {
       leftover=(struct hb*)((uint32) curr +size);
       prev->next=leftover;
