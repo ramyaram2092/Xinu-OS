@@ -4,12 +4,12 @@
 extern heap_t heaptab[];
 
 typedef struct heapblock{
-  struct heapblock * next;
+  struct heapblock* next;
   uint32 size;
 }hb;
 
 
-struct hb *heaphead; //head node
+ hb heaphead; //head node
 
 
 
@@ -26,8 +26,8 @@ void initheap(char* startaddr, uint32 size) {
   }
 
   size=(uint32) roundmb(size);
-  heaphead->next=(struct heapblock *)startaddr;
-  heaphead->size=size;
+  heaphead.next=(hb*)startaddr;
+  heaphead.size=size;
   restore(mask);
   return;
 }
