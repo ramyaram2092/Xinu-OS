@@ -30,8 +30,8 @@ void initheap(char* startaddr, uint32 size) {
   heaphead.size=size;
   hb *curr= heaphead.next;
   curr->size=size;
-  curr->next=null;
-  heaptab[currpid].freelist=&head;
+  curr->next=NULL;
+  heaptab[currpid].freelist=(char*)heaphead.next;
   restore(mask);
   return;
 }
@@ -68,7 +68,7 @@ void* malloc(uint32 size) {
       leftover=(struct hb*)((uint32) curr +size);
       prev->next=leftover;
       leftover->size=(curr->size)-size;
-      leftover.next=next;
+      leftover->next=next;
       heaphead.size-=size;
       restore(mask);
       return (char *)(curr);
