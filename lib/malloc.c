@@ -37,7 +37,7 @@ void* malloc(uint32 size) {
   /*   Your implementation MUST NOT use getmem                      */
   /*   Your implementation SHOULD use explicit in-memory free lists */
   
-  
+  printf("The size of the heap is :%x\n",heaphead.size);
   struct heapblock *prev, *curr,* leftover;
   intmask mask;
   mask=disable();
@@ -60,6 +60,7 @@ void* malloc(uint32 size) {
       heaphead.size-=size;
       heaptab[currpid].freelist=NULL; // update the metadata of the process indicating the heap is used up
       restore(mask);
+      printf("\n Case")
       return (char*)(curr);
     }
     else if (curr->size>size) // Split the big block
