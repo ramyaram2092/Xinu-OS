@@ -27,6 +27,7 @@ void helper(char *pname, int nargs, char *args[])
     else if (strncmp(pname, "memtest", 7) == 0)
     {
         resume(create((void *)xsh_memtest, 4096, 20, "futest", 0));
+        signal(completecmd);
     }
     else
     {
