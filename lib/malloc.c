@@ -41,8 +41,9 @@ void* malloc(uint32 size) {
   struct heapblock *prev, *curr,* leftover;
   intmask mask;
   mask=disable();
-  if(size==0 || heaptab[currpid].freelist==NULL)
+  if(size==0 || heaptab[currpid].freelist==NULL || size>heaphead.size)
   {
+    printf("Coming here\n");
     restore (mask);
     return (void *) SYSERR;
   }
@@ -75,11 +76,12 @@ void* malloc(uint32 size) {
       return (char *)(curr);
 
     }
-    else if(curr->size<size)
-    {
-      restore(mask);
-      return (char*)SYSERR;
-    }
+    // else if(curr->size<size)
+    // {
+    //   printf("Coming here \n ");
+    //   restore(mask);
+    //   return (char*)SYSERR;
+    // }
     else // move to next available block
     {
       prev=curr;
