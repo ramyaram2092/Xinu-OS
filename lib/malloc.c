@@ -106,10 +106,10 @@ void free(char* block, uint32 size) {
   nex=heaphead.next;
  
 
-  while((next!=NULL) &&(next<block))
+  while((nex!=NULL) &&(next<block))
   {
     prev=next;
-    nex=nex.next;
+    nex=nex->next;
   }
 
   /* Computing the top of previous block*/
@@ -125,7 +125,7 @@ void free(char* block, uint32 size) {
 
  /* Ensure new block doesnt overlap previous or next blocks*/
 
- if((prev!=heaphead)&& (uint32)block<top || (next!=NULL) &&(uint32)block+size >(uint32)next)
+ if((prev!=&heaphead)&& (uint32)block<top || (nex!=NULL) &&(uint32)block+size >(uint32)nex)
  {
   restore(mask);
   return SYSERR;
