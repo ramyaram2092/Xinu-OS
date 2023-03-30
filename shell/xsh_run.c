@@ -46,6 +46,7 @@ shellcmd xsh_run(int nargs, char *args[])
         printf("future\n");
         printf("hello\n");
         printf("list\n");
+        printf("memtest\n");
         printf("prodcons\n");
         printf("prodcons_bb\n");
     }
