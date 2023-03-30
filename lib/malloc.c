@@ -106,9 +106,9 @@ void free(char* block, uint32 size) {
   nex=heaphead.next;
  
 
-  while((nex!=NULL) &&(next<block))
+  while((nex!=NULL) &&(nex<block))
   {
-    prev=next;
+    prev=nex;
     nex=nex->next;
   }
 
