@@ -75,6 +75,11 @@ void* malloc(uint32 size) {
       return (char *)(curr);
 
     }
+    else if(curr->size<size)
+    {
+      restore(mask);
+      return (char*)SYSERR;
+    }
     else // move to next available block
     {
       prev=curr;
