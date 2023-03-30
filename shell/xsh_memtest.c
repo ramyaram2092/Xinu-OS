@@ -114,10 +114,10 @@ char contains(char* a, char* b, uint32 sz_a, uint32 sz_b) {
 }
 
 shellcmd xsh_memtest(int nargs, char *args[]) {
-  // resume(create2(test1, 1024, 1024, 20, "Test 1", 0));
-  // resume(create2(test2, 1024, 1024, 20, "Test 2", 0));
-  // resume(create2(test3, 1024, 1024, 20, "Test 3", 0));
-  // resume(create2(test4, 1024, 1024, 20, "Test 4", 0));
+  resume(create2(test1, 1024, 1024, 20, "Test 1", 0));
+  resume(create2(test2, 1024, 1024, 20, "Test 2", 0));
+  resume(create2(test3, 1024, 1024, 20, "Test 3", 0));
+  resume(create2(test4, 1024, 1024, 20, "Test 4", 0));
   resume(create2(test5, 1024, 1024, 20, "Test 5", 0));
   // resume(create2(test6, 1024, 1024, 20, "Test 6", 0));
   // resume(create2(test7, 1024, 1024, 20, "Test 7", 0));
