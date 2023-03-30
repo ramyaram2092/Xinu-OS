@@ -28,6 +28,7 @@ void helper(char *pname, int nargs, char *args[])
     {
         resume(create((void *)xsh_memtest, 4096, 20, "futest", 0));
         signal(completecmd);
+        return;
     }
     else
     {
