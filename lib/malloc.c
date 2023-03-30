@@ -4,7 +4,7 @@
 extern heap_t heaptab[];
 
 typedef struct heapblock{
-  struct block * next;
+  struct heapblock * next;
   uint32 size;
 }hb;
 
