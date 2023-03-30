@@ -152,7 +152,7 @@ void free(char* blck, uint32 size) {
 
  if(((uint32) block + block->size)==(uint32)nex)
  {
-  block->size+=next->size;
+  block->size+=nex->size;
   block->next=nex->next;
  }
 
