@@ -6,10 +6,10 @@ extern heap_t heaptab[];
 struct heapblock{
   struct block * next;
   uint32 size;
-}
+}hb;
 
 
-struct heapheapblock  heaphead; //head node
+struct hb heaphead; //head node
 
 
 
@@ -27,7 +27,7 @@ void initheap(char* startaddr, uint32 size) {
 
   size=(uint32) roundmb(size);
 
-  heaphead.next=(struct heapblock *)startaddr;
+  heaphead.next=(struct hb *)startaddr;
   heaphead.size=size;
   restore(mask);
 
@@ -68,7 +68,7 @@ void* malloc(uint32 size) {
     }
     else if (curr.size>size) // Split the big block
     {
-      leftover=(struct heapblock*)((uint32) curr +size);
+      leftover=(struct hb*)((uint32) curr +size);
       prev->next=leftover;
       leftover->size=(curr->size)-size;
       heaptab[currpid].freelist=leftover; // update the metadata of the process 
@@ -104,7 +104,7 @@ void free(char* block, uint32 size) {
   }
 
   size=(uint32)roundmb(size);
-  block=(struct heapblock*)block;
+  block=(struct hb*)block;
 
   prev=&heaphead;
   nex=heaphead.next;
