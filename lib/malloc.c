@@ -9,7 +9,7 @@ typedef struct heapblock{
 }hb;
 
 
- hb heaphead; //head node
+hb heaphead; //head node
 
 
 
@@ -28,6 +28,10 @@ void initheap(char* startaddr, uint32 size) {
   size=(uint32) roundmb(size);
   heaphead.next=(hb*)startaddr;
   heaphead.size=size;
+  hb *curr= heaphead.next;
+  curr->size=size;
+  curr->next=null;
+  heaptab[currpid].freelist=&head;
   restore(mask);
   return;
 }
@@ -37,21 +41,18 @@ void* malloc(uint32 size) {
   /*   Your implementation MUST NOT use getmem                      */
   /*   Your implementation SHOULD use explicit in-memory free lists */
   
-  printf("The size of the heap is :%x\n",heaphead.size);
-  struct heapblock *prev, *curr,* leftover;
+  hb *prev, *curr,* leftover;
   intmask mask;
   mask=disable();
   if(size==0 || heaptab[currpid].freelist==NULL || size>heaphead.size)
   {
-    printf("Coming here\n");
     restore (mask);
     return (void *) SYSERR;
   }
   size=(uint32) roundmb(size);
   prev=&heaphead;
   curr=(struct heapblock *)heaphead.next;
-
-
+ 
   /* Search the Heap*/
   while(curr!=NULL) 
   {
@@ -59,9 +60,7 @@ void* malloc(uint32 size) {
     {
       prev->next=curr->next;
       heaphead.size-=size;
-      heaptab[currpid].freelist=NULL; // update the metadata of the process indicating the heap is used up
       restore(mask);
-      // printf("\n Case")
       return (char*)(curr);
     }
     else if (curr->size>size) // Split the big block
@@ -69,19 +68,12 @@ void* malloc(uint32 size) {
       leftover=(struct hb*)((uint32) curr +size);
       prev->next=leftover;
       leftover->size=(curr->size)-size;
-      heaptab[currpid].freelist=leftover; // update the metadata of the process 
+      leftover.next=next;
       heaphead.size-=size;
       restore(mask);
-
       return (char *)(curr);
-
     }
-    // else if(curr->size<size)
-    // {
-    //   printf("Coming here \n ");
-    //   restore(mask);
-    //   return (char*)SYSERR;
-    // }
+
     else // move to next available block
     {
       prev=curr;
