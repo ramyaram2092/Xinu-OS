@@ -9,7 +9,7 @@ typedef struct heapblock{
 }hb;
 
 
-struct hb heaphead; //head node
+struct hb *heaphead; //head node
 
 
 
@@ -26,8 +26,8 @@ void initheap(char* startaddr, uint32 size) {
   }
 
   size=(uint32) roundmb(size);
-  heaphead.next=(struct heapblock *)startaddr;
-  heaphead.size=size;
+  heaphead->next=(struct heapblock *)startaddr;
+  heaphead->size=size;
   restore(mask);
   return;
 }
