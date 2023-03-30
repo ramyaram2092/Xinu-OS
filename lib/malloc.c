@@ -3,7 +3,7 @@
 
 extern heap_t heaptab[];
 
-struct heapblock{
+typedef struct heapblock{
   struct block * next;
   uint32 size;
 }hb;
@@ -26,12 +26,9 @@ void initheap(char* startaddr, uint32 size) {
   }
 
   size=(uint32) roundmb(size);
-
   heaphead.next=(struct hb *)startaddr;
   heaphead.size=size;
   restore(mask);
-
-
   return;
 }
 
@@ -50,7 +47,6 @@ void* malloc(uint32 size) {
     return (void *) SYSERR;
   }
   size=(uint32) roundmb(size);
-
   prev=&heaphead;
   curr=(struct heapblock *)heaphead.next;
 
