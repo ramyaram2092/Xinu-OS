@@ -68,7 +68,7 @@ void* malloc(uint32 size) {
       leftover=(struct hb*)((uint32) curr +size);
       prev->next=leftover;
       leftover->size=(curr->size)-size;
-      leftover->next=next;
+      leftover->next=curr->next;
       heaphead.size-=size;
       restore(mask);
       return (char *)(curr);
