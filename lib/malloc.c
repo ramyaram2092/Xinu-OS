@@ -85,7 +85,7 @@ void* malloc(uint32 size) {
   return (char*)SYSERR;
 }
 
-void free(char* block, uint32 size) {
+void free(char* blck, uint32 size) {
   /* Implement memory free within process heap here */
   /*   Your implementation MUST implement coalesing */
   intmask mask;
@@ -100,7 +100,7 @@ void free(char* block, uint32 size) {
   }
 
   size=(uint32)roundmb(size);
-  block=(struct hb*)block;
+  block=(struct hb*)blck;
 
   prev=&heaphead;
   nex=heaphead.next;
@@ -150,7 +150,7 @@ void free(char* block, uint32 size) {
 
  // coalesce with next block if adjacent
 
- if(((uint32) block + block->size)==(uint32)next)
+ if(((uint32) block + block->size)==(uint32)nex)
  {
   block->size+=next->size;
   block->next=nex->next;
