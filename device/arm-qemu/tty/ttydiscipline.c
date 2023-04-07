@@ -55,21 +55,21 @@ int ttydiscipline(char ch,
    */
   else if (ch==TY_ESC && typtr->tycommand=='A')
   {
-    echo('E', typtr, csrptr);
+    // echo('E', typtr, csrptr);
      typtr->tycommand='B';
      return SKIP;
   }
   else if (ch==TY_BRACE && typtr->tycommand=='B')
   {
-    echo('L', typtr, csrptr);
+    // echo('L', typtr, csrptr);
     typtr->tycommand='C';
     return SKIP;
   }
   //^[[A
   else if (ch==TY_A && typtr->tycommand=='C')
   {
-    echo('O', typtr, csrptr);
-    // clearline(typtr,csrptr);
+    // echo('O', typtr, csrptr);
+    clearline(typtr,csrptr);
     int i=0;
 
     // writing into the buffer
