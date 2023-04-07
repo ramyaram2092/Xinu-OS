@@ -34,7 +34,7 @@ int ttydiscipline(char ch,
     {
         typtr->typrev[i]=*curr; // read the charcacter
         curr++;// move to the next charcter
-        
+        echo(typtr->typrev[i], typtr, csrptr);
         if(curr>=&typtr->tyibuff[TY_IBUFLEN]) //check wrap around
             curr=typtr->tyibuff;
         i++; // increment the buffer of typrev
