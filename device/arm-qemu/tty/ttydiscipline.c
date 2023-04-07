@@ -83,26 +83,27 @@ if(typtr->tycommand=='D')
      
     int i=0;
 
+    // writing into the buffer
     while(i<TY_IBUFLEN || typtr->typrev[i]!='\0')
     {
         *typtr->tyitail='X'; //typtr->typrev[i];
-
         typtr->tyitail++;
-
         //wrap around
         if(typtr->tyitail>=&typtr->tyibuff[TY_IBUFLEN])
             typtr->tyitail=typtr->tyibuff;
         i++;
-        typtr->tyicursor++;
     }
-
+    int n=i;
+    // printing the input buffer
     char *curr= typtr->tyihead;
-    for (i=0; i < typtr->tyicursor; i++) {
+    for (i=0; i <n; i++) {
         echo('Y', typtr, csrptr);
         curr++;
         //wrap around
         if(curr>=&typtr->tyibuff[TY_IBUFLEN])
             curr=typtr->tyibuff;
+     typtr->tyicursor++;
+    
     }
 
     return SKIP;
