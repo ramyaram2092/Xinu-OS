@@ -22,26 +22,29 @@ int ttydiscipline(char ch,
   if (ch == TY_NEWLINE || ch == TY_RETURN) {
     /* 
      * Copy the contents of the 'tyibuff' buffer from the 'tyihead' through 'tyitail'
-     *     into the 'typrev' buffer.
-     * 
-     *   char    typrev[TY_IBUFLEN];      buffer to store prev command 
-         char    tycommand;              /* previous command state 
+     *     into the 'typrev' buffer. 
      * 
      */
     char* curr=typtr->tyihead; // for traversing through the linked list
 
     int i=0; 
     
-    // i think i dont have to worry about the traversal in a ring buffer because it is linked list
-    //  discuss with kaushi
-    while(curr!=typtr->tyitail && i<128)
+ 
+    while(curr!=typtr->tyitail && i<TY_IBUFLEN)
     {
         typtr->typrev[i]=*curr; // read the charcacter
-        curr++;// move to the necxt charcter
+        curr++;// move to the next charcter
+        
+        if(curr>=&typtr->tyibuff[TY_IBUFLEN]) //check wrap around
+            curr=typtr->tyibuff;
         i++; // increment the buffer of typrev
+
     }
+    if(i<TY_IBUFLEN-1)
+        typtr->typrev[i]='\0';
     typtr->tycommand='N';
     
+
   }
   
   /*
@@ -71,24 +74,32 @@ int ttydiscipline(char ch,
        *     remember to reset the 'tyicursor' as well
        *  Call 'echo' on each character to display it to the screen
        */
-if(ch==TY_ESC && typtr->tycommand=='A')
+if(typtr->tycommand=='A')
 {
     clearline(typtr,csrptr);
 
     int i=0;
 
-    while(i<strlen(typtr->typrev))
+    while(i<TY_IBUFLEN || typtr->typrev[i]!='\0')
     {
-        typtr->tyitail=&typtr->typrev[i];
+        *typtr->tyitail=typtr->typrev[i];
         typtr->tyitail++;
+        //wrap around
+        if(typtr->tyitail>=&typtr->tyibuffer[TY_IBUFLEN])
+            typtr->tyitail=typtr->tyibuffer;
         i++;
         typtr->tyicursor++;
     }
 
     char *curr= typtr->tyihead;
     for (i=0; i < typtr->tyicursor; i++) {
-    echo(*curr, typtr, csrptr);
-    ttyhandle_out(typtr, csrptr);
+        echo(*curr, typtr, csrptr);
+        curr++;
+        //wrap around
+        if(curr>=&typtr->tyibuff[TY_IBUFLEN])
+            curr=typtr->tyibuff;
+
+    // ttyhandle_out(typtr, csrptr);
     }
   }
 
