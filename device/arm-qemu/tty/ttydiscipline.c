@@ -74,7 +74,7 @@ int ttydiscipline(char ch,
 
     
     // writing into the buffer
-    while(i<TY_IBUFLEN || typtr->typrev[i]!='\0')
+    while(i<TY_IBUFLEN && typtr->typrev[i]!='\0')
     {
         // printf("\n typrev length :%d\n",i);
 
