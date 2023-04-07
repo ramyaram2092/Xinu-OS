@@ -37,10 +37,10 @@ int ttydiscipline(char ch,
     while(curr!=typtr->tyitail && i<128)
     {
         typtr->typrev[i]=*curr; // read the charcacter
-        cur++;// move to the necxt charcter
+        curr++;// move to the necxt charcter
         i++; // increment the buffer of typrev
     }
-    typtr->tycommand='N'
+    typtr->tycommand='N';
     
   }
   
@@ -50,15 +50,15 @@ int ttydiscipline(char ch,
    *     If the characters appear in the sequence TY_ESC, then TY_BRACE, then TY_A
    *     the up key was sent
    */
-  else if (ch==TY_ESC && tycommand='N')
+  else if (ch==TY_ESC && typtr->tycommand='N')
   {
      typtr->tycommand='E';
   }
-  else if (ch==TY_BRACE && tycommand=='E')
+  else if (ch==TY_BRACE && typtr->tycommand=='E')
   {
     typtr->tycommand='B';
   }
-  else if (ch==TY_A && tycommand='B')
+  else if (ch==TY_A && typtr->tycommand='B')
   {
     typtr->tycommand='A';
   }
@@ -71,13 +71,13 @@ int ttydiscipline(char ch,
        *     remember to reset the 'tyicursor' as well
        *  Call 'echo' on each character to display it to the screen
        */
-if(ch==TY_ESC && tycommand=='A')
+if(ch==TY_ESC && typtr->tycommand=='A')
 {
     clearline(typtr,csrptr);
 
     int i=0;
 
-    while(i<strlen(typrev))
+    while(i<strlen(typtr->typrev))
     {
         typtr->tyitail=typtr->typrev[i];
         typtr->tyitail++;
