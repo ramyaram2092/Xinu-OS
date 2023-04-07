@@ -142,10 +142,9 @@ int ttydiscipline(char ch,
 //     return SKIP;
 
 //   }
- else
- {
+ 
     return DO_PRINT;
- }
+
   
 
  
