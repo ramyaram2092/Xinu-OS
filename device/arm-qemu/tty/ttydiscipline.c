@@ -94,6 +94,8 @@ int ttydiscipline(char ch,
      typtr->tyicursor++;
     
     }
+    typtr->tycommand='I';
+
 
     return SKIP;
   }
