@@ -85,6 +85,8 @@ int ttydiscipline(char ch,
         if(typtr->tyitail>=&typtr->tyibuff[TY_IBUFLEN])
             typtr->tyitail=typtr->tyibuff;
         i++;
+        typtr->tyicursor++;
+
     }
             printf("\n typrev length :%d\n",i);
 
@@ -92,12 +94,12 @@ int ttydiscipline(char ch,
     // printing the input buffer
     char *curr= typtr->tyihead;
     for (i=0; i <n; i++) {
-        echo(*curr, typtr, csrptr);
+        // echo(*curr, typtr, csrptr);
         curr++;
         //wrap around
         if(curr>=&typtr->tyibuff[TY_IBUFLEN])
             curr=typtr->tyibuff;
-     typtr->tyicursor++;
+    //  typtr->tyicursor++;
     
     }
     typtr->tycommand='\0';
