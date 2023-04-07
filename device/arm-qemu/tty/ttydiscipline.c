@@ -19,7 +19,6 @@ int ttydiscipline(char ch,
                   struct ttycblk *typtr,
                   struct uart_csreg *csrptr)
 {
-
     /*
      * Copy the contents of the 'tyibuff' buffer from the 'tyihead' through 'tyitail'
      *     into the 'typrev' buffer.
@@ -76,7 +75,7 @@ int ttydiscipline(char ch,
 
         while (i < typtr->typrevlength)
         {
-            *typtr->tyitail = typtr->typrev[i]; // copy into the input buffer
+            *typtr->tyitail = typtr->typrev[i];   // copy into the input buffer
             echo(*typtr->tyitail, typtr, csrptr); // print the input buffer content
             typtr->tyitail++;
             if (typtr->tyitail >= &typtr->tyibuff[TY_IBUFLEN]) // wrap around
@@ -84,8 +83,6 @@ int ttydiscipline(char ch,
             i++;
             typtr->tyicursor++;
         }
-
-       
 
         return SKIP;
     }
