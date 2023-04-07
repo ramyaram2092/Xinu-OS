@@ -75,8 +75,8 @@ int ttydiscipline(char ch,
     // writing into the buffer
     while(i<TY_IBUFLEN || typtr->typrev[i]!='\0')
     {
-        *typtr->tyitail='X'; //typtr->typrev[i];
-        echo(typtr->typrev[i], typtr, csrptr);
+        *typtr->tyitail=typtr->typrev[i];; //typtr->typrev[i];
+        // echo(typtr->typrev[i], typtr, csrptr);
         typtr->tyitail++;
         //wrap around
         if(typtr->tyitail>=&typtr->tyibuff[TY_IBUFLEN])
