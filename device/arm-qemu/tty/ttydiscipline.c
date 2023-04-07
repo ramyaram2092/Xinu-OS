@@ -36,11 +36,11 @@ int ttydiscipline(char ch,
     //  discuss with kaushi
     while(curr!=typtr->tyitail && i<128)
     {
-        typrev[i]=*curr; // read the charcacter
+        typtr->typrev[i]=*curr; // read the charcacter
         cur++;// move to the necxt charcter
         i++; // increment the buffer of typrev
     }
-
+    typtr->tycommand='N'
     
   }
   
@@ -50,17 +50,17 @@ int ttydiscipline(char ch,
    *     If the characters appear in the sequence TY_ESC, then TY_BRACE, then TY_A
    *     the up key was sent
    */
-  else if (ch==TY_ESC && tycommand='')
+  else if (ch==TY_ESC && tycommand='N')
   {
-     tycommand='E';
+     typtr->tycommand='E';
   }
   else if (ch==TY_BRACE && tycommand=='E')
   {
-    tycommand='B';
+    typtr->tycommand='B';
   }
   else if (ch==TY_A && tycommand='B')
   {
-    tycommand='A';
+    typtr->tycommand='A';
   }
 
 
@@ -79,7 +79,7 @@ if(ch==TY_ESC && tycommand=='A')
 
     while(i<strlen(typrev))
     {
-        typtr->tyitail=typrev[i];
+        typtr->tyitail=typtr->typrev[i];
         typtr->tyitail++;
         i++;
         typtr->tyicursor++;
