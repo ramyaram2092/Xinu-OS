@@ -20,16 +20,16 @@ int ttydiscipline(char ch,
 		  struct uart_csreg* csrptr) {
 
   if (ch == TY_NEWLINE || ch == TY_RETURN) {
-    /* 
-     * Copy the contents of the 'tyibuff' buffer from the 'tyihead' through 'tyitail'
-     *     into the 'typrev' buffer. 
-     * 
-     */
+  
     char* curr=typtr->tyihead; // for traversing through the linked list
 
     int i=0; 
     
- 
+      /* 
+     * Copy the contents of the 'tyibuff' buffer from the 'tyihead' through 'tyitail'
+     *     into the 'typrev' buffer. 
+     * 
+     */
     while(curr!=typtr->tyitail && i<TY_IBUFLEN)
     {
         typtr->typrev[i]=*curr; // read the charcacter
@@ -42,7 +42,7 @@ int ttydiscipline(char ch,
     }
     if(i<TY_IBUFLEN-1)
         typtr->typrev[i]='\0';
-    typtr->tycommand='N';
+    typtr->tycommand='A';
     
 
   }
@@ -55,17 +55,17 @@ int ttydiscipline(char ch,
    */
   else if (ch==TY_ESC && typtr->tycommand=='N')
   {
-     typtr->tycommand='E';
+     typtr->tycommand='B';
      return SKIP;
   }
   else if (ch==TY_BRACE && typtr->tycommand=='E')
   {
-    typtr->tycommand='B';
+    typtr->tycommand='C';
     return SKIP;
   }
   else if (ch==TY_A && typtr->tycommand=='B')
   {
-    typtr->tycommand='A';
+    typtr->tycommand='D';
   }
 
 
@@ -76,7 +76,7 @@ int ttydiscipline(char ch,
        *     remember to reset the 'tyicursor' as well
        *  Call 'echo' on each character to display it to the screen
        */
-if(typtr->tycommand=='A')
+if(typtr->tycommand=='D')
 {
     clearline(typtr,csrptr);
 
@@ -100,9 +100,8 @@ if(typtr->tycommand=='A')
         //wrap around
         if(curr>=&typtr->tyibuff[TY_IBUFLEN])
             curr=typtr->tyibuff;
-
-    // ttyhandle_out(typtr, csrptr);
     }
+
     return SKIP;
 
   }
