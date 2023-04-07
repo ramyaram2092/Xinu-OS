@@ -73,7 +73,7 @@ int ttydiscipline(char ch,
     // writing into the buffer
     while(i<TY_IBUFLEN || typtr->typrev[i]!='\0')
     {
-        // printf("\n typrev length :%c\n",typtr->typrev[i]);
+        printf("\n typrev length :%c\n",typtr->typrev[i]);
 
         *typtr->tyitail=typtr->typrev[i]; //typtr->typrev[i];
         // echo('X', typtr, csrptr);
