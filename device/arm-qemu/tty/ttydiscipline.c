@@ -65,19 +65,7 @@ int ttydiscipline(char ch,
   }
   else if (ch==TY_A && typtr->tycommand=='C')
   {
-    typtr->tycommand='D';
-  }
-
-
- // If the up key is detected (as above)
-      /*
-       * Clear the current input with the 'clearline' function and copy the contents of 
-       *     'typrev' buffer into the 'tyibuff' buffer
-       *     remember to reset the 'tyicursor' as well
-       *  Call 'echo' on each character to display it to the screen
-       */
-if(typtr->tycommand=='D')
-{
+    // typtr->tycommand='D';
     clearline(typtr,csrptr);
     
      
@@ -108,12 +96,55 @@ if(typtr->tycommand=='D')
     }
 
     return SKIP;
+  }
 
-  }
-  else
-  {
+
+ // If the up key is detected (as above)
+      /*
+       * Clear the current input with the 'clearline' function and copy the contents of 
+       *     'typrev' buffer into the 'tyibuff' buffer
+       *     remember to reset the 'tyicursor' as well
+       *  Call 'echo' on each character to display it to the screen
+       */
+// if(typtr->tycommand=='D')
+// {
+//     clearline(typtr,csrptr);
+    
+     
+//     int i=0;
+
+//     // writing into the buffer
+//     while(i<TY_IBUFLEN || typtr->typrev[i]!='\0')
+//     {
+//         *typtr->tyitail='X'; //typtr->typrev[i];
+//         echo(typtr->typrev[i], typtr, csrptr);
+//         typtr->tyitail++;
+//         //wrap around
+//         if(typtr->tyitail>=&typtr->tyibuff[TY_IBUFLEN])
+//             typtr->tyitail=typtr->tyibuff;
+//         i++;
+//     }
+//     int n=i;
+//     // printing the input buffer
+//     char *curr= typtr->tyihead;
+//     for (i=0; i <n; i++) {
+//         // echo('Y', typtr, csrptr);
+//         curr++;
+//         //wrap around
+//         if(curr>=&typtr->tyibuff[TY_IBUFLEN])
+//             curr=typtr->tyibuff;
+//      typtr->tyicursor++;
+    
+//     }
+
+//     return SKIP;
+
+//   }
+ else
+ {
     return DO_PRINT;
-  }
+ }
+  
 
  
 }
