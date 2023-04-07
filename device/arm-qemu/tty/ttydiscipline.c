@@ -53,17 +53,17 @@ int ttydiscipline(char ch,
    *     If the characters appear in the sequence TY_ESC, then TY_BRACE, then TY_A
    *     the up key was sent
    */
-  else if (ch==TY_ESC && typtr->tycommand=='N')
+  else if (ch==TY_ESC && typtr->tycommand=='A')
   {
      typtr->tycommand='B';
      return SKIP;
   }
-  else if (ch==TY_BRACE && typtr->tycommand=='E')
+  else if (ch==TY_BRACE && typtr->tycommand=='B')
   {
     typtr->tycommand='C';
     return SKIP;
   }
-  else if (ch==TY_A && typtr->tycommand=='B')
+  else if (ch==TY_A && typtr->tycommand=='C')
   {
     typtr->tycommand='D';
   }
