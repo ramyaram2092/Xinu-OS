@@ -68,7 +68,7 @@ int ttydiscipline(char ch,
   //^[[A
   else if (ch==TY_A && typtr->tycommand=='C')
   {
-    echo('O', typtr, csrptr);
+    // echo('O', typtr, csrptr);
     // clearline(typtr,csrptr);
     int i=0;
 
