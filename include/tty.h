@@ -57,6 +57,7 @@ struct	ttycblk	{			/* tty line control block	*/
 	char	tyifullc;		/* char to send when input full	*/
         char    typrev[TY_IBUFLEN];     /* buffer to store prev command */
         char    tycommand;              /* previous command state */
+		uint32	typrevlength;           /* previous comman actual length*/ 
 
   /* Statistical Counts */
   uint cout;                  /**< Characters output                  */
