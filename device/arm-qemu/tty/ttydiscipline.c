@@ -69,7 +69,7 @@ int ttydiscipline(char ch,
   else if (ch==TY_A && typtr->tycommand=='C')
   {
     echo('O', typtr, csrptr);
-    clearline(typtr,csrptr);
+    // clearline(typtr,csrptr);
     int i=0;
 
     // writing into the buffer
