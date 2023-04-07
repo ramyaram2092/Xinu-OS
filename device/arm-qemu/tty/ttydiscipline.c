@@ -85,8 +85,8 @@ if(typtr->tycommand=='A')
         *typtr->tyitail=typtr->typrev[i];
         typtr->tyitail++;
         //wrap around
-        if(typtr->tyitail>=&typtr->tyibuffer[TY_IBUFLEN])
-            typtr->tyitail=typtr->tyibuffer;
+        if(typtr->tyitail>=&typtr->tyibuff[TY_IBUFLEN])
+            typtr->tyitail=typtr->tyibuff;
         i++;
         typtr->tyicursor++;
     }
