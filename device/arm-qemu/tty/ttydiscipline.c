@@ -101,10 +101,15 @@ if(typtr->tycommand=='A')
 
     // ttyhandle_out(typtr, csrptr);
     }
+    return SKIP;
+
+  }
+  else
+  {
+    return DO_PRINT;
   }
 
  
-  return DO_PRINT;
 }
 
 local void echo(char ch, struct ttycblk* typtr, struct uart_csreg* csrptr) {
