@@ -55,7 +55,7 @@ int ttydiscipline(char ch,
    */
   else if (ch==TY_ESC && typtr->tycommand=='A')
   {
-    echo('E', typtr, csrptr);
+    // echo('E', typtr, csrptr);
      typtr->tycommand='B';
      return SKIP;
   }
@@ -68,14 +68,14 @@ int ttydiscipline(char ch,
   else if (ch==TY_A && typtr->tycommand=='C')
   {
     echo('O', typtr, csrptr);
-    clearline(typtr,csrptr);
+    // clearline(typtr,csrptr);
     int i=0;
 
     // writing into the buffer
     while(i<TY_IBUFLEN || typtr->typrev[i]!='\0')
     {
         *typtr->tyitail='X'; //typtr->typrev[i];
-        echo(typtr->typrev[i], typtr, csrptr);
+        // echo(typtr->typrev[i], typtr, csrptr);
         typtr->tyitail++;
         //wrap around
         if(typtr->tyitail>=&typtr->tyibuff[TY_IBUFLEN])
@@ -85,15 +85,15 @@ int ttydiscipline(char ch,
     int n=i;
     // printing the input buffer
     char *curr= typtr->tyihead;
-    for (i=0; i <n; i++) {
-        // echo('Y', typtr, csrptr);
-        curr++;
-        //wrap around
-        if(curr>=&typtr->tyibuff[TY_IBUFLEN])
-            curr=typtr->tyibuff;
-     typtr->tyicursor++;
+    // for (i=0; i <n; i++) {
+    //     // echo('Y', typtr, csrptr);
+    //     curr++;
+    //     //wrap around
+    //     if(curr>=&typtr->tyibuff[TY_IBUFLEN])
+    //         curr=typtr->tyibuff;
+    //  typtr->tyicursor++;
     
-    }
+    // }
     typtr->tycommand='I';
 
 
