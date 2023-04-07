@@ -71,11 +71,12 @@ int ttydiscipline(char ch,
     // echo('O', typtr, csrptr);
     clearline(typtr,csrptr);
     int i=0;
-
+    
+    printf("typrev length :%d\n",strlen(typtr->typrev));
     // writing into the buffer
     while(i<TY_IBUFLEN || typtr->typrev[i]!='\0')
     {
-        *typtr->tyitail=typtr->typrev[i];; //typtr->typrev[i];
+        *typtr->tyitail=typtr->typrev[i]; //typtr->typrev[i];
         echo('X', typtr, csrptr);
         typtr->tyitail++;
         //wrap around
