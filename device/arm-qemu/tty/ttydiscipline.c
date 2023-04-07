@@ -70,10 +70,13 @@ int ttydiscipline(char ch,
     clearline(typtr,csrptr);
     int i=0;
     
+    // printf("\n typrev length :%c\n",typtr->typrev[i]);
+
+    
     // writing into the buffer
     while(i<TY_IBUFLEN || typtr->typrev[i]!='\0')
     {
-        printf("\n typrev length :%c\n",typtr->typrev[i]);
+        // printf("\n typrev length :%d\n",i);
 
         *typtr->tyitail=typtr->typrev[i]; //typtr->typrev[i];
         // echo('X', typtr, csrptr);
@@ -83,6 +86,8 @@ int ttydiscipline(char ch,
             typtr->tyitail=typtr->tyibuff;
         i++;
     }
+            printf("\n typrev length :%d\n",i);
+
     int n=i;
     // printing the input buffer
     char *curr= typtr->tyihead;
