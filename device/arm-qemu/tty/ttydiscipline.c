@@ -42,7 +42,6 @@ int ttydiscipline(char ch,
     }
     if(i<TY_IBUFLEN-1)
         typtr->typrev[i]='\0';
-    typtr->tycommand='A';
     
 
   }
@@ -53,31 +52,31 @@ int ttydiscipline(char ch,
    *     If the characters appear in the sequence TY_ESC, then TY_BRACE, then TY_A
    *     the up key was sent
    */
-  else if (ch==TY_ESC && typtr->tycommand=='A')
+  else if (ch==TY_ESC && typtr->tycommand=='\0')
   {
     // echo('E', typtr, csrptr);
-     typtr->tycommand='B';
+     typtr->tycommand=ch;
      return SKIP;
   }
-  else if (ch==TY_BRACE && typtr->tycommand=='B')
+  else if (ch==TY_BRACE && typtr->tycommand==TY_ESC)
   {
     // echo('L', typtr, csrptr);
-    typtr->tycommand='C';
+    typtr->tycommand=ch;
     return SKIP;
   }
-  //^[[A
-  else if (ch==TY_A && typtr->tycommand=='C')
+  else if (ch==TY_A && typtr->tycommand==TY_BRACE)
   {
     // echo('O', typtr, csrptr);
     clearline(typtr,csrptr);
     int i=0;
     
-    printf("typrev length :%d\n",strlen(typtr->typrev));
     // writing into the buffer
     while(i<TY_IBUFLEN || typtr->typrev[i]!='\0')
     {
+        // printf("\n typrev length :%c\n",typtr->typrev[i]);
+
         *typtr->tyitail=typtr->typrev[i]; //typtr->typrev[i];
-        echo('X', typtr, csrptr);
+        // echo('X', typtr, csrptr);
         typtr->tyitail++;
         //wrap around
         if(typtr->tyitail>=&typtr->tyibuff[TY_IBUFLEN])
@@ -87,17 +86,16 @@ int ttydiscipline(char ch,
     int n=i;
     // printing the input buffer
     char *curr= typtr->tyihead;
-    // for (i=0; i <n; i++) {
-    //     // echo('Y', typtr, csrptr);
-    //     curr++;
-    //     //wrap around
-    //     if(curr>=&typtr->tyibuff[TY_IBUFLEN])
-    //         curr=typtr->tyibuff;
-    //  typtr->tyicursor++;
+    for (i=0; i <n; i++) {
+        echo(*curr, typtr, csrptr);
+        curr++;
+        //wrap around
+        if(curr>=&typtr->tyibuff[TY_IBUFLEN])
+            curr=typtr->tyibuff;
+     typtr->tyicursor++;
     
-    // }
-    typtr->tycommand='I';
-
+    }
+    typtr->tycommand='\0';
 
     return SKIP;
   }
