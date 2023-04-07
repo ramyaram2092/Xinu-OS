@@ -61,7 +61,7 @@ int ttydiscipline(char ch,
   }
   else if (ch==TY_BRACE && typtr->tycommand=='B')
   {
-    echo('I', typtr, csrptr);
+    echo('L', typtr, csrptr);
     typtr->tycommand='C';
     return SKIP;
   }
