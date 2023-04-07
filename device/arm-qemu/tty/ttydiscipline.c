@@ -79,13 +79,16 @@ int ttydiscipline(char ch,
 if(typtr->tycommand=='D')
 {
     clearline(typtr,csrptr);
-
+    
+     
     int i=0;
 
     while(i<TY_IBUFLEN || typtr->typrev[i]!='\0')
     {
-        *typtr->tyitail=typtr->typrev[i];
+        *typtr->tyitail='X'; //typtr->typrev[i];
+
         typtr->tyitail++;
+
         //wrap around
         if(typtr->tyitail>=&typtr->tyibuff[TY_IBUFLEN])
             typtr->tyitail=typtr->tyibuff;
@@ -95,7 +98,7 @@ if(typtr->tycommand=='D')
 
     char *curr= typtr->tyihead;
     for (i=0; i < typtr->tyicursor; i++) {
-        echo(*curr, typtr, csrptr);
+        echo('Y', typtr, csrptr);
         curr++;
         //wrap around
         if(curr>=&typtr->tyibuff[TY_IBUFLEN])
