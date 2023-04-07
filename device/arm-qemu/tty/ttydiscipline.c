@@ -23,22 +23,76 @@ int ttydiscipline(char ch,
     /* 
      * Copy the contents of the 'tyibuff' buffer from the 'tyihead' through 'tyitail'
      *     into the 'typrev' buffer.
+     * 
+     *   char    typrev[TY_IBUFLEN];      buffer to store prev command 
+         char    tycommand;              /* previous command state 
+     * 
      */
-  }
+    char* curr=typtr->tyihead; // for traversing through the linked list
 
+    int i=0; 
+    
+    // i think i dont have to worry about the traversal in a ring buffer because it is linked list
+    //  discuss with kaushi
+    while(curr!=typtr->tyitail && i<128)
+    {
+        typrev[i]=*curr; // read the charcacter
+        cur++;// move to the necxt charcter
+        i++; // increment the buffer of typrev
+    }
+
+    
+  }
+  
   /*
    * Check if the up key was pressed:
    * Use 'tycommand' to indicate if a command is in progress and the previous character
    *     If the characters appear in the sequence TY_ESC, then TY_BRACE, then TY_A
    *     the up key was sent
    */
-  // If the up key is detected (as above)
+  else if (ch==TY_ESC && tycommand='')
+  {
+     tycommand='E';
+  }
+  else if (ch==TY_BRACE && tycommand=='E')
+  {
+    tycommand='B';
+  }
+  else if (ch==TY_A && tycommand='B')
+  {
+    tycommand='A';
+  }
+
+
+ // If the up key is detected (as above)
       /*
        * Clear the current input with the 'clearline' function and copy the contents of 
        *     'typrev' buffer into the 'tyibuff' buffer
        *     remember to reset the 'tyicursor' as well
        *  Call 'echo' on each character to display it to the screen
        */
+if(ch==TY_ESC && tycommand=='A')
+{
+    clearline(typtr,csrptr);
+
+    int i=0;
+
+    while(i<strlen(typrev))
+    {
+        typtr->tyitail=typrev[i];
+        typtr->tyitail++;
+        i++;
+        typtr->tyicursor++;
+    }
+
+    char *curr= typtr->tyihead;
+    for (i=0; i < typtr->tyicursor; i++) {
+    echo(*curr, typtr, csrptr);
+    ttyhandle_out(typtr, csrptr);
+    }
+  }
+
+ 
   return DO_PRINT;
 }
 
