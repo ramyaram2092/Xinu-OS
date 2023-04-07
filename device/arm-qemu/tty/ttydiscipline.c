@@ -56,10 +56,12 @@ int ttydiscipline(char ch,
   else if (ch==TY_ESC && typtr->tycommand=='N')
   {
      typtr->tycommand='E';
+     return SKIP;
   }
   else if (ch==TY_BRACE && typtr->tycommand=='E')
   {
     typtr->tycommand='B';
+    return SKIP;
   }
   else if (ch==TY_A && typtr->tycommand=='B')
   {
