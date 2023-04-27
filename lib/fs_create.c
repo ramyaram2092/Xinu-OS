@@ -14,7 +14,7 @@ extern fsystem_t* fsd;
  */
 syscall fs_create(char* filename) {
 
-  fs_print_fsd (void) ;
+  fs_print_fsd () ;
   
   
   return OK;
