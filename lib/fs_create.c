@@ -13,6 +13,8 @@ extern fsystem_t* fsd;
  *        4. Write the inode and free bitmask back to the block device
  */
 syscall fs_create(char* filename) {
+
+  fs_print_fsd (void) ;
   
   
   return OK;
