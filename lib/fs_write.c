@@ -1,7 +1,7 @@
 #include <xinu.h>
 #include <fs.h>
 
-extern fsystem_t* fsd;
+extern fsystem_t *fsd;
 extern filetable_t oft[NUM_FD];
 
 /*
@@ -14,6 +14,75 @@ extern filetable_t oft[NUM_FD];
  *   - Update inode state to reflect changes
  *   - Return the number of bytes written
  */
-int fs_write(int fd, char* buff, int len) {
-  return 0;
+int fs_write(int fd, char *buff, int len)
+{
+
+  filetable_t file = oft[fd];
+
+  // inode details
+  inode_t inodeb = file.in;
+
+  // no of bytes written
+  int bwrite = 0;
+
+  // read the inode from block device;
+  void *buffer = getmem(sizeof(inode_t));
+  bs_read(inodeb.id, 0, buffer, sizeof(inode));
+
+  // no of blocks needed
+  int nblocks = len / 512;
+
+  // Outer loop : Perform the following operation for nblock  times
+  for (int i = 0; i < nblocks; i++)
+  {
+    // 1. Find a free block
+    int freeb = 0; // free block index
+
+    while (freeb < fsd->freemasksz)
+    {
+      if (fs_getmaskbit(freeb) == 0)
+      {
+        break;
+      }
+      freeb++;
+    }
+    // 2. Return no of bytes written so far if  no more free  blocks is available
+    if (freeb == fsd->freemasksz)
+    {
+      return bwrite;
+    }
+
+    // 3. if found a free block update the inode of the file
+    int flag=0, j=0;
+    for(j=0;j<INODE_BLOCKS;j++)
+    {
+      if(inodeb.blocks[j]!=0)
+      {
+        inode.blocks[j]=freeb;
+        flag=1;
+      }
+    }
+    // if the allocation of the inode's data block exceeds
+    if(j==INODE_BLOCKS && flag==0)
+    {
+      return bwrite;
+    }
+
+    int l=MDEV_BLOCK_SIZE-len;
+    l=l<0?-1*l:l;
+    inodeb.size+=l;
+    len=l;
+
+    // 4. Now write the file to the disk
+    bs_write(freeb,0,(void *)buff, l);
+
+    //5. Write the inode to the disk
+    void * buffer= getmem(Sizeof(node_t));
+    memcpy(buffer,&inodeb,sizeof(inode_t));
+    bs_write(inodeb.id,0,buffer,sizeof(buffer));
+    bwrite+=l;
+
+  }
+
+  return bwrite;
 }
