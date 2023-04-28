@@ -16,7 +16,7 @@ syscall fs_close(int fd) {
   int i=0;
   for(i=0;i<NUM_FD;i++)
   {
-    if(oft[i].in.id==fd && oft[i].state=FSTATE_CLOSED)
+    if(oft[i].in.id==fd && oft[i].state==FSTATE_CLOSED)
     {
       return SYSERR;
     }
