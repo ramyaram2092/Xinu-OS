@@ -13,15 +13,17 @@ extern filetable_t oft[NUM_FD];
 syscall fs_close(int fd)
 {
   intmask mask = disable();
-
+ 
+  /* 1. If the file is already in closed status */
   if (oft[fd].state == FSTATE_CLOSED)
   {
     restore(mask);
     return SYSERR;
   }
-
+  
+  /* 2. Write the inode back to the block device and update the status of the file to be closed*/
   void *buffer = (void *)&oft[fd].in;
-  bs_write(oft[fd].in.id, 0, buffer, sizeof(buffer));
+  bs_write(oft[fd].in.id, 0, buffer, sizeof(inode_t));
   oft[fd].state = FSTATE_CLOSED;
   oft[fd].fileptr = 0;
 
