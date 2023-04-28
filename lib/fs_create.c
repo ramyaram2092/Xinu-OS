@@ -15,7 +15,7 @@ extern fsystem_t *fsd;
 syscall fs_create(char *filename)
 {
   intmask mask = disable();
-  int freeb = 0;    // free block index
+  int freeb = 0; // free block index
 
   /* 1. Find an available block on the block store*/
 
@@ -44,9 +44,8 @@ syscall fs_create(char *filename)
     }
   }
 
-  /* 4. create inode_t for the new file */
+  /* 4. initialize inode_t for the new file */
 
-  // initialize inode
   inode_t in;
   in.id = freeb;
   for (int i = 0; i < INODE_BLOCKS; i++)
@@ -56,25 +55,27 @@ syscall fs_create(char *filename)
 
   /* 5. Write the inode and free bitmask back to the block device */
 
-  fs_setmaskbit(freeb);               // mark the block as used
-  int i=0,k=0;
-  for ( i = 0; i < DIR_SIZE; i++) // add the inode details in the directory entries
+  fs_setmaskbit(freeb); // mark the block as used
+  int i = 0, k = 0;
+  for (i = 0; i < DIR_SIZE; i++) // add the inode details in the directory entries
   {
     if (strcmp(fsd->root_dir.entry[i].name, "") == 0)
     {
       fsd->root_dir.entry[i].inode_block = freeb;
       strcpy(fsd->root_dir.entry[i].name, filename);
-      k=1;
+      k = 1;
       break;
     }
   }
-  if(i==DIR_SIZE && k==0)
+
+  /* 6. if there is no more space in the directory to add new files return SYSERROR */
+  if (i == DIR_SIZE && k == 0)
   {
     return SYSERR;
   }
   fsd->root_dir.numentries += 1;
 
-  /* 6.  write the inode into the block assigned for the inode */
+  /* 7.  write the inode into the block assigned for the inode */
   void *buffer = getmem(sizeof(inode_t));
   memcpy(buffer, &in, sizeof(inode_t));
   bs_write(freeb, 0, buffer, sizeof(buffer));
