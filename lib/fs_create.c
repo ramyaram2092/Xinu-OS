@@ -57,17 +57,18 @@ syscall fs_create(char *filename)
   /* 5. Write the inode and free bitmask back to the block device */
 
   fs_setmaskbit(freeb);               // mark the block as used
-  int i=0;
+  int i=0,k=0;
   for ( i = 0; i < DIR_SIZE; i++) // add the inode details in the directory entries
   {
     if (strcmp(fsd->root_dir.entry[i].name, "") == 0)
     {
       fsd->root_dir.entry[i].inode_block = freeb;
       strcpy(fsd->root_dir.entry[i].name, filename);
+      k=1;
       break;
     }
   }
-  if(i>DIR_SIZE)
+  if(i==DIR_SIZE && k==0)
   {
     return SYSERR;
   }
