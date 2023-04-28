@@ -50,10 +50,11 @@ syscall fs_create(char *filename)
   }
 
   // 4. create inode_t for the new file
-
+ 
+  // initialize inode
   inode_t in;
   in.id = 1;
-  for (int i = 0; i < DIR_SIZE; i++)
+  for (int i = 0; i < INODE_BLOCKS; i++)
   {
     in.blocks[i]=0;
   }
@@ -84,7 +85,7 @@ syscall fs_create(char *filename)
 
   memcpy(buffer, &in, sizeof(inode_t));
 
-  inode_t *cpy = (inode_t *)buffer;
+  // inode_t *cpy = (inode_t *)buffer;
 
   // printf("\n COPIED VALUE OF BUFFER INODE ID : %d", cpy->id);
   bs_write(freeb, 0, buffer, sizeof(buffer));
