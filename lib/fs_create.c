@@ -54,7 +54,7 @@ syscall fs_create(char *filename)
   // 4. create inode_t for the new file
 
   inode_t in;
-  in.id = 1;
+  in.id = 100;
 
   // 5. Write the inode and free bitmask back to the block device
 
@@ -81,8 +81,8 @@ syscall fs_create(char *filename)
   inode_t* cpy=(inode_t *)buffer;
   
 
-  printf("Copied buffer : %d",cpy->id);
-    // bs_write(freeb, )
+  printf("\n COPIED VALUE OF BUFFER INODE ID : %d",cpy->id);
+  bs_write(freeb,0,buffer,sizeof(buffer));
   restore(mask);
   return OK;
 }
