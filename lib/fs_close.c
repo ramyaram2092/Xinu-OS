@@ -12,12 +12,15 @@ extern filetable_t oft[NUM_FD];
  *     device and set the entry in the oft to FSTATE_CLOSED
  */
 syscall fs_close(int fd) {
+  intmask mask = disable();
 
   int i=0,flag=0;
   for(i=0;i<NUM_FD;i++)
   {
     if(oft[i].in.id==fd && oft[i].state==FSTATE_CLOSED)
     {
+        restore(mask);
+
       return SYSERR;
     }
     else if(oft[i].in.id==fd)
@@ -33,9 +36,10 @@ syscall fs_close(int fd) {
 
   if(i==NUM_FD && flag==0)
   {
+      restore(mask);
     return SYSERR;
   }
   
-  
+  restore(mask);
   return OK;
 }

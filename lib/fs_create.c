@@ -31,6 +31,8 @@ syscall fs_create(char *filename)
   /* 2. Return SYSERR if not enough space is available */
   if (freeb == fsd->freemasksz)
   {
+      restore(mask);
+
     return SYSERR;
   }
 
@@ -40,6 +42,8 @@ syscall fs_create(char *filename)
   {
     if (strcmp(filename, fsd->root_dir.entry[i].name) == 0)
     {
+        restore(mask);
+
       return SYSERR;
     }
   }
@@ -48,6 +52,7 @@ syscall fs_create(char *filename)
 
   inode_t in;
   in.id = freeb;
+  in.size=0;
   for (int i = 0; i < INODE_BLOCKS; i++)
   {
     in.blocks[i] = 0;
@@ -71,6 +76,8 @@ syscall fs_create(char *filename)
   /* 6. if there is no more space in the directory to add new files return SYSERROR */
   if (i == DIR_SIZE && k == 0)
   {
+      restore(mask);
+
     return SYSERR;
   }
   fsd->root_dir.numentries += 1;
