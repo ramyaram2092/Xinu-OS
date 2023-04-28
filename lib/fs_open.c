@@ -2,7 +2,7 @@
 #include <xinu.h>
 #include <fs.h>
 
-extern fsystem_t* fsd;
+extern fsystem_t *fsd;
 extern filetable_t oft[NUM_FD];
 
 /*
@@ -12,8 +12,66 @@ extern filetable_t oft[NUM_FD];
  *     device to the oft record and return the index into the oft table for the
  *     newly opened file.
  */
-int fs_open(char* filename, int flags) {
+int fs_open(char *filename, int flags)
+{
 
-  
+  int inode_blk = 0, inode_id=0, de=0;
+  int i = 0, flag = 0;
+
+  for (i = 0; i < DIR_SIZE; i++)
+  {
+    if (strcmp(fsd->root_dir.entry[i].name, filename) == 0)
+    {
+      inode_blk = fsd->root_dir.entry[i].inode_block;
+      flag = 1;
+      de=i;
+    }
+  }
+
+  /* 1. Return SYSERR if file does not exists*/
+
+  if (i == DIR_SIZE && flag == 0)
+  {
+    return SYSERR;
+  }
+
+  /*2. Return SYSERR if file is already open*/
+
+    void *buffer = getmem(sizeof(inode_t));
+    bs_read(inode_blk,0,buffer,sizeof(buffer));// read the inode from the device
+    inode_t* in=(inode_t *)buffer;
+    inode_id=in->id; // get the inode id
+
+    for(i=0;i<NUM_FD;i++)
+    {
+      if(oft[i].in.id==inode_id)
+      {
+        return SYSERR;
+      }
+    }
+
+  /* 3. If file exists and not opened add an entry into oft*/
+  flag=0;
+  for(i=0;i<NUM_FD;i++)
+  {
+    if(oft[i].state==FSTATE_CLOSED)
+    {
+      oft[i].de=de;
+      oft[i].in=in;
+      oft[i].flag=flags;
+      oft[i].state=FSTATE_OPEN;
+      oft[i].fileptr=0;
+      flag=1;
+      break;
+    }
+  }
+
+  if(i==NUM_FD && flag==0)
+  {
+    return SYSERR;
+  }
+
+
+
   return OK;
 }
