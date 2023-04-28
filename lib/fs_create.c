@@ -14,7 +14,6 @@ extern fsystem_t* fsd;
  */
 syscall fs_create(char* filename) {
  
- char *itr= fsd->freemask;
  int i=0;
 
  // print the bit mask
@@ -25,13 +24,11 @@ syscall fs_create(char* filename) {
  {
    printf ("\n Curr Bit mask value : %c",itr);
 
-   if(itr==0)
+   if(fs_getmaskbit(i)==0)
    {
       break;
    }
-
    i++;
-   itr++;
  }
 
  printf("\n FIRST AVILABLE FREE BLOCK : %d",i);
