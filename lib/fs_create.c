@@ -67,7 +67,7 @@ syscall fs_create(char *filename)
   for (int i = 0; i < DIR_SIZE; i++)
   {
 
-    if (fsd->root_dir.entry[i].inode_block != 0)
+    if ( strcmp(fsd->root_dir.entry[i].name,"")==0)
     {
       fsd->root_dir.entry[i].inode_block = freeb;
       // int j = 0;
