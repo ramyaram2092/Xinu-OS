@@ -16,10 +16,8 @@ syscall fs_create(char *filename)
 {
   intmask mask = disable();
   int freeb = 0;                 // free block index
-  directory_t r = fsd->root_dir; // root directory reference
+  directory_t *r = fsd->root_dir; // root directory reference
 
-  //  // print the bit mask
-  //  fs_print_mask();
 
   // 1.  Find an available block on the block store
   while (freeb < fsd->freemasksz)
@@ -44,7 +42,7 @@ syscall fs_create(char *filename)
   int i = 0;
   while (i < DIR_SIZE)
   {
-    if (strcmp(filename, r.entry[i].name) == 0)
+    if (strcmp(filename, r->entry[i].name) == 0)
     {
       return SYSERR;
     }
@@ -68,13 +66,13 @@ syscall fs_create(char *filename)
   // add the inode details in the directory entries
   for (int i = 0; i < DIR_SIZE; i++)
   {
-    if (r.entry[i].inode_block != 0)
+    if (r->entry[i].inode_block != 0)
     {
-      r.entry[i].inode_block = freeb;
+      r->entry[i].inode_block = freeb;
       int j = 0;
       while (j < FILENAME_LEN)
       {
-        r.entry[i].name[j] = filename;
+        r->entry[i].name[j] = filename;
         j++;
         filename++;
       }
