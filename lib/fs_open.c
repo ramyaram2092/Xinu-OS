@@ -42,6 +42,7 @@ int fs_open(char *filename, int flags)
     inode_t* in=(inode_t *)buffer;
     inode_id=in->id; // get the inode id
 
+
     for(i=0;i<NUM_FD;i++)
     {
       if(oft[i].in.id==inode_id)
@@ -52,12 +53,15 @@ int fs_open(char *filename, int flags)
 
   /* 3. If file exists and not opened add an entry into oft*/
   flag=0;
+
+  // inode_t curr_inode;
+  // inode.in
   for(i=0;i<NUM_FD;i++)
   {
     if(oft[i].state==FSTATE_CLOSED)
     {
       oft[i].de=de;
-      oft[i].in=in;
+      oft[i].in=*in;
       oft[i].flag=flags;
       oft[i].state=FSTATE_OPEN;
       oft[i].fileptr=0;
