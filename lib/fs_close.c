@@ -14,8 +14,6 @@ syscall fs_close(int fd)
 {
   intmask mask = disable();
 
-  int i = 0;
-
   if (oft[fd].state == FSTATE_CLOSED)
   {
     restore(mask);

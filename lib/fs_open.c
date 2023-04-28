@@ -38,7 +38,7 @@ int fs_open(char *filename, int flags)
   /*2. Return SYSERR if file is already open*/
 
     void *buffer = getmem(sizeof(inode_t));
-    bs_read(inode_blk,0,buffer,sizeof(buffer));// read the inode from the device
+    bs_read(inode_blk,0,buffer,sizeof(inode_t));// read the inode from the device
     inode_t* ind=(inode_t *)buffer;
     inode_id=ind->id; // get the inode id
 
@@ -62,7 +62,7 @@ int fs_open(char *filename, int flags)
       // oft[i].in.id=ind->id;
       // oft[i].in.size=ind->size;
       // memcpy(oft[i].in.blocks,ind->blocks,INODE_BLOCKS*sizeof(int));
-      oft[i].in=*ind;
+      memcpy(oft[i].in, buffer,sizeof(inode_t));
       oft[i].flag=flags;
       oft[i].state=FSTATE_OPEN;
       oft[i].fileptr=0;
