@@ -34,7 +34,9 @@ syscall fs_create(char* filename) {
  }
 
  printf("\n FIRST AVILABLE FREE BLOCK : %d",i);
- printf ("\n Bit mask value : %s",itr);
+ printf ("\n Curr Bit mask value : %c",itr);
+ printf ("\n Curr Bit mask value : %s",fsd->freemask);
+
  
  // Return SYSERR if not enough space is available
  if(i==fsd->freemasksz)
