@@ -62,7 +62,10 @@ int fs_open(char *filename, int flags)
       // oft[i].in.id=ind->id;
       // oft[i].in.size=ind->size;
       // memcpy(oft[i].in.blocks,ind->blocks,INODE_BLOCKS*sizeof(int));
-      memcpy(oft[i].in, buffer,sizeof(inode_t));
+      // memcpy(oft[i].in, buffer,sizeof(inode_t));
+      oft[i].in=*ind;
+
+      printf("\n%d:%d\n",oft[i].in.ind,ind->id);
       oft[i].flag=flags;
       oft[i].state=FSTATE_OPEN;
       oft[i].fileptr=0;
