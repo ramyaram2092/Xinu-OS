@@ -65,6 +65,8 @@ syscall fs_create(char *filename)
   fs_setmaskbit(freeb);
 
   // add the inode details in the directory entries
+
+  r.numentries+=1;
   for (int i = 0; i < DIR_SIZE; i++)
   {
     if (r.entry[i].inode_block != 0)
