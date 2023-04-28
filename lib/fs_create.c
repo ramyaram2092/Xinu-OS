@@ -16,7 +16,6 @@ syscall fs_create(char *filename)
 {
   intmask mask = disable();
   int freeb = 0;                 // free block index
-  // directory_t r = fsd->root_dir; // root directory reference
 
 
   // 1.  Find an available block on the block store
@@ -29,7 +28,6 @@ syscall fs_create(char *filename)
     freeb++;
   }
 
-  // printf("\n FIRST AVILABLE FREE BLOCK : %d", freeb);
 
   // 2. Return SYSERR if not enough space is available
   if (freeb == fsd->freemasksz)
@@ -39,14 +37,12 @@ syscall fs_create(char *filename)
 
   // 3. Return SYSERR if filename already exists
 
-  int i = 0;
-  while (i < DIR_SIZE)
+  for(int i=0;i<DIR_SIZE;i++)
   {
     if (strcmp(filename, fsd->root_dir.entry[i].name) == 0)
     {
       return SYSERR;
     }
-    i++;
   }
 
   // 4. create inode_t for the new file
@@ -67,6 +63,7 @@ syscall fs_create(char *filename)
   // add the inode details in the directory entries
 
   fsd->root_dir.numentries+=1;
+
   for (int i = 0; i < DIR_SIZE; i++)
   {
     if (fsd->root_dir.entry[i].inode_block != 0)
@@ -79,16 +76,16 @@ syscall fs_create(char *filename)
         j++;
         filename++;
       }
+       fsd->root_dir.entry[i].name[j]='\0';
     }
   }
 
- // write the inode into the block assigned for the inode 
+ //6.  write the inode into the block assigned for the inode 
   void *buffer = getmem(sizeof(inode_t));
 
   memcpy(buffer, &in, sizeof(inode_t));
 
   // inode_t *cpy = (inode_t *)buffer;
-
   // printf("\n COPIED VALUE OF BUFFER INODE ID : %d", cpy->id);
   bs_write(freeb, 0, buffer, sizeof(buffer));
   restore(mask);
