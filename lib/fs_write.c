@@ -58,7 +58,7 @@ int fs_write(int fd, char *buff, int len)
     {
       if(inodeb.blocks[j]!=0)
       {
-        inode.blocks[j]=freeb;
+        inodeb.blocks[j]=freeb;
         flag=1;
       }
     }
