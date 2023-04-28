@@ -72,7 +72,7 @@ int fs_write(int fd, char *buff, int len)
       return bwrite;
     }
 
-    printf("\n GONNA WRITE TO THE DISK\n")
+    printf("\n GONNA WRITE TO THE DISK\n");
 
     int l=MDEV_BLOCK_SIZE-len;
     l=l<0?-1*l:l;
