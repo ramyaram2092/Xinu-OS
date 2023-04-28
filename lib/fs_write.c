@@ -17,6 +17,9 @@ extern filetable_t oft[NUM_FD];
 int fs_write(int fd, char *buff, int len)
 {
 
+  printf("\n TEST CASE BEGIN \n ");
+  printf("File at entry %d needs to be written with %d data",fd, len);
+
   filetable_t file = oft[fd];
 
   // inode details
@@ -42,6 +45,7 @@ int fs_write(int fd, char *buff, int len)
     {
       if (fs_getmaskbit(freeb) == 0)
       {
+        printf("\n YOHOO FOUND A FREE BLOCK at %d\n",freeb);
         break;
       }
       freeb++;
@@ -68,19 +72,24 @@ int fs_write(int fd, char *buff, int len)
       return bwrite;
     }
 
+    printf("\n GONNA WRITE TO THE DISK\n")
+
     int l=MDEV_BLOCK_SIZE-len;
     l=l<0?-1*l:l;
     inodeb.size+=l;
     len=MDEV_BLOCK_SIZE-l;
 
+    printf("\n Gonna write %d data\n",l);
+
+
     // mark the block as used
     fs_setmaskbit(freeb);
 
     // 4. Now write the file to the disk
-    bs_write(freeb,oft[fd].fileptr,(void *)buff, l);
+    bs_write(freeb,0,(void *)buff, sizeof(l));
 
-    //5. Write the inode to the disk
-    void * buffer= getmem(sizeof(inode_t));
+    //5. Write the inode  back to the disk
+    memset(buffer,0,sizeof(inode_t));
     memcpy(buffer,&inodeb,sizeof(inode_t));
     bs_write(inodeb.id,0,buffer,sizeof(buffer));
 
