@@ -27,7 +27,7 @@ int fs_write(int fd, char *buff, int len)
 
   // read the inode from block device;
   void *buffer = getmem(sizeof(inode_t));
-  bs_read(inodeb.id, 0, buffer, sizeof(inode));
+  bs_read(inodeb.id, 0, buffer, sizeof(inode_t));
 
   // no of blocks needed
   int nblocks = len / 512;
@@ -74,13 +74,16 @@ int fs_write(int fd, char *buff, int len)
     len=l;
 
     // 4. Now write the file to the disk
-    bs_write(freeb,0,(void *)buff, l);
+    bs_write(freeb,oft[fd].fileptr,(void *)buff, l);
 
     //5. Write the inode to the disk
-    void * buffer= getmem(Sizeof(node_t));
+    void * buffer= getmem(sizeof(inode_t));
     memcpy(buffer,&inodeb,sizeof(inode_t));
     bs_write(inodeb.id,0,buffer,sizeof(buffer));
+
+    // 6. track the data written so far
     bwrite+=l;
+    oft[fd].fileptr+=l;
 
   }
 
