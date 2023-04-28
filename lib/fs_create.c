@@ -59,7 +59,6 @@ syscall fs_create(char *filename)
   // 5. Write the inode and free bitmask back to the block device
 
   fs_setmaskbit(freeb);
-  int i = 0;
   for (int i = 0; i < DIR_SIZE; i++)
   {
     if(r.entry[i].inode_block!=0)
@@ -68,7 +67,7 @@ syscall fs_create(char *filename)
       int j=0;
       while(j<FILENAME_LEN)
       {
-        name[j]=filename;
+        r.entry[i].name[j]=filename;
         j++;
         filename++;
       }
