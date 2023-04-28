@@ -22,7 +22,7 @@ syscall fs_create(char* filename) {
 // Find an available block on the block store
  while(i<fsd->freemasksz)
  {
-   printf ("\n Curr Bit mask value : %c",itr);
+  //  printf ("\n Curr Bit mask value : %c",itr);
 
    if(fs_getmaskbit(i)==0)
    {
