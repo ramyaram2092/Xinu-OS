@@ -14,7 +14,7 @@ extern fsystem_t *fsd;
  */
 syscall fs_create(char *filename)
 {
-
+  intmask mask=disable();
   int freeb = 0;                 // free block index
   directory_t r = fsd->root_dir; // root directory reference
 
@@ -34,7 +34,7 @@ syscall fs_create(char *filename)
   printf("\n FIRST AVILABLE FREE BLOCK : %d", freeb);
 
   // 2. Return SYSERR if not enough space is available
-  if (i == fsd->freemasksz)
+  if (freeb == fsd->freemasksz)
   {
     return SYSERR;
   }
@@ -53,7 +53,7 @@ syscall fs_create(char *filename)
 
   // 4. create inode_t for the new file
 
-  struct inode_t in;
+  inode_t in;
   in.id = 1;
 
   // 5. Write the inode and free bitmask back to the block device
@@ -62,7 +62,7 @@ syscall fs_create(char *filename)
   int i = 0;
   for (int i = 0; i < DIR_SIZE; i++)
   {
-    if(r.entry[i].inode_bloc!=0)
+    if(r.entry[i].inode_block!=0)
     {
       r.entry[i].inode_block=freeb;
       int j=0;
@@ -75,5 +75,15 @@ syscall fs_create(char *filename)
     }
   }
 
+  void *buffer= getmem(sizeof(inode_t));
+
+  memcpy(buffer, &in, sizeof(inode_t));
+  
+  inode_t* cpy=(inode_t *)buffer;
+  
+
+  printf("Copied buffer : %s",cpy->size);
+    // bs_write(freeb, )
+  restore(mask);
   return OK;
 }
