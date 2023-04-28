@@ -54,8 +54,6 @@ int fs_open(char *filename, int flags)
   /* 3. If file exists and not opened add an entry into oft*/
   flag=0;
 
-  // inode_t curr_inode;
-  // inode.in
   for(i=0;i<NUM_FD;i++)
   {
     if(oft[i].state==FSTATE_CLOSED)
@@ -66,7 +64,7 @@ int fs_open(char *filename, int flags)
       oft[i].state=FSTATE_OPEN;
       oft[i].fileptr=0;
       flag=1;
-      break;
+      return i;
     }
   }
 
