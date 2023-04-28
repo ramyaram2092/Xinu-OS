@@ -12,6 +12,23 @@ extern filetable_t oft[NUM_FD];
  *     device and set the entry in the oft to FSTATE_CLOSED
  */
 syscall fs_close(int fd) {
+
+  int i=0;
+  for(i=0;i<NUM_FD;i++)
+  {
+    if(oft[i].in.id==fd && oft[i].state=FSTATE_CLOSED)
+    {
+      return SYSERR;
+    }
+    else if(oft[i].in.id==fd)
+    {
+      void* buffer= &oft[i].in;
+      fs_write(fd,0,buffer,sizeof(buffer));
+      oft[i].state=FSTATE_CLOSED;
+      oft[i].fileptr=0;
+      break;
+    }
+  }
   
   
   return OK;
