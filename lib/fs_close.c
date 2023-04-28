@@ -31,7 +31,7 @@ syscall fs_close(int fd) {
     }
   }
 
-  if(i==NUM_FS && flag==0)
+  if(i==NUM_FD && flag==0)
   {
     return SYSERR;
   }
