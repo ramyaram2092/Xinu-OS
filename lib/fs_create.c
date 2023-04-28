@@ -63,7 +63,7 @@ syscall fs_create(char *filename)
   // add the inode details in the directory entries
 
 
-  printf("\n INITIAL DIRECTORY ENTRIES :%d", fsd->root_dir.numentries);
+  // printf("\n INITIAL DIRECTORY ENTRIES :%d", fsd->root_dir.numentries);
   for (int i = 0; i < DIR_SIZE; i++)
   {
 
@@ -79,13 +79,13 @@ syscall fs_create(char *filename)
       // }
       //  fsd->root_dir.entry[i].name[j]='\0';
       strcpy(fsd->root_dir.entry[i].name,filename);
-       printf("\n NAME OF FILE IS  :%s\n ", fsd->root_dir.entry[i].name);
+      //  printf("\n NAME OF FILE IS  :%s\n ", fsd->root_dir.entry[i].name);
        break;
     }
   }
 
     fsd->root_dir.numentries+=1;
-        printf("\n UPDATED DIRECTORY ENTRIES :%d", fsd->root_dir.numentries);
+        // printf("\n UPDATED DIRECTORY ENTRIES :%d", fsd->root_dir.numentries);
 
 
 
