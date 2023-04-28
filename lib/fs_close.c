@@ -13,7 +13,7 @@ extern filetable_t oft[NUM_FD];
  */
 syscall fs_close(int fd) {
 
-  int i=0;
+  int i=0,flag=0;
   for(i=0;i<NUM_FD;i++)
   {
     if(oft[i].in.id==fd && oft[i].state==FSTATE_CLOSED)
@@ -26,8 +26,14 @@ syscall fs_close(int fd) {
       bs_write(fd,0,buffer,sizeof(buffer));
       oft[i].state=FSTATE_CLOSED;
       oft[i].fileptr=0;
+      flag=1;
       break;
     }
+  }
+
+  if(i==NUM_FS && flag==0)
+  {
+    return SYSERR;
   }
   
   
