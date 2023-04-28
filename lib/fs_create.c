@@ -13,10 +13,36 @@ extern fsystem_t* fsd;
  *        4. Write the inode and free bitmask back to the block device
  */
 syscall fs_create(char* filename) {
-  printf("\n HELLO");
-  fs_print_root();
-  fs_print_fsd();
+ 
+ char * itr= fsd->freemask;
+ int i=0;
 
+ // print the bit mask
+ fs_print_mask();
+
+// Find an available block on the block store
+ while(i<fsd->freemasksz)
+ {
+  
+   if(itr==0)
+   {
+      break;
+   }
+
+   i++;
+   itr++;
+ }
+
+ printf("\n FIRST AVILABLE FREE BLOCK : %d",i);
+ printf ("\n Bit mask value : %s",itr);
+ 
+ // Return SYSERR if not enough space is available
+ if(i==fsd->freemasksz)
+ {
+   return SYSERR;
+ }
+
+ //Return SYSERR if filename already exists
   
   
   return OK;
