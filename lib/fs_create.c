@@ -1,7 +1,7 @@
 #include <xinu.h>
 #include <fs.h>
 
-extern fsystem_t* fsd;
+extern fsystem_t *fsd;
 
 /*
  * fs_create - Return SYSERR if not enough space is available
@@ -12,36 +12,68 @@ extern fsystem_t* fsd;
  *        3. Update the root directory
  *        4. Write the inode and free bitmask back to the block device
  */
-syscall fs_create(char* filename) {
- 
- int i=0;
+syscall fs_create(char *filename)
+{
 
- // print the bit mask
- fs_print_mask();
+  int freeb = 0;                 // free block index
+  directory_t r = fsd->root_dir; // root directory reference
 
-// Find an available block on the block store
- while(i<fsd->freemasksz)
- {
-  //  printf ("\n Curr Bit mask value : %c",itr);
+  //  // print the bit mask
+  //  fs_print_mask();
 
-   if(fs_getmaskbit(i)==0)
-   {
+  // 1.  Find an available block on the block store
+  while (freeb < fsd->freemasksz)
+  {
+    if (fs_getmaskbit(freeb) == 0)
+    {
       break;
-   }
-   i++;
- }
+    }
+    freeb++;
+  }
 
- printf("\n FIRST AVILABLE FREE BLOCK : %d",i);
+  printf("\n FIRST AVILABLE FREE BLOCK : %d", freeb);
 
- 
- // Return SYSERR if not enough space is available
- if(i==fsd->freemasksz)
- {
-   return SYSERR;
- }
+  // 2. Return SYSERR if not enough space is available
+  if (i == fsd->freemasksz)
+  {
+    return SYSERR;
+  }
 
- //Return SYSERR if filename already exists
-  
-  
+  // 3. Return SYSERR if filename already exists
+
+  int i = 0;
+  while (i < DIR_SIZE)
+  {
+    if (strcmp(filename, r.entry[i].name) == 0)
+    {
+      return SYSERR;
+    }
+    i++;
+  }
+
+  // 4. create inode_t for the new file
+
+  struct inode_t in;
+  in.id = 1;
+
+  // 5. Write the inode and free bitmask back to the block device
+
+  fs_setmaskbit(freeb);
+  int i = 0;
+  for (int i = 0; i < DIR_SIZE; i++)
+  {
+    if(r.entry[i].inode_bloc!=0)
+    {
+      r.entry[i].inode_block=freeb;
+      int j=0;
+      while(j<FILENAME_LEN)
+      {
+        name[j]=filename;
+        j++;
+        filename++;
+      }
+    }
+  }
+
   return OK;
 }
