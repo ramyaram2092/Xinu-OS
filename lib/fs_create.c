@@ -81,7 +81,7 @@ syscall fs_create(char *filename)
   inode_t* cpy=(inode_t *)buffer;
   
 
-  printf("Copied buffer : %s",cpy->size);
+  printf("Copied buffer : %d",cpy->id);
     // bs_write(freeb, )
   restore(mask);
   return OK;
