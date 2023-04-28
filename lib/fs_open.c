@@ -45,7 +45,7 @@ int fs_open(char *filename, int flags)
 
     for(i=0;i<NUM_FD;i++)
     {
-      if(oft[i].in.id==inode_id)
+      if(oft[i].in.id==inode_id && oft[i].state==FSTATE_OPEN)
       {
         return SYSERR;
       }
@@ -53,6 +53,9 @@ int fs_open(char *filename, int flags)
 
   /* 3. If file exists and not opened add an entry into oft*/
   flag=0;
+
+  inode_t dummy= *in;
+  printf("\n DUMMY ID: %d",dummy.id);
 
   for(i=0;i<NUM_FD;i++)
   {
@@ -72,8 +75,6 @@ int fs_open(char *filename, int flags)
   {
     return SYSERR;
   }
-
-
 
   return OK;
 }
