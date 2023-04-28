@@ -30,7 +30,7 @@ int fs_write(int fd, char *buff, int len)
   bs_read(inodeb.id, 0, buffer, sizeof(inode_t));
 
   // no of blocks needed
-  int nblocks = len / 512;
+  int nblocks = len / MDEV_BLOCK_SIZE;
 
   // Outer loop : Perform the following operation for nblock  times
   for (int i = 0; i < nblocks; i++)
@@ -71,7 +71,10 @@ int fs_write(int fd, char *buff, int len)
     int l=MDEV_BLOCK_SIZE-len;
     l=l<0?-1*l:l;
     inodeb.size+=l;
-    len=l;
+    len=MDEV_BLOCK_SIZE-l;
+
+    // mark the block as used
+    fs_setmaskbit(freeb);
 
     // 4. Now write the file to the disk
     bs_write(freeb,oft[fd].fileptr,(void *)buff, l);
