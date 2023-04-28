@@ -23,7 +23,7 @@ syscall fs_close(int fd) {
     else if(oft[i].in.id==fd)
     {
       void* buffer= &oft[i].in;
-      fs_write(fd,0,buffer,sizeof(buffer));
+      bs_write(fd,0,buffer,sizeof(buffer));
       oft[i].state=FSTATE_CLOSED;
       oft[i].fileptr=0;
       break;
