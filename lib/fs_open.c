@@ -15,7 +15,7 @@ extern filetable_t oft[NUM_FD];
 int fs_open(char *filename, int flags)
 {
 
-  int inode_blk = 0, inode_id=0, de=0;
+  int inode_blk = 0, inode_id = 0, de = 0;
   int i = 0, flag = 0;
 
   for (i = 0; i < DIR_SIZE; i++)
@@ -24,7 +24,7 @@ int fs_open(char *filename, int flags)
     {
       inode_blk = fsd->root_dir.entry[i].inode_block;
       flag = 1;
-      de=i;
+      de = i;
     }
   }
 
@@ -37,44 +37,38 @@ int fs_open(char *filename, int flags)
 
   /*2. Return SYSERR if file is already open*/
 
-    void *buffer = getmem(sizeof(inode_t));
-    bs_read(inode_blk,0,buffer,sizeof(inode_t));// read the inode from the device
-    inode_t* ind=(inode_t *)buffer;
-    inode_id=ind->id; // get the inode id
+  void *buffer = getmem(sizeof(inode_t));
+  bs_read(inode_blk, 0, buffer, sizeof(inode_t)); // read the inode from the device
+  inode_t *ind = (inode_t *)buffer;
+  inode_id = ind->id; // get the inode id
 
-
-    for(i=0;i<NUM_FD;i++)
+  for (i = 0; i < NUM_FD; i++)
+  {
+    if (oft[i].in.id == inode_id && oft[i].state == FSTATE_OPEN)
     {
-      if(oft[i].in.id==inode_id && oft[i].state==FSTATE_OPEN)
-      {
-        return SYSERR;
-      }
+      return SYSERR;
     }
+  }
 
   /* 3. If file exists and not opened add an entry into oft*/
-  flag=0;
+  flag = 0;
 
-  for(i=0;i<NUM_FD;i++)
+  for (i = 0; i < NUM_FD; i++)
   {
-    if(oft[i].state==FSTATE_CLOSED)
+    if (oft[i].state == FSTATE_CLOSED)
     {
-      oft[i].de=de;
-      // oft[i].in.id=ind->id;
-      // oft[i].in.size=ind->size;
-      // memcpy(oft[i].in.blocks,ind->blocks,INODE_BLOCKS*sizeof(int));
-      // memcpy(oft[i].in, buffer,sizeof(inode_t));
-      oft[i].in=*ind;
-
-      printf("\n%d:%d\n",oft[i].in.id,ind->id);
-      oft[i].flag=flags;
-      oft[i].state=FSTATE_OPEN;
-      oft[i].fileptr=0;
-      flag=1;
+      oft[i].de = de;
+      oft[i].in = *ind;
+      oft[i].flag = flags;
+      oft[i].state = FSTATE_OPEN;
+      oft[i].fileptr = 0;
+      flag = 1;
       return i;
     }
   }
 
-  if(i==NUM_FD && flag==0)
+  /* 4. If there is no more space in the oft table return error */
+  if (i == NUM_FD && flag == 0)
   {
     return SYSERR;
   }
