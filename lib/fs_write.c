@@ -36,7 +36,7 @@ int fs_write(int fd, char *buff, int len)
   int nblocks = len / MDEV_BLOCK_SIZE;
 
   // Outer loop : Perform the following operation for nblock  times
-  for (int i = 0; i < nblocks; i++)
+  while(len>0)
   {
     // 1. Find a free block
     int freeb = 0; // free block index
