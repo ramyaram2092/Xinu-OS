@@ -49,7 +49,7 @@ syscall fs_create(char *filename)
  
   // initialize inode
   inode_t in;
-  in.id = 1;
+  in.id = freeb;
   for (int i = 0; i < INODE_BLOCKS; i++)
   {
     in.blocks[i]=0;
