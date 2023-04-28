@@ -69,15 +69,16 @@ syscall fs_create(char *filename)
     if (fsd->root_dir.entry[i].inode_block != 0)
     {
       fsd->root_dir.entry[i].inode_block = freeb;
-      int j = 0;
-      while (j < FILENAME_LEN)
-      {
-        fsd->root_dir.entry[i].name[j] = filename;
-        j++;
-        filename++;
-      }
-       fsd->root_dir.entry[i].name[j]='\0';
-        printf("The name of the file is :%s",    fsd->root_dir.entry[i].name);
+      // int j = 0;
+      // while (j < FILENAME_LEN)
+      // {
+      //   fsd->root_dir.entry[i].name[j] = filename;
+      //   j++;
+      //   filename++;
+      // }
+      //  fsd->root_dir.entry[i].name[j]='\0';
+      strcpy(fsd->root_dir.entry[i].name,filename);
+       printf("The name of the file is :%s", fsd->root_dir.entry[i].name);
        break;
     }
   }
