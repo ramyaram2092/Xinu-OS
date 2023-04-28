@@ -14,7 +14,7 @@ extern fsystem_t* fsd;
  */
 syscall fs_create(char* filename) {
  
- char * itr= fsd->freemask;
+ char *itr= fsd->freemask;
  int i=0;
 
  // print the bit mask
@@ -23,7 +23,8 @@ syscall fs_create(char* filename) {
 // Find an available block on the block store
  while(i<fsd->freemasksz)
  {
-  
+   printf ("\n Curr Bit mask value : %c",itr);
+
    if(itr==0)
    {
       break;
@@ -34,8 +35,6 @@ syscall fs_create(char* filename) {
  }
 
  printf("\n FIRST AVILABLE FREE BLOCK : %d",i);
- printf ("\n Curr Bit mask value : %c",itr);
- printf ("\n Curr Bit mask value : %s",fsd->freemask);
 
  
  // Return SYSERR if not enough space is available
