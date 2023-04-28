@@ -77,8 +77,12 @@ syscall fs_create(char *filename)
         filename++;
       }
        fsd->root_dir.entry[i].name[j]='\0';
+        printf("The name of the file is :%s",    fsd->root_dir.entry[i].name);
+       break;
     }
   }
+
+ 
 
  //6.  write the inode into the block assigned for the inode 
   void *buffer = getmem(sizeof(inode_t));
