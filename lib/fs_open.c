@@ -39,8 +39,8 @@ int fs_open(char *filename, int flags)
 
     void *buffer = getmem(sizeof(inode_t));
     bs_read(inode_blk,0,buffer,sizeof(buffer));// read the inode from the device
-    inode_t* in=(inode_t *)buffer;
-    inode_id=in->id; // get the inode id
+    inode_t* ind=(inode_t *)buffer;
+    inode_id=ind->id; // get the inode id
 
 
     for(i=0;i<NUM_FD;i++)
@@ -54,15 +54,12 @@ int fs_open(char *filename, int flags)
   /* 3. If file exists and not opened add an entry into oft*/
   flag=0;
 
-  inode_t dummy= *in;
-  printf("\n DUMMY ID: %d",dummy.id);
-
   for(i=0;i<NUM_FD;i++)
   {
     if(oft[i].state==FSTATE_CLOSED)
     {
       oft[i].de=de;
-      oft[i].in=*in;
+      oft[i].in=*ind;
       oft[i].flag=flags;
       oft[i].state=FSTATE_OPEN;
       oft[i].fileptr=0;
