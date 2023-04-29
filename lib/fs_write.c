@@ -93,15 +93,17 @@ int fs_write(int fd, char *buff, int len)
     fs_setmaskbit(freeb);
 
     // 4. Now write the file to the disk
-    void * buf= getmem(l);
-    memcpy(buf,buff,l);
+    void * databuf= getmem(l);
+    memcpy(databuf,buff,sizeof(buf));
 
-    bs_write(freeb,0,buf,l);
+    bs_write(freeb,0,databuf,sizeof(databuf));
 
     //5. Write the inode  back to the disk
     memset(buffer,0,sizeof(inode_t));
     memcpy(buffer,&inodeb,sizeof(inode_t));
     bs_write(inodeb.id,0,buffer,sizeof(buffer));
+
+    printf("\n UPDATED FILE SIZE: %d\n",oft[fd].in.size)
 
     // 6. track the data written so far
     len=len>MDEV_BLOCK_SIZE? len-MDEV_BLOCK_SIZE:0;
