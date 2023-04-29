@@ -29,10 +29,8 @@ int fs_write(int fd, char *buff, int len)
   void *buffer = getmem(sizeof(inode_t));
   // bs_read(inodeb.id, 0, buffer, sizeof(inode_t));
 
-
-  int l=0;
+  int l = 0;
   int freeb = 0; // free block index
-
 
   // Outer loop :
   while (len > 0)
@@ -42,7 +40,7 @@ int fs_write(int fd, char *buff, int len)
     for (j = 0; j < INODE_BLOCKS; j++)
     {
       // 1. if the curr data block is unused
-      if( inodeb.blocks[j]==513)
+      if (inodeb.blocks[j] == 513)
       {
         // 1.a find the next free block
         while (freeb < fsd->freemasksz)
@@ -67,58 +65,61 @@ int fs_write(int fd, char *buff, int len)
           return bwrite;
         }
 
+
+
         // 1.d  mark the block as used
-          fs_setmaskbit(freeb);
+        fs_setmaskbit(freeb);
+
+        //1.e update the local inode
+
+        inodeb.blocks[j]=freeb;
       }
 
       // 2. if the curr block has data less than 512 bytes. Fill it up
-      else if (inodeb.blocks[j]!=513 )
+      else if (inodeb.blocks[j] != 513)
       {
-          void *ip = getmem(512);
-          bs_read(inodeb.blocks[j], 0, ip, 512);
+        void *ip = getmem(512);
+        bs_read(inodeb.blocks[j], 0, ip, 512);
 
-          int size = sizeof(ip);
-          if(size<512 && size>0)
-          {
-              l = 512 - size;
-          }
-          else
-          {
-              l= len;
-          }
-          freeb=inodeb.blocks[j];
-
+        int size = sizeof(ip);
+        if (size < 512 && size > 0)
+        {
+          l = 512 - size;
+        }
+        else
+        {
+          l = len;
+        }
+        freeb = inodeb.blocks[j];
       }
-     
-     len=len-l;
 
+      len = len - l;
 
-     // 3. write the file to disk device
+      // 3. write the file to disk device
       void *databuf = getmem(l + 1);
       memcpy(databuf, buff, l);
       bs_write(freeb, oft[fd].fileptr, databuf, l);
 
-
       // 4. update the fileptr in oft table
       oft[fd].fileptr += l;
 
-      // update the bytes to return
-      bwrite += l;
-
-      // update  local inode
+      // 5. update  local inode
       inodeb.size += l;
 
       //  Write the local inode  back to the disk
-    memset(buffer, 0, sizeof(inode_t));
-    memcpy(buffer, &inodeb, sizeof(inode_t));
-    bs_write(inodeb.id, 0, buffer, sizeof(inode_t));
+      memset(buffer, 0, sizeof(inode_t));
+      memcpy(buffer, &inodeb, sizeof(inode_t));
+      bs_write(inodeb.id, 0, buffer, sizeof(inode_t));
 
-    // Update the inode in  oft file table
-    memset(buffer, 0, sizeof(inode_t));
-    bs_read(inodeb.id, 0, buffer, sizeof(inode_t));
-    inode_t *in = (inode_t *)buffer;
-    oft[fd].in = *in;
+      // Update the inode in  oft file table
+      memset(buffer, 0, sizeof(inode_t));
+      bs_read(inodeb.id, 0, buffer, sizeof(inode_t));
+      inode_t *in = (inode_t *)buffer;
+      oft[fd].in = *in;
+
+      // 5. update the bytes to return
+      bwrite += l;
     }
   }
-
+  return bwrite;
 }
