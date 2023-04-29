@@ -86,7 +86,7 @@ int fs_write(int fd, char *buff, int len)
           {
               l= len;
           }
-          freeb=inode.blocks[j];
+          freeb=inodeb.blocks[j];
 
       }
      
