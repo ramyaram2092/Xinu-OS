@@ -60,7 +60,7 @@ int fs_write(int fd, char *buff, int len)
     int flag=0, j=0;
     for(j=0;j<INODE_BLOCKS;j++)
     {
-      if(inodeb.blocks[j]!=0)
+      if(inodeb.blocks[j]==513)
       {
         inodeb.blocks[j]=freeb;
         flag=1;
