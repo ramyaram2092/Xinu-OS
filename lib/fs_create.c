@@ -55,7 +55,7 @@ syscall fs_create(char *filename)
   in.size=0;
   for (int i = 0; i < INODE_BLOCKS; i++)
   {
-    in.blocks[i] = 0;
+    in.blocks[i] = 513;
   }
 
   /* 5. Write the inode and free bitmask back to the block device */
