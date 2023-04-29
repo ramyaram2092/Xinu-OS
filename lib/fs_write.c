@@ -97,7 +97,7 @@ int fs_write(int fd, char *buff, int len)
     memcpy(databuf,buff,l);
 
     printf("\nSIZE OF DATABUFF before writing to the disk :%d\n", (strlen((char*)databuf)));
-    printf("\n DATA TO WRITE: %s\n",buff);
+    printf("\n DATA TO WRITE: %s\n",(char*)databuf);
     bs_write(freeb,0,databuf,l);
 
         memset(databuf,0,l);
