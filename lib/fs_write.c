@@ -101,7 +101,7 @@ int fs_write(int fd, char *buff, int len)
     bs_write(freeb,0,databuf,sizeof(databuf));
 
         memset(databuf,0,sizeof(databuf));
-        bs_read(freeb,0,databuf,sizeif(databuf));
+        bs_read(freeb,0,databuf,sizeof(databuf));
         printf("\nSIZE OF DATABUFF after writing to the disk :%d\n", (strlen((char*)databuf)));
 
 
