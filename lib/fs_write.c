@@ -96,15 +96,22 @@ int fs_write(int fd, char *buff, int len)
     void * databuf= getmem(l);
     memcpy(databuf,buff,sizeof(databuf));
 
-    bs_write(freeb,0,databuf,sizeof(databuf));
+    bs_write(freeb,0,databuf,l);
 
     //5. Write the inode  back to the disk
     memset(buffer,0,sizeof(inode_t));
     memcpy(buffer,&inodeb,sizeof(inode_t));
     bs_write(inodeb.id,0,buffer,sizeof(buffer));
 
-    printf("\n UPDATED FILE SIZE In INODE : %d\n",oft[fd].in.size);
     printf("\n SIZE OF DATABUF: %d\n",sizeof(databuf));
+
+
+    //6. Update the file table
+    memset(buffer,0,sizeof(inode_t));
+    bs_read(inodeb.id, 0, buffer, sizeof(inode_t)); 
+    inode_t *in=(inode_t*)buffer;
+    oft[fd].in=*in;
+    printf("\n UPDATED FILE SIZE In INODE : %d\n",oft[fd].in.size);
 
 
     // 6. track the data written so far
