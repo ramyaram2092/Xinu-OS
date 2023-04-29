@@ -102,7 +102,7 @@ int fs_write(int fd, char *buff, int len)
     memset(buffer,0,sizeof(inode_t));
     memcpy(buffer,&inodeb,sizeof(inode_t));
     printf("\n  FILE SIZE In BUFFER before writing to the disk : %d\n",((inode_t* )buffer)->size);
-    bs_write(inodeb.id,0,buffer,sizeof(buffer));
+    bs_write(inodeb.id,0,buffer,sizeof(inode_t));
 
 
 
