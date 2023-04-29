@@ -17,9 +17,6 @@ extern filetable_t oft[NUM_FD];
 int fs_write(int fd, char *buff, int len)
 {
 
-  printf("\n TEST CASE BEGIN \n ");
-  printf("File at entry %d needs to be written with %d data",fd, len);
-
   filetable_t file = oft[fd];
 
   // inode details
@@ -32,112 +29,91 @@ int fs_write(int fd, char *buff, int len)
   void *buffer = getmem(sizeof(inode_t));
   bs_read(inodeb.id, 0, buffer, sizeof(inode_t));
 
-
-
-   
-  // Outer loop : Perform the following operation for nblock  times
-  while(len>0)
+  // Outer loop :
+  while (len > 0)
   {
-    // 1. Find a free block
-    int freeb = 0; // free block index
+    int flag = 0, j = 0;
 
-    while (freeb < fsd->freemasksz)
+    for (j = 0; j < INODE_BLOCKS; j++)
     {
-      if (fs_getmaskbit(freeb) == 0)
+      // 1. if the curr data block is unused
+      if( inode.blocks[j]==513)
       {
-        // printf("\n YOHOO FOUND A FREE BLOCK at %d\n",freeb);
-        break;
-      }
-      freeb++;
-    }
-    // 2. Return no of bytes written so far if  no more free  blocks is available
-    if (freeb == fsd->freemasksz)
-    {
-      // printf("\n FAILING AT 2\n");
-      return bwrite;
-    }
+        // 1.a find the next free block
+        int freeb = 0; // free block index
+        while (freeb < fsd->freemasksz)
+        {
+          if (fs_getmaskbit(freeb) == 0)
+          {
+            // printf("\n YOHOO FOUND A FREE BLOCK at %d\n",freeb);
+            break;
+          }
+          freeb++;
+        }
+        // 1.b Return no of bytes written so far if  no more free  blocks is available
+        if (freeb == fsd->freemasksz)
+        {
+          return bwrite;
+        }
 
-    // 3. if found a free block update the inode of the file
-    int flag=0, j=0;
-    for(j=0;j<INODE_BLOCKS;j++)
-    {
-      if(inodeb.blocks[j]==513)
+        // 1.c if the allocation of the inode's data block exceeds
+        if (j == INODE_BLOCKS && flag == 0)
+        {
+          // printf("\n FAILING AT 3.a \n");
+          return bwrite;
+        }
+
+        // 1.d  mark the block as used
+          fs_setmaskbit(freeb);
+      }
+      int l=0;
+
+      // 2. if the curr block has data less than 512 bytes. Fill it up
+      else if (inodeb.blocks[j]!=513 )
       {
-        inodeb.blocks[j]=freeb;
-        flag=1;
-        break;
+          void *ip = getmem(512);
+          bs_read(inodeb.blocks[j], 0, ip, 512);
+
+          int size = sizeof(ip);
+          if(size<512 && size>0)
+          {
+              l = 512 - size;
+          }
+          else
+          {
+              l= len
+          }
       }
+     
+     len=len-l;
+
+
+     // 3. write the file to disk device
+      void *databuf = getmem(l + 1);
+      memcpy(databuf, buff, l);
+      bs_write(freeb, oft[fd].fileptr, databuf, l);
+
+
+      // 4. update the fileptr in oft table
+      oft[fd].fileptr += l;
+
+      // update the bytes to return
+      bwrite += l;
+
+      // update  local inode
+      inodeb.size += l;
+
+      //  Write the local inode  back to the disk
+    memset(buffer, 0, sizeof(inode_t));
+    memcpy(buffer, &inodeb, sizeof(inode_t));
+    bs_write(inodeb.id, 0, buffer, sizeof(inode_t));
+
+    // Update the inode in  oft file table
+    memset(buffer, 0, sizeof(inode_t));
+    bs_read(inodeb.id, 0, buffer, sizeof(inode_t));
+    inode_t *in = (inode_t *)buffer;
+    oft[fd].in = *in;
     }
-    // printf("\n FAILING AT 3 and j value is : %d\n",j);
-
-    // if the allocation of the inode's data block exceeds
-    if(j==INODE_BLOCKS && flag==0)
-    {
-      // printf("\n FAILING AT 3.a \n");
-
-      return bwrite;
-    }
-
-    int l=0;
-    if(len>MDEV_BLOCK_SIZE)
-    {
-      l=MDEV_BLOCK_SIZE;
-    }
-    else
-    {
-      l=len;
-    }
-
-    inodeb.size+=l;
-
-    // printf("\n Gonna write %d bytes of data\n",l);
-
-
-    // mark the block as used
-    fs_setmaskbit(freeb);
-
-    // 4. Now write the file to the disk
-    void * databuf= getmem(l+1);
-    memcpy(databuf,buff,l);
-
-    // printf("\n ORIGINAL DATA    :     %s\n",buff);
-    // printf("\nSIZE OF DATABUFF before writing to the disk :%d\n", (strlen((char*)databuf)));
-    // printf("\n DATA PRESENT IN DATABUFF BEFORE WRITE: %s\n",(char*)databuf);
-    bs_write(freeb,0,databuf,l);
-
-        // memset(databuf,0,MDEV_BLOCK_SIZE);
-        bs_read(freeb,0,databuf,l);
-
-        char* si=(char *)databuf;
-        // printf("\n SIZE OF file after writing to the disk :%d\n", strlen((si)));
-    // printf("\n DATA TO BE WRITTEN IN BLOCK: %s\n",si);
-
-
-
-    //5. Write the inode  back to the disk
-    memset(buffer,0,sizeof(inode_t));
-    memcpy(buffer,&inodeb,sizeof(inode_t));
-    // printf("\n  FILE SIZE In BUFFER before writing to the disk : %d\n",((inode_t* )buffer)->size);
-    bs_write(inodeb.id,0,buffer,sizeof(inode_t));
-
-
-
-    //6. Update the file table
-    memset(buffer,0,sizeof(inode_t));
-    bs_read(inodeb.id, 0, buffer, sizeof(inode_t)); 
-    inode_t *in=(inode_t*)buffer;
-    // printf("\n  FILE SIZE In INODE after Read from disk : %d\n",((inode_t* )buffer)->size);
-    oft[fd].in=*in;
-    // printf("\n UPDATED FILE SIZE In INODE : %d\n",oft[fd].in.size);
-    // printf("\n FIRST FREE BLOCK : %d\n ", oft[fd].in.blocks[0]);
-
-
-    // 6. track the data written so far
-    len=len>MDEV_BLOCK_SIZE? len-MDEV_BLOCK_SIZE:0;
-    bwrite+=l;
-    oft[fd].fileptr+=l;
-
   }
 
-  return bwrite;
 }
