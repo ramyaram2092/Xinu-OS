@@ -32,8 +32,7 @@ int fs_write(int fd, char *buff, int len)
   void *buffer = getmem(sizeof(inode_t));
   bs_read(inodeb.id, 0, buffer, sizeof(inode_t));
 
-  // no of blocks needed
-  // int nblocks = len / MDEV_BLOCK_SIZE;
+
 
    
   // Outer loop : Perform the following operation for nblock  times
@@ -124,6 +123,7 @@ int fs_write(int fd, char *buff, int len)
     printf("\n  FILE SIZE In INODE after Read from disk : %d\n",((inode_t* )buffer)->size);
     oft[fd].in=*in;
     printf("\n UPDATED FILE SIZE In INODE : %d\n",oft[fd].in.size);
+    printf("\n FIRST FREE BLOCK : %d\n ", oft[fd].in.blocks[0]);
 
 
     // 6. track the data written so far
