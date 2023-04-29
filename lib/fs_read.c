@@ -53,7 +53,7 @@ int fs_read(int fd, char *buff, int len)
     bs_read(didx, offset, buff, readsize);
 
     // increment the buff pointer
-    buff += readSize;
+    buff += readsize;
 
     rbytes+=readSize;
 
