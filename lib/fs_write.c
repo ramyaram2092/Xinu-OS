@@ -101,8 +101,10 @@ int fs_write(int fd, char *buff, int len)
 
         // memset(databuf,0,MDEV_BLOCK_SIZE);
         bs_read(freeb,0,databuf,MDEV_BLOCK_SIZE);
-        printf("\n SIZE OF file after writing to the disk :%d\n", (strlen((char*)databuf)));
-    printf("\n DATA TO BE WRITTEN IN BLOCK: %s\n",(char*)databuf);
+
+        char* si=(char *)databuff;
+        printf("\n SIZE OF file after writing to the disk :%d\n", strlen((si)));
+    printf("\n DATA TO BE WRITTEN IN BLOCK: %s\n",si);
 
 
 
