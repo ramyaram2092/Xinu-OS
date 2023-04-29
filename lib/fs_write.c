@@ -35,7 +35,7 @@ int fs_write(int fd, char *buff, int len)
   // no of blocks needed
   int nblocks = len / MDEV_BLOCK_SIZE;
 
-  int 
+   
   // Outer loop : Perform the following operation for nblock  times
   while(len>0)
   {
