@@ -23,17 +23,17 @@ int fs_read(int fd, char *buff, int len)
   int fptr=oft[fd].fileptr;
 
   // local buffer  for inode
-  void *ibuffer = getmem(sizeof(inode_t));
+  // void *ibuffer = getmem(sizeof(inode_t));
 
   // no of blocks
-  int maxblck = inode.size / 512;
+  // int maxblck = inode.size / 512;
 
 
   //no of bytes read
   int rbytes=0;
   int size=len;
   int i = fptr/512; // block offset
-  int readSize=0;
+  int readsize=0;
   
 
 
