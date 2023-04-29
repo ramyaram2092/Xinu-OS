@@ -35,6 +35,7 @@ int fs_write(int fd, char *buff, int len)
   // no of blocks needed
   int nblocks = len / MDEV_BLOCK_SIZE;
 
+  int 
   // Outer loop : Perform the following operation for nblock  times
   while(len>0)
   {
@@ -91,16 +92,16 @@ int fs_write(int fd, char *buff, int len)
     fs_setmaskbit(freeb);
 
     // 4. Now write the file to the disk
-    void * databuf= getmem(MDEV_BLOCK_SIZE);
-    // memcpy(databuf,buff,MDEV_BLOCK_SIZE);
+    void * databuf= getmem(l+1);
+    memcpy(databuf,buff,l);
 
     printf("\n ORIGINAL DATA    :     %s\n",buff);
-    // printf("\nSIZE OF DATABUFF before writing to the disk :%d\n", (strlen((char*)databuf)));
-    // printf("\n DATA PRESENT IN DATABUFF BEFORE WRITE: %s\n",(char*)databuf);
-    bs_write(freeb,0,buff,l);
+    printf("\nSIZE OF DATABUFF before writing to the disk :%d\n", (strlen((char*)databuf)));
+    printf("\n DATA PRESENT IN DATABUFF BEFORE WRITE: %s\n",(char*)databuf);
+    bs_write(freeb,0,databuff,l);
 
         // memset(databuf,0,MDEV_BLOCK_SIZE);
-        bs_read(freeb,0,databuf,MDEV_BLOCK_SIZE);
+        bs_read(freeb,0,databuf,l);
 
         char* si=(char *)databuf;
         printf("\n SIZE OF file after writing to the disk :%d\n", strlen((si)));
