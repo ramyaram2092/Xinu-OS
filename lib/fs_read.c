@@ -55,7 +55,7 @@ int fs_read(int fd, char *buff, int len)
     // increment the buff pointer
     buff += readsize;
 
-    rbytes+=readSize;
+    rbytes+=readsize;
 
    // update the filepointer
     oft[fd].fileptr+=readsize;
