@@ -86,6 +86,14 @@ syscall fs_create(char *filename)
   void *buffer = getmem(sizeof(inode_t));
   memcpy(buffer, &in, sizeof(inode_t));
   bs_write(freeb, 0, buffer, sizeof(buffer));
+
+
+  // check
+
+  void *buffer = getmem(sizeof(inode_t));
+  bs_read(freeb, 0, buffer, sizeof(inode_t));
+  inode_t *t=(inode_t*)buffer;
+  printf("\n BLOCK VALUE :%d",t->blocks[0]);
   restore(mask);
   return OK;
 }
