@@ -81,7 +81,8 @@ int fs_write(int fd, char *buff, int len)
     {
       l=len;
     }
-  
+    printf("\n  FILE SIZE In INODE BEFORE UPDATE: %d\n",inodeb.size);
+
     inodeb.size+=l;
 
     printf("\n Gonna write %d bytes of data\n",l);
@@ -100,7 +101,7 @@ int fs_write(int fd, char *buff, int len)
     //5. Write the inode  back to the disk
     memset(buffer,0,sizeof(inode_t));
     memcpy(buffer,&inodeb,sizeof(inode_t));
-    printf("\n  FILE SIZE In BUFFER before writing disk : %d\n",((inode_t* )buffer)->size);
+    printf("\n  FILE SIZE In BUFFER before writing to the disk : %d\n",((inode_t* )buffer)->size);
     bs_write(inodeb.id,0,buffer,sizeof(buffer));
 
 
@@ -109,9 +110,7 @@ int fs_write(int fd, char *buff, int len)
     memset(buffer,0,sizeof(inode_t));
     bs_read(inodeb.id, 0, buffer, sizeof(inode_t)); 
     inode_t *in=(inode_t*)buffer;
-    printf("\n  FILE SIZE In INODE Read from disk : %d\n",((inode_t* )buffer)->size);
-
-
+    printf("\n  FILE SIZE In INODE after Read from disk : %d\n",((inode_t* )buffer)->size);
     oft[fd].in=*in;
     printf("\n UPDATED FILE SIZE In INODE : %d\n",oft[fd].in.size);
 
