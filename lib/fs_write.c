@@ -32,12 +32,14 @@ int fs_write(int fd, char *buff, int len)
   int l = 0;
   int freeb = 0; // free block index
 
+  int nblocks=inodeb.size/512;
+  int sizeonlbck=sizeonlbck%512;
   // Outer loop :
-  while (len > 0)
+  while (len > 0 )
   {
     int flag = 0, j = 0;
 
-    for (j = 0; j < INODE_BLOCKS; j++)
+    for (j = nblocks; j < INODE_BLOCKS; j++)
     {
       // 1. if the curr data block is unused
       if (inodeb.blocks[j] == 513)
@@ -65,14 +67,21 @@ int fs_write(int fd, char *buff, int len)
           return bwrite;
         }
 
-
-
         // 1.d  mark the block as used
         fs_setmaskbit(freeb);
 
         //1.e update the local inode
 
         inodeb.blocks[j]=freeb;
+
+        if(len>512)
+        {
+          l=512;
+        }
+        else
+        {
+          l=len;
+        }
       }
 
       // 2. if the curr block has data less than 512 bytes. Fill it up
@@ -80,8 +89,7 @@ int fs_write(int fd, char *buff, int len)
       {
         void *ip = getmem(512);
         bs_read(inodeb.blocks[j], 0, ip, 512);
-
-        int size = sizeof(ip);
+        int size=sizeonlbck;
         if (size < 512 && size > 0)
         {
           l = 512 - size;
@@ -96,9 +104,9 @@ int fs_write(int fd, char *buff, int len)
       len = len - l;
 
       // 3. write the file to disk device
-      void *databuf = getmem(l + 1);
+      void *databuf = getmem(l);
       memcpy(databuf, buff, l);
-      bs_write(freeb, oft[fd].fileptr, databuf, l);
+      bs_write(freeb,sizeonlbck, databuf, l);
 
       // 4. update the fileptr in oft table
       oft[fd].fileptr += l;
