@@ -21,18 +21,19 @@ int fs_read(int fd, char *buff, int len)
   inode_t inode = oft[fd].in;
 
   // file ptr
-
+  int offset=0;
    oft[fd].fileptr=0;
 
   // local buffer  for inode
   void *ibuffer = getmem(sizeof(inode_t));
 
   // no of blocks
-  int maxblck = inodeb.size / 512;
+  int maxblck = inode.size / 512;
 
   //no of bytes read
   int rbytes=0;
 
+  int size=0;
   if (len > 512)
   {
     size = 512;
@@ -58,7 +59,7 @@ int fs_read(int fd, char *buff, int len)
     size = size - len;
 
     // update the filepointer
-    oft[fd].filept+=size;
+    oft[fd].fileptr+=size;
 
     i++;
   }
