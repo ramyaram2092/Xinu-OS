@@ -92,14 +92,15 @@ int fs_write(int fd, char *buff, int len)
       {
        
         int size=sizeonlbck;
-        if (size < 512 && size > 0)
-        {
-          l = 512 - size;
-        }
-        else
-        {
-          l = len;
-        }
+       if(len<512-size)
+       {
+        l=len;
+       }
+       else
+       {
+        l=512-size;
+       }
+        
         freeb = inodeb.blocks[j];
 
         writeoffset=sizeonlbck;
@@ -132,6 +133,9 @@ int fs_write(int fd, char *buff, int len)
 
       // 5. update the bytes to return
       bwrite += l;
+
+      if(len==0)
+        break;
     }
   }
   return bwrite;
