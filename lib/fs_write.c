@@ -101,17 +101,15 @@ int fs_write(int fd, char *buff, int len)
     memset(buffer,0,sizeof(inode_t));
     memcpy(buffer,&inodeb,sizeof(inode_t));
     printf("\n  FILE SIZE In BUFFER before writing disk : %d\n",((inode_t* )buffer)->size);
-
     bs_write(inodeb.id,0,buffer,sizeof(buffer));
 
-    // printf("\n SIZE OF DATABUF: %d\n",sizeof(databuf));
 
 
     //6. Update the file table
     memset(buffer,0,sizeof(inode_t));
     bs_read(inodeb.id, 0, buffer, sizeof(buffer)); 
     inode_t *in=(inode_t*)buffer;
-    printf("\n  FILE SIZE In INODE Read from disk : %d\n",in->size);
+    printf("\n  FILE SIZE In INODE Read from disk : %d\n",((inode_t* )buffer)->size);
 
 
     oft[fd].in=*in;
