@@ -107,7 +107,7 @@ int fs_write(int fd, char *buff, int len)
 
     //6. Update the file table
     memset(buffer,0,sizeof(inode_t));
-    bs_read(inodeb.id, 0, buffer, sizeof(buffer)); 
+    bs_read(inodeb.id, 0, buffer, sizeof(inode_t)); 
     inode_t *in=(inode_t*)buffer;
     printf("\n  FILE SIZE In INODE Read from disk : %d\n",((inode_t* )buffer)->size);
 
