@@ -81,12 +81,10 @@ int fs_write(int fd, char *buff, int len)
     {
       l=len;
     }
-    printf("\n  FILE SIZE In INODE BEFORE UPDATE: %d\n",inodeb.size);
 
     inodeb.size+=l;
 
     printf("\n Gonna write %d bytes of data\n",l);
-    printf("\n FILE SIZE UPDATED IN INODE : %d BYTES\n", inodeb.size);
 
 
     // mark the block as used
@@ -96,8 +94,9 @@ int fs_write(int fd, char *buff, int len)
     void * databuf= getmem(l);
     memcpy(databuf,buff,l);
 
+    printf("\n ORIGINAL DATA    : %s\n",buff);
     printf("\nSIZE OF DATABUFF before writing to the disk :%d\n", (strlen((char*)databuf)));
-    printf("\n DATA TO WRITE: %s\n",(char*)databuf);
+    printf("\n DATA PRESENT IN DATABUFF BEFORE WRITE: %s\n",(char*)databuf);
     bs_write(freeb,0,databuf,l);
 
         memset(databuf,0,l);
