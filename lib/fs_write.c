@@ -92,7 +92,7 @@ int fs_write(int fd, char *buff, int len)
     fs_setmaskbit(freeb);
 
     // 4. Now write the file to the disk
-    bs_write(freeb,0,(void *)buff, );
+    bs_write(freeb,0,(void *)buff, l);
 
     //5. Write the inode  back to the disk
     memset(buffer,0,sizeof(inode_t));
