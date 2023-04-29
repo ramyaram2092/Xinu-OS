@@ -72,7 +72,6 @@ int fs_write(int fd, char *buff, int len)
       return bwrite;
     }
 
-    printf("\n GONNA WRITE TO THE DISK\n");
     int l=0;
     if(len>MDEV_BLOCK_SIZE)
     {
@@ -101,7 +100,7 @@ int fs_write(int fd, char *buff, int len)
     //5. Write the inode  back to the disk
     memset(buffer,0,sizeof(inode_t));
     memcpy(buffer,&inodeb,sizeof(inode_t));
-        printf("\n  FILE SIZE In BUFFER before writing disk : %d\n",buffer->size);
+    printf("\n  FILE SIZE In BUFFER before writing disk : %d\n",((inode_t* )buffer)->size);
 
     bs_write(inodeb.id,0,buffer,sizeof(buffer));
 
