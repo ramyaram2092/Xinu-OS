@@ -64,6 +64,7 @@ int fs_write(int fd, char *buff, int len)
       {
         inodeb.blocks[j]=freeb;
         flag=1;
+        break;
       }
     }
     // if the allocation of the inode's data block exceeds
