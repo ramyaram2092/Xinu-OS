@@ -97,12 +97,13 @@ int fs_write(int fd, char *buff, int len)
     memcpy(databuf,buff,l);
 
     printf("\nSIZE OF DATABUFF before writing to the disk :%d\n", (strlen((char*)databuf)));
-
+    printf("\n DATA TO WRITE: %s\n",buff);
     bs_write(freeb,0,databuf,l);
 
         memset(databuf,0,l);
         bs_read(freeb,0,databuf,l);
         printf("\nSIZE OF DATABUFF after writing to the disk :%d\n", (strlen((char*)databuf)));
+    printf("\n DATA TO WRITTEN IN BLOCK: %s\n",(char*)databuf);
 
 
 
