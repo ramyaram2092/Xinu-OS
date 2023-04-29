@@ -45,7 +45,7 @@ int fs_write(int fd, char *buff, int len)
     {
       if (fs_getmaskbit(freeb) == 0)
       {
-        printf("\n YOHOO FOUND A FREE BLOCK at %d\n",freeb);
+        // printf("\n YOHOO FOUND A FREE BLOCK at %d\n",freeb);
         break;
       }
       freeb++;
@@ -53,7 +53,7 @@ int fs_write(int fd, char *buff, int len)
     // 2. Return no of bytes written so far if  no more free  blocks is available
     if (freeb == fsd->freemasksz)
     {
-      printf("\n FAILING AT 2\n");
+      // printf("\n FAILING AT 2\n");
       return bwrite;
     }
 
@@ -68,12 +68,12 @@ int fs_write(int fd, char *buff, int len)
         break;
       }
     }
-    printf("\n FAILING AT 3 and j value is : %d\n",j);
+    // printf("\n FAILING AT 3 and j value is : %d\n",j);
 
     // if the allocation of the inode's data block exceeds
     if(j==INODE_BLOCKS && flag==0)
     {
-      printf("\n FAILING AT 3.a \n");
+      // printf("\n FAILING AT 3.a \n");
 
       return bwrite;
     }
@@ -90,7 +90,7 @@ int fs_write(int fd, char *buff, int len)
 
     inodeb.size+=l;
 
-    printf("\n Gonna write %d bytes of data\n",l);
+    // printf("\n Gonna write %d bytes of data\n",l);
 
 
     // mark the block as used
@@ -101,23 +101,23 @@ int fs_write(int fd, char *buff, int len)
     memcpy(databuf,buff,l);
 
     // printf("\n ORIGINAL DATA    :     %s\n",buff);
-    printf("\nSIZE OF DATABUFF before writing to the disk :%d\n", (strlen((char*)databuf)));
-    printf("\n DATA PRESENT IN DATABUFF BEFORE WRITE: %s\n",(char*)databuf);
+    // printf("\nSIZE OF DATABUFF before writing to the disk :%d\n", (strlen((char*)databuf)));
+    // printf("\n DATA PRESENT IN DATABUFF BEFORE WRITE: %s\n",(char*)databuf);
     bs_write(freeb,0,databuf,l);
 
         // memset(databuf,0,MDEV_BLOCK_SIZE);
         bs_read(freeb,0,databuf,l);
 
         char* si=(char *)databuf;
-        printf("\n SIZE OF file after writing to the disk :%d\n", strlen((si)));
-    printf("\n DATA TO BE WRITTEN IN BLOCK: %s\n",si);
+        // printf("\n SIZE OF file after writing to the disk :%d\n", strlen((si)));
+    // printf("\n DATA TO BE WRITTEN IN BLOCK: %s\n",si);
 
 
 
     //5. Write the inode  back to the disk
     memset(buffer,0,sizeof(inode_t));
     memcpy(buffer,&inodeb,sizeof(inode_t));
-    printf("\n  FILE SIZE In BUFFER before writing to the disk : %d\n",((inode_t* )buffer)->size);
+    // printf("\n  FILE SIZE In BUFFER before writing to the disk : %d\n",((inode_t* )buffer)->size);
     bs_write(inodeb.id,0,buffer,sizeof(inode_t));
 
 
@@ -126,10 +126,10 @@ int fs_write(int fd, char *buff, int len)
     memset(buffer,0,sizeof(inode_t));
     bs_read(inodeb.id, 0, buffer, sizeof(inode_t)); 
     inode_t *in=(inode_t*)buffer;
-    printf("\n  FILE SIZE In INODE after Read from disk : %d\n",((inode_t* )buffer)->size);
+    // printf("\n  FILE SIZE In INODE after Read from disk : %d\n",((inode_t* )buffer)->size);
     oft[fd].in=*in;
-    printf("\n UPDATED FILE SIZE In INODE : %d\n",oft[fd].in.size);
-    printf("\n FIRST FREE BLOCK : %d\n ", oft[fd].in.blocks[0]);
+    // printf("\n UPDATED FILE SIZE In INODE : %d\n",oft[fd].in.size);
+    // printf("\n FIRST FREE BLOCK : %d\n ", oft[fd].in.blocks[0]);
 
 
     // 6. track the data written so far
