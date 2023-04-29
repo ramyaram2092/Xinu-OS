@@ -42,7 +42,7 @@ int fs_write(int fd, char *buff, int len)
     for (j = 0; j < INODE_BLOCKS; j++)
     {
       // 1. if the curr data block is unused
-      if( inode.blocks[j]==513)
+      if( inodeb.blocks[j]==513)
       {
         // 1.a find the next free block
         while (freeb < fsd->freemasksz)
