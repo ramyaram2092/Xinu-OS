@@ -27,16 +27,15 @@ int fs_write(int fd, char *buff, int len)
 
   // read the inode from block device;
   void *buffer = getmem(sizeof(inode_t));
-  // bs_read(inodeb.id, 0, buffer, sizeof(inode_t));
 
   int l = 0;
   int freeb = 0; // free block index
 
-  int nblocks=inodeb.size/512;
-  int sizeonlbck=inodeb.size%512;
-  int writeoffset=0;
+  int nblocks = inodeb.size / 512;
+  int sizeonlbck = inodeb.size % 512;
+  int writeoffset = 0;
   // Outer loop :
-  while (len > 0 )
+  while (len > 0)
   {
     int flag = 0, j = 0;
 
@@ -50,7 +49,6 @@ int fs_write(int fd, char *buff, int len)
         {
           if (fs_getmaskbit(freeb) == 0)
           {
-            // printf("\n YOHOO FOUND A FREE BLOCK at %d\n",freeb);
             break;
           }
           freeb++;
@@ -71,39 +69,39 @@ int fs_write(int fd, char *buff, int len)
         // 1.d  mark the block as used
         fs_setmaskbit(freeb);
 
-        //1.e update the local inode
+        // 1.e update the local inode
 
-        inodeb.blocks[j]=freeb;
+        inodeb.blocks[j] = freeb;
 
-        if(len>512)
+        if (len > 512)
         {
-          l=512;
+          l = 512;
         }
         else
         {
-          l=len;
+          l = len;
         }
 
-        writeoffset=0;
+        writeoffset = 0;
       }
 
       // 2. if the curr block has data less than 512 bytes. Fill it up
       else if (inodeb.blocks[j] != 513)
       {
-       
-        int size=sizeonlbck;
-       if(len<512-size)
-       {
-        l=len;
-       }
-       else
-       {
-        l=512-size;
-       }
-        
+
+        int size = sizeonlbck;
+        if (len < 512 - size)
+        {
+          l = len;
+        }
+        else
+        {
+          l = 512 - size;
+        }
+
         freeb = inodeb.blocks[j];
 
-        writeoffset=sizeonlbck;
+        writeoffset = sizeonlbck;
       }
 
       len = len - l;
@@ -111,8 +109,8 @@ int fs_write(int fd, char *buff, int len)
       // 3. write the file to disk device
       void *databuf = getmem(l);
       memcpy(databuf, buff, l);
-      bs_write(freeb,writeoffset, databuf, l);
-      buff+=l;
+      bs_write(freeb, writeoffset, databuf, l);
+      buff += l;
 
       // 4. update the fileptr in oft table
       oft[fd].fileptr += l;
@@ -134,7 +132,7 @@ int fs_write(int fd, char *buff, int len)
       // 5. update the bytes to return
       bwrite += l;
 
-      if(len==0)
+      if (len == 0)
         break;
     }
   }
