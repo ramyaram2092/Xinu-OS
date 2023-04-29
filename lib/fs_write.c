@@ -92,17 +92,17 @@ int fs_write(int fd, char *buff, int len)
 
     // 4. Now write the file to the disk
     void * databuf= getmem(MDEV_BLOCK_SIZE);
-    memcpy(databuf,buff,MDEV_BLOCK_SIZE);
+    // memcpy(databuf,buff,MDEV_BLOCK_SIZE);
 
     printf("\n ORIGINAL DATA    :     %s\n",buff);
-    printf("\nSIZE OF DATABUFF before writing to the disk :%d\n", (strlen((char*)databuf)));
-    printf("\n DATA PRESENT IN DATABUFF BEFORE WRITE: %s\n",(char*)databuf);
-    bs_write(freeb,0,databuf,MDEV_BLOCK_SIZE);
+    // printf("\nSIZE OF DATABUFF before writing to the disk :%d\n", (strlen((char*)databuf)));
+    // printf("\n DATA PRESENT IN DATABUFF BEFORE WRITE: %s\n",(char*)databuf);
+    bs_write(freeb,0,buff,l);
 
-        memset(databuf,0,MDEV_BLOCK_SIZE);
+        // memset(databuf,0,MDEV_BLOCK_SIZE);
         bs_read(freeb,0,databuf,MDEV_BLOCK_SIZE);
-        printf("\nSIZE OF DATABUFF after writing to the disk :%d\n", (strlen((char*)databuf)));
-    printf("\n DATA TO WRITTEN IN BLOCK: %s\n",(char*)databuf);
+        printf("\n SIZE OF file after writing to the disk :%d\n", (strlen((char*)databuf)));
+    printf("\n DATA TO BE WRITTEN IN BLOCK: %s\n",(char*)databuf);
 
 
 
