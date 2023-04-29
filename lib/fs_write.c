@@ -90,8 +90,7 @@ int fs_write(int fd, char *buff, int len)
       // 2. if the curr block has data less than 512 bytes. Fill it up
       else if (inodeb.blocks[j] != 513)
       {
-        void *ip = getmem(512);
-        bs_read(inodeb.blocks[j], 0, ip, 512);
+       
         int size=sizeonlbck;
         if (size < 512 && size > 0)
         {
@@ -112,6 +111,7 @@ int fs_write(int fd, char *buff, int len)
       void *databuf = getmem(l);
       memcpy(databuf, buff, l);
       bs_write(freeb,writeoffset, databuf, l);
+      buff+=l;
 
       // 4. update the fileptr in oft table
       oft[fd].fileptr += l;
