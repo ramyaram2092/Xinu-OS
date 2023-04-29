@@ -101,6 +101,8 @@ int fs_write(int fd, char *buff, int len)
     //5. Write the inode  back to the disk
     memset(buffer,0,sizeof(inode_t));
     memcpy(buffer,&inodeb,sizeof(inode_t));
+        printf("\n  FILE SIZE In BUFFER before writing disk : %d\n",buffer->size);
+
     bs_write(inodeb.id,0,buffer,sizeof(buffer));
 
     printf("\n SIZE OF DATABUF: %d\n",sizeof(databuf));
