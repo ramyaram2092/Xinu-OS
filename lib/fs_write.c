@@ -33,7 +33,7 @@ int fs_write(int fd, char *buff, int len)
   bs_read(inodeb.id, 0, buffer, sizeof(inode_t));
 
   // no of blocks needed
-  int nblocks = len / MDEV_BLOCK_SIZE;
+  // int nblocks = len / MDEV_BLOCK_SIZE;
 
    
   // Outer loop : Perform the following operation for nblock  times
@@ -95,10 +95,10 @@ int fs_write(int fd, char *buff, int len)
     void * databuf= getmem(l+1);
     memcpy(databuf,buff,l);
 
-    printf("\n ORIGINAL DATA    :     %s\n",buff);
+    // printf("\n ORIGINAL DATA    :     %s\n",buff);
     printf("\nSIZE OF DATABUFF before writing to the disk :%d\n", (strlen((char*)databuf)));
     printf("\n DATA PRESENT IN DATABUFF BEFORE WRITE: %s\n",(char*)databuf);
-    bs_write(freeb,0,databuff,l);
+    bs_write(freeb,0,databuf,l);
 
         // memset(databuf,0,MDEV_BLOCK_SIZE);
         bs_read(freeb,0,databuf,l);
