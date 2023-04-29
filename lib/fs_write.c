@@ -86,7 +86,7 @@ int fs_write(int fd, char *buff, int len)
     inodeb.size+=l;
 
     printf("\n Gonna write %d bytes of data\n",l);
-    printf("\n FILE SIZE UPDATED IN INODE : %d BYTES\n", inodeb.size)
+    printf("\n FILE SIZE UPDATED IN INODE : %d BYTES\n", inodeb.size);
 
 
     // mark the block as used
