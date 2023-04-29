@@ -22,7 +22,7 @@ int fs_read(int fd, char *buff, int len)
 
   // file ptr
   int offset=0;
-   oft[fd].fileptr=0;
+  oft[fd].fileptr=0;
 
   // local buffer  for inode
   void *ibuffer = getmem(sizeof(inode_t));
@@ -55,11 +55,13 @@ int fs_read(int fd, char *buff, int len)
 
     rbytes+=size;
 
+   // update the filepointer
+    oft[fd].fileptr+=size;
+    
     // update the size
     size = size - len;
 
-    // update the filepointer
-    oft[fd].fileptr+=size;
+ 
 
     i++;
   }
