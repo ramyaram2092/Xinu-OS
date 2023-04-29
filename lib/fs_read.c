@@ -50,7 +50,7 @@ int fs_read(int fd, char *buff, int len)
     }
     // read the data from the block device into buff
     int didx = inode.blocks[i];
-    bs_read(didx, offset, buff, readSize);
+    bs_read(didx, offset, buff, readsize);
 
     // increment the buff pointer
     buff += readSize;
@@ -58,10 +58,10 @@ int fs_read(int fd, char *buff, int len)
     rbytes+=readSize;
 
    // update the filepointer
-    oft[fd].fileptr+=readSize;
+    oft[fd].fileptr+=readsize;
 
     // update the size
-    size = size - readSize;
+    size = size - readsize;
 
     i++;
   }
