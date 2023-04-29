@@ -27,7 +27,12 @@ int fs_write(int fd, char *buff, int len)
 
   // read the inode from block device;
   void *buffer = getmem(sizeof(inode_t));
-  bs_read(inodeb.id, 0, buffer, sizeof(inode_t));
+  // bs_read(inodeb.id, 0, buffer, sizeof(inode_t));
+
+
+  int l=0;
+  int freeb = 0; // free block index
+
 
   // Outer loop :
   while (len > 0)
@@ -40,7 +45,6 @@ int fs_write(int fd, char *buff, int len)
       if( inode.blocks[j]==513)
       {
         // 1.a find the next free block
-        int freeb = 0; // free block index
         while (freeb < fsd->freemasksz)
         {
           if (fs_getmaskbit(freeb) == 0)
@@ -66,7 +70,6 @@ int fs_write(int fd, char *buff, int len)
         // 1.d  mark the block as used
           fs_setmaskbit(freeb);
       }
-      int l=0;
 
       // 2. if the curr block has data less than 512 bytes. Fill it up
       else if (inodeb.blocks[j]!=513 )
@@ -81,8 +84,10 @@ int fs_write(int fd, char *buff, int len)
           }
           else
           {
-              l= len
+              l= len;
           }
+          freeb=inode.blocks[j];
+
       }
      
      len=len-l;
