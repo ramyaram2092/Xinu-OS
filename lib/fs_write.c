@@ -98,10 +98,10 @@ int fs_write(int fd, char *buff, int len)
 
     printf("\nSIZE OF DATABUFF before writing to the disk :%d\n", (strlen((char*)databuf)));
 
-    bs_write(freeb,0,databuf,sizeof(databuff));
+    bs_write(freeb,0,databuf,sizeof(databuf));
 
-        memset(databuff,0,sizeof(databuf));
-        bs_read(freeb,0,databuff,sizeif(databuff));
+        memset(databuf,0,sizeof(databuf));
+        bs_read(freeb,0,databuf,sizeif(databuf));
         printf("\nSIZE OF DATABUFF after writing to the disk :%d\n", (strlen((char*)databuf)));
 
 
