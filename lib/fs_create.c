@@ -85,7 +85,7 @@ syscall fs_create(char *filename)
   /* 7.  write the inode into the block assigned for the inode */
   void *buffer = getmem(sizeof(inode_t));
   memcpy(buffer, &in, sizeof(inode_t));
-  bs_write(freeb, 0, buffer, sizeof(buffer));
+  bs_write(freeb, 0, buffer, sizeof(inode_t));
 
 
   // check
