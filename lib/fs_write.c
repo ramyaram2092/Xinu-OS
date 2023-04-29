@@ -68,7 +68,7 @@ int fs_write(int fd, char *buff, int len)
         break;
       }
     }
-    printf("\n FAILING AT 3\n");
+    printf("\n FAILING AT 3 and j value is : %d\n",j);
 
     // if the allocation of the inode's data block exceeds
     if(j==INODE_BLOCKS && flag==0)
