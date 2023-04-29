@@ -53,6 +53,7 @@ int fs_write(int fd, char *buff, int len)
     // 2. Return no of bytes written so far if  no more free  blocks is available
     if (freeb == fsd->freemasksz)
     {
+      printf("\n FAILING AT 2\n");
       return bwrite;
     }
 
@@ -67,9 +68,13 @@ int fs_write(int fd, char *buff, int len)
         break;
       }
     }
+    printf("\n FAILING AT 3\n");
+
     // if the allocation of the inode's data block exceeds
     if(j==INODE_BLOCKS && flag==0)
     {
+      printf("\n FAILING AT 3.a \n");
+
       return bwrite;
     }
 
