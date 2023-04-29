@@ -16,13 +16,11 @@ extern filetable_t oft[NUM_FD];
  */
 int fs_read(int fd, char *buff, int len)
 {
-
   // get the inode
   inode_t inode = oft[fd].in;
 
   // file ptr
-  int offset=0;
-  oft[fd].fileptr=0;
+  int fptr=oft[fd].fileptr;
 
   // local buffer  for inode
   void *ibuffer = getmem(sizeof(inode_t));
@@ -30,38 +28,40 @@ int fs_read(int fd, char *buff, int len)
   // no of blocks
   int maxblck = inode.size / 512;
 
+
   //no of bytes read
   int rbytes=0;
+  int size=len;
+  int i = fptr/512; // block offset
+  int readSize=0;
+  
 
-  int size=0;
-  if (len > 512)
-  {
-    size = 512;
-  }
-  else
-  {
-    size = len;
-  }
 
-  int i = 0;
-  while (size > 0 && i <= maxblck)
+  while (size > 0 && i<INODE_BLOCKS)
   {
-    offset=oft[fd].fileptr;
+    int offset=fptr%512; // offset within the block
+    if(512-offset>size)
+    {
+      readsize=size;
+    }
+    else
+    {
+      readsize=512-offset;
+    }
     // read the data from the block device into buff
     int didx = inode.blocks[i];
-    bs_read(didx, offset, buff, size);
-    // increment the buff pointer
-    buff += size;
+    bs_read(didx, offset, buff, readSize);
 
-    rbytes+=size;
+    // increment the buff pointer
+    buff += readSize;
+
+    rbytes+=readSize;
 
    // update the filepointer
-    oft[fd].fileptr+=size;
-    
-    // update the size
-    size = size - len;
+    oft[fd].fileptr+=readSize;
 
- 
+    // update the size
+    size = size - readSize;
 
     i++;
   }
