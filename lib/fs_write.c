@@ -94,7 +94,7 @@ int fs_write(int fd, char *buff, int len)
 
     // 4. Now write the file to the disk
     void * databuf= getmem(l);
-    memcpy(databuf,buff,sizeof(buf));
+    memcpy(databuf,buff,sizeof(databuf));
 
     bs_write(freeb,0,databuf,sizeof(databuf));
 
@@ -103,7 +103,9 @@ int fs_write(int fd, char *buff, int len)
     memcpy(buffer,&inodeb,sizeof(inode_t));
     bs_write(inodeb.id,0,buffer,sizeof(buffer));
 
-    printf("\n UPDATED FILE SIZE: %d\n",oft[fd].in.size)
+    printf("\n UPDATED FILE SIZE In INODE : %d\n",oft[fd].in.size);
+    printf("\n SIZE OF DATABUF: %d\n",sizeof(databuf));
+
 
     // 6. track the data written so far
     len=len>MDEV_BLOCK_SIZE? len-MDEV_BLOCK_SIZE:0;
