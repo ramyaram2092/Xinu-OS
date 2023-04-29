@@ -73,11 +73,17 @@ int fs_write(int fd, char *buff, int len)
     }
 
     printf("\n GONNA WRITE TO THE DISK\n");
-
-    int l=MDEV_BLOCK_SIZE-len;
-    l=l<0?-1*l:l;
+    int l=0;
+    if(len>MDEV_BLOCK_SIZE)
+    {
+      l=MDEV_BLOCK_SIZE;
+    }
+    else
+    {
+      l=len;
+    }
+  
     inodeb.size+=l;
-    len=MDEV_BLOCK_SIZE-l;
 
     printf("\n Gonna write %d data\n",l);
 
@@ -86,7 +92,7 @@ int fs_write(int fd, char *buff, int len)
     fs_setmaskbit(freeb);
 
     // 4. Now write the file to the disk
-    bs_write(freeb,0,(void *)buff, sizeof(l));
+    bs_write(freeb,0,(void *)buff, );
 
     //5. Write the inode  back to the disk
     memset(buffer,0,sizeof(inode_t));
@@ -94,6 +100,7 @@ int fs_write(int fd, char *buff, int len)
     bs_write(inodeb.id,0,buffer,sizeof(buffer));
 
     // 6. track the data written so far
+    len=len>MDEV_BLOCK_SIZE? len-MDEV_BLOCK_SIZE:0;
     bwrite+=l;
     oft[fd].fileptr+=l;
 
