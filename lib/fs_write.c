@@ -93,15 +93,16 @@ int fs_write(int fd, char *buff, int len)
     fs_setmaskbit(freeb);
 
     // 4. Now write the file to the disk
-    void * databuf= getmem(l*sizeof(char));
-    memcpy(databuf,buff,sizeof(databuf));
+    int s=strlen(buff)+1;
+    void * databuf= getmem(s);
+    memcpy(databuf,buff,sizeof(s));
 
     printf("\nSIZE OF DATABUFF before writing to the disk :%d\n", (strlen((char*)databuf)));
     printf("\n DATA TO WRITE: %s\n",(char*)databuf);
-    bs_write(freeb,0,databuf,sizeof(databuf));
+    bs_write(freeb,0,databuf,s);
 
-        memset(databuf,0,sizeof(databuf));
-        bs_read(freeb,0,databuf,sizeof(databuf));
+        memset(databuf,0,s);
+        bs_read(freeb,0,databuf,s);
         printf("\nSIZE OF DATABUFF after writing to the disk :%d\n", (strlen((char*)databuf)));
     printf("\n DATA TO WRITTEN IN BLOCK: %s\n",(char*)databuf);
 
