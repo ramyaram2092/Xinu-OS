@@ -90,9 +90,9 @@ syscall fs_create(char *filename)
 
   // check
 
-  void *buffer = getmem(sizeof(inode_t));
-  bs_read(freeb, 0, buffer, sizeof(inode_t));
-  inode_t *t=(inode_t*)buffer;
+  void *buf = getmem(sizeof(inode_t));
+  bs_read(freeb, 0, buf, sizeof(inode_t));
+  inode_t *t=(inode_t*)buf;
   printf("\n BLOCK VALUE :%d",t->blocks[0]);
   restore(mask);
   return OK;
